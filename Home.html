@@ -27,25 +27,25 @@
     </select>
     <br>
     <label for="importe">Importe:</label>
-    <input type="number" id="importe" name="importe">
+    <input type="number" id="importe" name="importe" value="70000">
     <br>
     <label for="fechaInicio">Fecha inicio:</label>
-    <input type="date" id="fechaInicio" name="fechaInicio">
+    <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15">
     <br>
     <label for="fechaVencimiento">Fecha vencimiento:</label>
-    <input type="date" id="fechaVencimiento" name="fechaVencimiento">
+    <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15">
     <br>
     <label for="fechaReintegro">Fecha reintegro:</label>
-    <input type="date" id="fechaReintegro" name="fechaReintegro">
+    <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-09-15">
     <br>
     <label for="importeReintegro">Importe reintegro:</label>
-    <input type="number" id="importeReintegro" name="importeReintegro">
+    <input type="number" id="importeReintegro" name="importeReintegro" value="70000">
     <br>
     <label for="porcentajeRetencion"> % Retención:</label>
-    <input type="number" id="porcentajeRetencion" name="porcentajeRetencion">
+    <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20">
     <br>
     <label for="porcentajePenalizacion"> % Penalización:</label>
-    <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion">
+    <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion" value="1">
     <br>
     <button type="button" onclick="calcularLiquidacion()">Calcular</button>
   </form>
@@ -90,10 +90,28 @@
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
       const tipoInteres = 0.01; // 1% como ejemplo, ajustar según sea necesario
       const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
+
+      // Cálculo de los intereses devengados por el período transcurrido antes del reintegro
       const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
-      const interesesEurosDevengados = (tipoTarifa === 'Coyuntural') ? interesesEuros - interesesEurosReintegro : 0;
+
+      // Cálculo de los intereses devengados durante el período de remanencia después del reintegro
+      // Si el tipo de tarifa es "Coyuntural", se resta el importe de los intereses devengados hasta el reintegro
+      const interesesEurosDevengados = (tipoTarifa === 'Coyuntural')
+        ? interesesEuros - interesesEurosReintegro : 0;
+
+
       const retencionEuros = interesesEuros * porcentajeRetencion;
-      const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+
+      //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+
+      // Calcula la penalización en euros
+      // Si el tipo de tarifa es Coyuntural y el reintegro es Total, la penalización se calcula en función de los días remanentes
+      // Si no, se calcula en función de los días transcurridos
+      const penalizacionEuros = (tipoTarifa === 'Coyuntural' && reintegro === 'Total')
+        ? importeReintegro * diasTranscurridos * porcentajePenalizacion / 365
+        : importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+
+      //Continuar aquí, si caso3 
       const maximoInteresesBrutos = interesesEuros;
       const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
