@@ -51,7 +51,6 @@
   </form>
 
 
-
   <div id="resultados">
     <h2>Resultados</h2>
     <div id="duracionMeses"></div>
@@ -91,12 +90,12 @@
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
       const tipoInteres = 0.01; // 1% como ejemplo, ajustar según sea necesario
       const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
-      const interesesEurosParteReintegro = importeReintegro * tasaInteres * diasTranscurridos / 365;
+      const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
       const interesesEurosDevengados = (tipoTarifa === 'Coyuntural') ? interesesEuros - interesesEurosReintegro : 0;
       const retencionEuros = interesesEuros * porcentajeRetencion;
-      const penalizacionEuros = importeReintegro * penalizacionPorcentaje * diasTranscurridos / 365;
-      const maximoInteresesBrutos = interesesEurosParteReintegro;
-      const penalizacionAplicar = Math.min(maximoInteresesBrutos, penalizacionEuros);
+      const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+      const maximoInteresesBrutos = interesesEuros;
+      const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
       // Liquidación a realizar
       const capital = importe;
@@ -123,9 +122,6 @@
       document.getElementById("penalizacion").innerText = `-Penalización: ${penalizacion.toFixed(2)}`;
       document.getElementById("total").innerText = `Total: ${total.toFixed(2)}`;
     }
-
-
-
   </script>
 
 
