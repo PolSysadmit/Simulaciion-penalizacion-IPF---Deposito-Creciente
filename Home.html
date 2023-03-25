@@ -22,7 +22,6 @@
     <label for="reintegro">Reintegro:</label>
     <select id="reintegro" name="reintegro">
       <option value="Total">Total</option>
-
       <option value="Parcial">Parcial</option>
     </select>
     <br>
@@ -38,9 +37,10 @@
     <label for="fechaReintegro">Fecha reintegro:</label>
     <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-09-15">
     <br>
-    <label for="importeReintegro">Importe reintegro:</label>
-    <input type="number" id="importeReintegro" name="importeReintegro" value="70000">
-    <br>
+    <div id="importeReintegroContainer">
+      <label for="importeReintegro">Importe reintegro:</label>
+      <input type="number" id="importeReintegro" name="importeReintegro" value="70000">
+    </div>
     <label for="porcentajeRetencion"> % Retención:</label>
     <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20">
     <br>
@@ -73,6 +73,7 @@
 
   <script>
     function calcularLiquidacion() {
+
       // Obtén los valores de los elementos de entrada
       const tipoTarifa = document.getElementById("tipoTarifa").value;
       const reintegro = document.getElementById("reintegro").value;
@@ -157,11 +158,25 @@
       document.getElementById("penalizacion").innerText = `-Penalización: ${penalizacion.toFixed(2)}`;
       document.getElementById("total").innerText = `Total: ${total.toFixed(2)}`;
     }
+
+    function toggleImporteReintegro() {
+      const reintegro = document.getElementById("reintegro").value;
+      const importeReintegroContainer = document.getElementById("importeReintegroContainer");
+
+      if (reintegro === "Parcial") {
+        importeReintegroContainer.style.display = "block";
+      } else {
+        importeReintegroContainer.style.display = "none";
+      }
+    }
+
+    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro);
+    toggleImporteReintegro(); // Para establecer el estado inicial en la carga de la página
   </script>
 
 
 
-  </script>
+
 </body>
 
 </html>
