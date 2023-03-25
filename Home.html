@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Liquidación</title>
+  <style>
+    /* Añade aquí tus estilos CSS */
+  </style>
+</head>
+
+<body>
+  <h1>Calculadora de Liquidación</h1>
+  <form id="calculadora">
+    <label for="tipoTarifa">Tipo de Tarifa:</label>
+    <select id="tipoTarifa" name="tipoTarifa">
+      <option value="Ordinaria">Ordinaria</option>
+      <option value="Coyuntural">Coyuntural</option>
+    </select>
+    <br>
+    <label for="reintegro">Reintegro:</label>
+    <select id="reintegro" name="reintegro">
+      <option value="Total">Total</option>
+
+      <option value="Parcial">Parcial</option>
+    </select>
+    <br>
+    <label for="importe">Importe:</label>
+    <input type="number" id="importe" name="importe">
+    <br>
+    <label for="fechaInicio">Fecha inicio:</label>
+    <input type="date" id="fechaInicio" name="fechaInicio">
+    <br>
+    <label for="fechaVencimiento">Fecha vencimiento:</label>
+    <input type="date" id="fechaVencimiento" name="fechaVencimiento">
+    <br>
+    <label for="fechaReintegro">Fecha reintegro:</label>
+    <input type="date" id="fechaReintegro" name="fechaReintegro">
+    <br>
+    <label for="importeReintegro">Importe reintegro:</label>
+    <input type="number" id="importeReintegro" name="importeReintegro">
+    <br>
+    <label for="porcentajeRetencion"> % Retención:</label>
+    <input type="number" id="porcentajeRetencion" name="porcentajeRetencion">
+    <br>
+    <label for="porcentajePenalizacion"> % Penalización:</label>
+    <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion">
+    <br>
+    <button type="button" onclick="calcularLiquidacion()">Calcular</button>
+  </form>
+
+
+
+  <div id="resultados">
+    <h2>Resultados</h2>
+    <div id="duracionMeses"></div>
+    <div id="diasTranscurridos"></div>
+    <div id="diasRemanentes"></div>
+    <div id="interesesEuros"></div>
+    <div id="interesesEurosReintegro"></div>
+    <div id="interesesEurosDevengados"></div>
+    <div id="retencionEuros"></div>
+    <div id="penalizacionEuros"></div>
+    <div id="maximoInteresesBrutos"></div>
+    <div id="penalizacionAplicar"></div>
+    <div id="liquidacionRealizar"></div>
+    <div id="capital"></div>
+    <div id="intereses"></div>
+    <div id="retencion"></div>
+    <div id="penalizacion"></div>
+    <div id="total"></div>
+  </div>
+
+  <script>
+    function calcularLiquidacion() {
+      // Obtén los valores de los elementos de entrada
+      const tipoTarifa = document.getElementById("tipoTarifa").value;
+      const reintegro = document.getElementById("reintegro").value;
+      const importe = parseFloat(document.getElementById("importe").value);
+      const fechaInicio = new Date(document.getElementById("fechaInicio").value);
+      const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
+      const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
+      const importeReintegro = parseFloat(document.getElementById("importeReintegro").value);
+      const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
+      const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
+
+      // Realiza los cálculos necesarios
+      const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
+      const diasTranscurridos = (fechaReintegro - fechaInicio) / (1000 * 60 * 60 * 24);
+      const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
+      const tipoInteres = 0.01; // 1% como ejemplo, ajustar según sea necesario
+      const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
+      const interesesEurosParteReintegro = importeReintegro * tasaInteres * diasTranscurridos / 365;
+      const interesesEurosDevengados = (tipoTarifa === 'Coyuntural') ? interesesEuros - interesesEurosReintegro : 0;
+      const retencionEuros = interesesEuros * porcentajeRetencion;
+      const penalizacionEuros = importeReintegro * penalizacionPorcentaje * diasTranscurridos / 365;
+      const maximoInteresesBrutos = interesesEurosParteReintegro;
+      const penalizacionAplicar = Math.min(maximoInteresesBrutos, penalizacionEuros);
+
+      // Liquidación a realizar
+      const capital = importe;
+      const intereses = interesesEuros;
+      const retencion = -retencionEuros;
+      const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
+      const total = capital + intereses + retencion + penalizacion;
+
+      // Muestra los resultados en los elementos HTML correspondientes
+      document.getElementById("duracionMeses").innerText = `Duración (meses): ${duracionMeses.toFixed(2)}`;
+      document.getElementById("diasTranscurridos").innerText = `Días transcurridos: ${diasTranscurridos.toFixed(0)}`;
+      document.getElementById("diasRemanentes").innerText = `Días remanentes: ${diasRemanentes.toFixed(0)}`;
+      document.getElementById("interesesEuros").innerText = `Intereses (euros): ${interesesEuros.toFixed(2)}`;
+      document.getElementById("interesesEurosReintegro").innerText = `Intereses (euros) Reintegro: ${interesesEurosReintegro.toFixed(2)}`;
+      document.getElementById("interesesEurosDevengados").innerText = `Intereses (euros) Devengados: ${interesesEurosDevengados.toFixed(2)}`;
+      document.getElementById("retencionEuros").innerText = `Retención (euros): ${retencionEuros.toFixed(2)}`;
+      document.getElementById("penalizacionEuros").innerText = `Penalización (euros): ${penalizacionEuros.toFixed(2)}`;
+      document.getElementById("maximoInteresesBrutos").innerText = `Máximo intereses brutos: ${maximoInteresesBrutos.toFixed(2)}`;
+      document.getElementById("penalizacionAplicar").innerText = `Penalización a aplicar: ${penalizacionAplicar.toFixed(2)}`;
+      document.getElementById("liquidacionRealizar").innerText = "Liquidación a realizar:";
+      document.getElementById("capital").innerText = `+Capital: ${capital.toFixed(2)}`;
+      document.getElementById("intereses").innerText = `+Intereses: ${intereses.toFixed(2)}`;
+      document.getElementById("retencion").innerText = `-Retención: ${retencion.toFixed(2)}`;
+      document.getElementById("penalizacion").innerText = `-Penalización: ${penalizacion.toFixed(2)}`;
+      document.getElementById("total").innerText = `Total: ${total.toFixed(2)}`;
+    }
+
+
+
+  </script>
+
+
+
+  </script>
+</body>
+
+</html>
