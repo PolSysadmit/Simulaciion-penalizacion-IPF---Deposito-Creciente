@@ -90,7 +90,7 @@
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
       const tipoInteres = 0.01; // 1% como ejemplo, ajustar según sea necesario
       const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
-      const capital = (reintegro === "Total") ? importe : importeReintegro;
+
 
       // Cálculo de los intereses devengados por el período transcurrido antes del reintegro
       const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
@@ -104,14 +104,17 @@
 
       const retencionEuros = interesesEurosReintegro * porcentajeRetencion;
 
+
+
       //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
 
       // Calcula la penalización en euros
       // Si el tipo de tarifa es Coyuntural y el reintegro es Total, la penalización se calcula en función de los días remanentes
       // Si no, se calcula en función de los días transcurridos
-      const penalizacionEuros = (tipoTarifa === 'Coyuntural' && reintegro === 'Parcial')
-        ? importe * diasTranscurridos * porcentajePenalizacion / 365
+      const penalizacionEuros = (tipoTarifa === 'Coyuntural')
+        ? importeReintegro * diasTranscurridos * porcentajePenalizacion / 365
         : importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+
 
 
 
@@ -121,9 +124,16 @@
 
       // Liquidación a realizar
       //const capital = importe;
+      const capital = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
+        ? importeReintegro
+        : importe;
 
 
-      const intereses = interesesEuros;
+
+      const intereses = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
+        ? interesesEurosReintegro
+        : interesesEuros;
+
       const retencion = -retencionEuros;
       //const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
       const penalizacion = -penalizacionAplicar;
