@@ -101,7 +101,8 @@
       const capital = importe;
       const intereses = interesesEuros;
       const retencion = -retencionEuros;
-      const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
+      //const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
+      const penalizacion = -penalizacionAplicar;
       const total = capital + intereses + retencion + penalizacion;
 
       // Muestra los resultados en los elementos HTML correspondientes
