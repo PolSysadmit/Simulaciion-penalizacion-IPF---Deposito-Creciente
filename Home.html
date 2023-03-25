@@ -51,11 +51,13 @@
   </form>
 
 
-  <div id="resultados">
+  <div id="resultados" style="display: none;">
     <h2>Resultados</h2>
     <div id="duracionMeses"></div>
     <div id="diasTranscurridos"></div>
-    <div id="diasRemanentes"></div>
+    <div id="diasRemanentesContainer">
+      <div id="diasRemanentes"></div>
+    </div>
     <div id="interesesEuros"></div>
     <div id="interesesEurosReintegro"></div>
     <div id="interesesEurosDevengados"></div>
@@ -63,7 +65,9 @@
     <div id="penalizacionEuros"></div>
     <div id="maximoInteresesBrutos"></div>
     <div id="penalizacionAplicar"></div>
-    <div id="liquidacionRealizar"></div>
+    <h3>
+      <div id="liquidacionRealizar"></div>
+    </h3>
     <div id="capital"></div>
     <div id="intereses"></div>
     <div id="retencion"></div>
@@ -101,12 +105,7 @@
       const interesesEurosDevengados = (tipoTarifa === 'Coyuntural')
         ? interesesEuros - interesesEurosReintegro : 0;
 
-
-
       const retencionEuros = interesesEurosReintegro * porcentajeRetencion;
-
-
-
       //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
 
       // Calcula la penalización en euros
@@ -115,9 +114,6 @@
       const penalizacionEuros = (tipoTarifa === 'Coyuntural')
         ? importeReintegro * diasTranscurridos * porcentajePenalizacion / 365
         : importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
-
-
-
 
       //Continuar aquí, si caso3 
       const maximoInteresesBrutos = interesesEuros;
@@ -128,8 +124,6 @@
       const capital = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
         ? importeReintegro
         : importe;
-
-
 
       const intereses = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
         ? interesesEurosReintegro
@@ -157,21 +151,47 @@
       document.getElementById("retencion").innerText = `-Retención: ${retencion.toFixed(2)}`;
       document.getElementById("penalizacion").innerText = `-Penalización: ${penalizacion.toFixed(2)}`;
       document.getElementById("total").innerText = `Total: ${total.toFixed(2)}`;
+      showResults();
     }
 
+    // Función que cambia la visibilidad del campo "Importe Reintegro" en función del valor de la opción seleccionada en "Reintegro"
     function toggleImporteReintegro() {
-      const reintegro = document.getElementById("reintegro").value;
-      const importeReintegroContainer = document.getElementById("importeReintegroContainer");
+      const reintegro = document.getElementById("reintegro").value; // Obtiene el valor de "Reintegro"
+      const importeReintegroContainer = document.getElementById("importeReintegroContainer"); // Obtiene el contenedor del campo "Importe Reintegro"
 
-      if (reintegro === "Parcial") {
-        importeReintegroContainer.style.display = "block";
+      if (reintegro === "Parcial") { // Si se seleccionó "Parcial" en "Reintegro"
+        importeReintegroContainer.style.display = "block"; // Muestra el campo "Importe Reintegro"
       } else {
-        importeReintegroContainer.style.display = "none";
+        importeReintegroContainer.style.display = "none"; // Oculta el campo "Importe Reintegro"
       }
     }
 
-    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro);
-    toggleImporteReintegro(); // Para establecer el estado inicial en la carga de la página
+    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro); // Añade el evento "change" a "Reintegro" que llama a la función "toggleImporteReintegro" cuando se selecciona una opción distinta
+    toggleImporteReintegro(); // Establece el estado inicial en la carga de la página, para que el campo "Importe Reintegro" esté oculto si "Reintegro" tiene la opción "Total" seleccionada
+
+
+    // Función que cambia la visibilidad del campo "Días remanentes" en función del valor de la opción seleccionada en "Tipo de Tarifa"
+    document.getElementById("tipoTarifa").addEventListener("change", function () {
+      const tipoTarifa = document.getElementById("tipoTarifa").value; // Obtiene el valor de "Tipo de Tarifa"
+      const diasRemanentesContainer = document.getElementById("diasRemanentesContainer"); // Obtiene el contenedor del campo "Días remanentes"
+
+      if (tipoTarifa === "Ordinaria") { // Si se seleccionó "Ordinaria" en "Tipo de Tarifa"
+        diasRemanentesContainer.style.display = "block"; // Muestra el campo "Días remanentes"
+      } else {
+        diasRemanentesContainer.style.display = "none"; // Oculta el campo "Días remanentes"
+      }
+    });
+
+    document.getElementById("tipoTarifa").dispatchEvent(new Event("change")); // Establece el estado inicial en la carga de la página, para que el campo "Días remanentes" esté visible si "Tipo de Tarifa" tiene la opción "Ordinaria" seleccionada
+
+    // Crea una función para mostrar los resultados
+    function showResults() {
+      const resultadosDiv = document.getElementById("resultados");
+      resultadosDiv.style.display = "block";
+    }
+
+
+
   </script>
 
 
