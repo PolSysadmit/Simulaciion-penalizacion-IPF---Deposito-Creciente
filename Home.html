@@ -41,6 +41,9 @@
       <label for="importeReintegro">Importe reintegro:</label>
       <input type="number" id="importeReintegro" name="importeReintegro" value="70000">
     </div>
+    <label for="tipoInteres"> Tipo de interés:</label>
+    <input type="number" id="tipoInteres" name="tipoInteres" value="1">
+    <br>
     <label for="porcentajeRetencion"> % Retención:</label>
     <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20">
     <br>
@@ -86,6 +89,7 @@
       const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
       const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
       const importeReintegro = parseFloat(document.getElementById("importeReintegro").value);
+      const tipoInteres = parseFloat(document.getElementById("tipoInteres").value) / 100;
       const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
       const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
 
@@ -93,7 +97,6 @@
       const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
       const diasTranscurridos = (fechaReintegro - fechaInicio) / (1000 * 60 * 60 * 24);
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
-      const tipoInteres = 0.01; // 1% como ejemplo, ajustar según sea necesario
       const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
 
 
@@ -191,6 +194,16 @@
     }
 
 
+    // Función que se ejecuta cuando se presiona una tecla en el formulario
+    function handleKeyDown(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Evita la acción predeterminada del evento (por ejemplo, enviar el formulario)
+        calcularLiquidacion(); // Llama a la función para calcular la liquidación
+      }
+    }
+
+    // Agrega el event listener al objeto document
+    document.addEventListener("keydown", handleKeyDown);
 
   </script>
 
