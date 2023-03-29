@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Liquidación</title>
+  <title>SIMULACIÓN DE PENALIZACIÓN DE IPF's</title>
   <style>
     /* Añade aquí tus estilos CSS */
   </style>
 </head>
 
 <body>
-  <h1>Calculadora de Liquidación</h1>
+  <h1>SIMULACIÓN DE PENALIZACIÓN DE IPF's</h1>
   <form id="calculadora">
     <label for="tipoTarifa">Tipo de Tarifa:</label>
     <select id="tipoTarifa" name="tipoTarifa">
@@ -52,8 +52,6 @@
     <br>
     <button type="button" onclick="calcularLiquidacion()">Calcular</button>
   </form>
-
-
   <div id="resultados" style="display: none;">
     <h2>Resultados</h2>
     <div id="duracionMeses"></div>
@@ -76,6 +74,22 @@
     <div id="retencion"></div>
     <div id="penalizacion"></div>
     <div id="total"></div>
+    <br>
+
+    <div id="Advertencia" style="display: none;"></div>
+    <strong>
+      <font color="red">EN TODOS LOS CASOS EL MÁXIMO A PENALIZAR SON LOS INTERESES DEVENGADOS DEL TOTAL DE LA
+        IMPOSICIÓN,
+        NO DEL IMPORTE REINTEGRADO.
+        <br>
+        <br>
+        EN CASO DE HABER LIQUIDACIONES INTERMEDIAS, SE TENDRÁN EN CONSIDERACIÓN SIEMPRE LOS INTERESES NETOS YA
+        LIQUIDADOS,
+        COMO INTERESES DEVENGADOS.
+      </font>
+    </strong>
+  </div>
+
   </div>
 
   <script>
@@ -88,10 +102,55 @@
       const fechaInicio = new Date(document.getElementById("fechaInicio").value);
       const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
       const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
-      const importeReintegro = parseFloat(document.getElementById("importeReintegro").value);
+      const importeReintegro = (reintegro === "Parcial")
+        ? parseFloat(document.getElementById("importeReintegro").value)
+        : importe;
       const tipoInteres = parseFloat(document.getElementById("tipoInteres").value) / 100;
       const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
       const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
+
+
+      const campos = {
+        "importe": "El importe",
+        "fechaInicio": "La fecha de inicio",
+        "fechaVencimiento": "La fecha de vencimiento",
+        "fechaReintegro": "La fecha de reintegro",
+        "tipoInteres": "El tipo de interés",
+        "porcentajeRetencion": "La retención",
+        "porcentajePenalizacion": "El porcentaje de penalización"
+      };
+
+      for (let campo in campos) {
+        const valor = document.getElementById(campo).value.trim();
+
+        if (campo.includes("fecha")) {
+          const fecha = new Date(valor);
+          if (isNaN(fecha.getTime())) {
+            alert(`El valor de '${campos[campo]}' no es una fecha válida.`);
+            return;
+          }
+        } else if (valor === "" || isNaN(valor) || valor < 0) {
+          alert(`'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
+          return;
+        }
+      }
+
+
+      if (fechaVencimiento < fechaInicio) {
+        alert("Error: La 'fecha de vencimiento' debe ser posterior a la 'fecha de inicio'.");
+        return;
+      }
+      if (fechaReintegro < fechaInicio) {
+        alert("Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'.");
+        return;
+      }
+      if (fechaReintegro < fechaInicio || fechaReintegro > fechaVencimiento) {
+        alert("Error: La 'fecha de reintegro' no es válida. Debe ser mayor a la 'fecha de inicio' y menor a la 'fecha de vencimiento'.");
+        return;
+      }
+
+
+
 
       // Realiza los cálculos necesarios
       const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
@@ -99,9 +158,11 @@
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
       const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
 
-
+      //Importe * tipo intereés * días transcurridos * /365
       // Cálculo de los intereses devengados por el período transcurrido antes del reintegro
-      const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+      const interesesEurosReintegro = (reintegro === 'Parcial')
+        ? importeReintegro * tipoInteres * diasTranscurridos / 365
+        : importe * tipoInteres * diasTranscurridos / 365;
 
       // Cálculo de los intereses devengados durante el período de remanencia después del reintegro
       // Si el tipo de tarifa es "Coyuntural", se resta el importe de los intereses devengados hasta el reintegro
@@ -167,14 +228,16 @@
       } else {
         importeReintegroContainer.style.display = "none"; // Oculta el campo "Importe Reintegro"
       }
+
+      calcularLiquidacion
     }
 
     document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro); // Añade el evento "change" a "Reintegro" que llama a la función "toggleImporteReintegro" cuando se selecciona una opción distinta
     toggleImporteReintegro(); // Establece el estado inicial en la carga de la página, para que el campo "Importe Reintegro" esté oculto si "Reintegro" tiene la opción "Total" seleccionada
 
-
     // Función que cambia la visibilidad del campo "Días remanentes" en función del valor de la opción seleccionada en "Tipo de Tarifa"
     document.getElementById("tipoTarifa").addEventListener("change", function () {
+
       const tipoTarifa = document.getElementById("tipoTarifa").value; // Obtiene el valor de "Tipo de Tarifa"
       const diasRemanentesContainer = document.getElementById("diasRemanentesContainer"); // Obtiene el contenedor del campo "Días remanentes"
 
@@ -184,7 +247,6 @@
         diasRemanentesContainer.style.display = "none"; // Oculta el campo "Días remanentes"
       }
     });
-
     document.getElementById("tipoTarifa").dispatchEvent(new Event("change")); // Establece el estado inicial en la carga de la página, para que el campo "Días remanentes" esté visible si "Tipo de Tarifa" tiene la opción "Ordinaria" seleccionada
 
     // Crea una función para mostrar los resultados
@@ -192,7 +254,6 @@
       const resultadosDiv = document.getElementById("resultados");
       resultadosDiv.style.display = "block";
     }
-
 
     // Función que se ejecuta cuando se presiona una tecla en el formulario
     function handleKeyDown(event) {
@@ -204,6 +265,9 @@
 
     // Agrega el event listener al objeto document
     document.addEventListener("keydown", handleKeyDown);
+
+
+
 
   </script>
 
