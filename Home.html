@@ -166,8 +166,10 @@
 
       // Cálculo de los intereses devengados durante el período de remanencia después del reintegro
       // Si el tipo de tarifa es "Coyuntural", se resta el importe de los intereses devengados hasta el reintegro
-      const interesesEurosDevengados = (tipoTarifa === 'Coyuntural')
-        ? interesesEuros - interesesEurosReintegro : 0;
+      //=+E3*E13*E10/365
+      const interesesEurosDevengados = (tipoTarifa === 'Ordinaria')
+        ? importe * tipoInteres * diasRemanentes / 365
+        : importe * tipoInteres * diasTranscurridos / 365
 
       const retencionEuros = interesesEurosReintegro * porcentajeRetencion;
       //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
@@ -175,21 +177,21 @@
       // Calcula la penalización en euros
       // Si el tipo de tarifa es Coyuntural y el reintegro es Total, la penalización se calcula en función de los días remanentes
       // Si no, se calcula en función de los días transcurridos
-      const penalizacionEuros = (tipoTarifa === 'Coyuntural')
-        ? importeReintegro * diasTranscurridos * porcentajePenalizacion / 365
-        : importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+      const penalizacionEuros = (tipoTarifa === 'Ordinaria')
+        ? importeReintegro * diasRemanentes * porcentajePenalizacion / 365
+        : importeReintegro * diasTranscurridos * porcentajePenalizacion / 365;
 
       //Continuar aquí, si caso3 
-      const maximoInteresesBrutos = interesesEuros;
+      const maximoInteresesBrutos = interesesEurosDevengados;
       const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
       // Liquidación a realizar
       //const capital = importe;
-      const capital = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
+      const capital = (reintegro === "Parcial")
         ? importeReintegro
         : importe;
 
-      const intereses = (tipoTarifa === 'Coyuntural' && reintegro === "Parcial")
+      const intereses = (reintegro === "Parcial")
         ? interesesEurosReintegro
         : interesesEuros;
 

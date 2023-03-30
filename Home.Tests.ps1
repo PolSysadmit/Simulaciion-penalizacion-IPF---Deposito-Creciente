@@ -302,10 +302,10 @@ Describe "Verificar cálculos" {
             "diasTranscurridos"        = "Días transcurridos: 184"
             "interesesEuros"           = "Intereses (euros): 352.88"
             "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 352.88"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 0.00"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 349.04"
             "retencionEuros"           = "Retención (euros): 70.58"
             "penalizacionEuros"        = "Penalización (euros): 349.04"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 349.04"
             "penalizacionAplicar"      = "Penalización a aplicar: 349.04"
             "capital"                  = "+Capital: 70000.00"
             "intereses"                = "+Intereses: 352.88"
@@ -320,7 +320,7 @@ Describe "Verificar cálculos" {
 
     }
 
-    <#  It "Ordinaria-Parcial: REINTEGRO PARCIAL - Penalización por días remanentes (Tarifas ordinarias):" {
+    It "Ordinaria-Parcial: REINTEGRO PARCIAL - Penalización por días remanentes (Tarifas ordinarias):" {
 
         $Campos = [ordered]@{
             "tipoTarifa"             = "Ordinaria"
@@ -341,16 +341,16 @@ Describe "Verificar cálculos" {
             "diasRemanentes"           = "Días remanentes: 182"
             "interesesEuros"           = "Intereses (euros): 352.88"
             "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 176.44"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 0.00"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 349.04"
             "retencionEuros"           = "Retención (euros): 35.29"
             "penalizacionEuros"        = "Penalización (euros): 174.52"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 349.04"
             "penalizacionAplicar"      = "Penalización a aplicar: 174.52"
-            "capital"                  = "+Capital: 70000.00"
-            "intereses"                = "+Intereses: 352.88"
+            "capital"                  = "+Capital: 35000.00"
+            "intereses"                = "+Intereses: 176.44"
             "retencion"                = "-Retención: -35.29"
             "penalizacion"             = "-Penalización: -174.52"
-            "total"                    = "Total: 69933.26"
+            "total"                    = "Total: 34966.63"
         }
 
         Set-Valores -Campos $Campos
@@ -361,7 +361,7 @@ Describe "Verificar cálculos" {
 
 
 
-    } #>
+    } 
 
     It "Coyuntural-Total: REINTEGRO TOTAL - Penalización por días transcurridos (Tarifas coyunturales):" {
 
@@ -382,7 +382,7 @@ Describe "Verificar cálculos" {
             "diasTranscurridos"        = "Días transcurridos: 184"
             "interesesEuros"           = "Intereses (euros): 352.88"
             "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 352.88"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 0.00"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 352.88"
             "retencionEuros"           = "Retención (euros): 70.58"
             "penalizacionEuros"        = "Penalización (euros): 352.88"
             "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
@@ -421,7 +421,7 @@ Describe "Verificar cálculos" {
             "diasTranscurridos"        = "Días transcurridos: 184"
             "interesesEuros"           = "Intereses (euros): 352.88"
             "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 176.44"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 176.44"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 352.88"
             "retencionEuros"           = "Retención (euros): 35.29"
             "penalizacionEuros"        = "Penalización (euros): 176.44"
             "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
