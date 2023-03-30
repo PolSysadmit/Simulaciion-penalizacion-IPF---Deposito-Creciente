@@ -65,8 +65,6 @@
     
 }
 
-
-
 Describe "Verificar Errores de entrada" {
     It "Importe < 0" {
 
@@ -143,8 +141,6 @@ Describe "Verificar Errores de entrada" {
     
     } 
 
-
-
     It "Fechas independientes" {
 
         $CamposIniciales = [ordered]@{
@@ -185,7 +181,6 @@ Describe "Verificar Errores de entrada" {
        
     
     } 
-
 
     It "Error: La 'fecha de vencimiento' debe ser posterior a la 'fecha de inicio'." {
 
@@ -264,9 +259,6 @@ Describe "Verificar Errores de entrada" {
         $Global:Driver.SwitchTo().alert().accept()
             
     }
-        
-       
-    
 
 }
 
@@ -277,11 +269,9 @@ Describe "Verificar cálculos" {
         
     }
 
-
     BeforeEach {
   
     }
-
 
     It "Ordinaria-Total: REINTEGRO TOTAL - Penalización por días remanentes (Tarifas ordinarias):" {
 
@@ -440,8 +430,6 @@ Describe "Verificar cálculos" {
         Test-Resultados -Resultados $Resultados
 
     }
-
-    
 }
 
 AfterAll {
