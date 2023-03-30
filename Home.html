@@ -104,7 +104,7 @@
       const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
       const importeReintegro = (reintegro === "Parcial")
         ? parseFloat(document.getElementById("importeReintegro").value)
-        : importe;
+        : parseFloat(document.getElementById("importe").value);
       const tipoInteres = parseFloat(document.getElementById("tipoInteres").value) / 100;
       const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
       const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
@@ -156,20 +156,23 @@
       const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
       const diasTranscurridos = (fechaReintegro - fechaInicio) / (1000 * 60 * 60 * 24);
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
-      const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
+      //const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
 
       //Importe * tipo intereés * días transcurridos * /365
       // Cálculo de los intereses devengados por el período transcurrido antes del reintegro
-      const interesesEurosReintegro = (reintegro === 'Parcial')
-        ? importeReintegro * tipoInteres * diasTranscurridos / 365
-        : importe * tipoInteres * diasTranscurridos / 365;
+      const interesesEurosReintegro = (tipoTarifa === 'Ordinaria')
+        ? importeReintegro * tipoInteres * diasRemanentes / 365
+        : importeReintegro * tipoInteres * diasTranscurridos / 365;
+
+      const intereses = interesesEurosReintegro;
+      const interesesEuros = interesesEurosReintegro;
 
       // Cálculo de los intereses devengados durante el período de remanencia después del reintegro
       // Si el tipo de tarifa es "Coyuntural", se resta el importe de los intereses devengados hasta el reintegro
       //=+E3*E13*E10/365
       const interesesEurosDevengados = (tipoTarifa === 'Ordinaria')
         ? importe * tipoInteres * diasRemanentes / 365
-        : importe * tipoInteres * diasTranscurridos / 365
+        : importe * tipoInteres * diasTranscurridos / 365;
 
       const retencionEuros = interesesEurosReintegro * porcentajeRetencion;
       //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
@@ -191,9 +194,9 @@
         ? importeReintegro
         : importe;
 
-      const intereses = (reintegro === "Parcial")
-        ? interesesEurosReintegro
-        : interesesEuros;
+      //const intereses = (reintegro === "Parcial")
+      //  ? interesesEurosReintegro
+      //  : interesesEuros;
 
       const retencion = -retencionEuros;
       //const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
