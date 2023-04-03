@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIMULACIÓN DE PENALIZACIÓN DE IPF's</title>
   <style>
-    /* Añade aquí tus estilos CSS */
+    /* CSS */
   </style>
 </head>
 
@@ -93,23 +93,8 @@
   </div>
 
   <script>
-    function calcularLiquidacion() {
 
-      // Obtén los valores de los elementos de entrada
-      const tipoTarifa = document.getElementById("tipoTarifa").value;
-      const reintegro = document.getElementById("reintegro").value;
-      const importe = parseFloat(document.getElementById("importe").value);
-      const fechaInicio = new Date(document.getElementById("fechaInicio").value);
-      const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
-      const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
-      const importeReintegro = (reintegro === "Parcial")
-        ? parseFloat(document.getElementById("importeReintegro").value)
-        : parseFloat(document.getElementById("importe").value);
-      const tipoInteres = parseFloat(document.getElementById("tipoInteres").value) / 100;
-      const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
-      const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
-
-
+    function validarCampos() {
       const campos = {
         "importe": "El importe",
         "fechaInicio": "La fecha de inicio",
@@ -127,34 +112,75 @@
           const fecha = new Date(valor);
           if (isNaN(fecha.getTime())) {
             alert(`El valor de '${campos[campo]}' no es una fecha válida.`);
-            return;
+            return false;
           }
         } else if (valor === "" || isNaN(valor) || valor < 0) {
           alert(`'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
-          return;
+          return false;
         }
       }
 
+      const fechaInicio = new Date(document.getElementById("fechaInicio").value);
+      const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
+      const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
+
       if (fechaVencimiento < fechaInicio) {
         alert("Error: La 'fecha de vencimiento' debe ser posterior a la 'fecha de inicio'.");
-        return;
+        return false;
       }
       if (fechaReintegro < fechaInicio) {
         alert("Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'.");
-        return;
+        return false;
       }
       if (fechaReintegro < fechaInicio || fechaReintegro > fechaVencimiento) {
         alert("Error: La 'fecha de reintegro' no es válida. Debe ser mayor a la 'fecha de inicio' y menor a la 'fecha de vencimiento'.");
+        return false;
+      }
+
+      return true;
+    }
+
+    function calcularDuracion(fechaInicio, fechaVencimiento, fechaReintegro) {
+      const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      const DIAS_EN_UN_MES = 30.44;
+      const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * DIAS_EN_UN_MES);
+      const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
+      const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
+
+      return {
+        duracionMeses,
+        diasTranscurridos,
+        diasRemanentes,
+      };
+    }
+
+    function calcularLiquidacion() {
+
+      // Obtén los valores de los elementos de entrada
+      const tipoTarifa = document.getElementById("tipoTarifa").value;
+      const reintegro = document.getElementById("reintegro").value;
+      const importe = parseFloat(document.getElementById("importe").value);
+      const fechaInicio = new Date(document.getElementById("fechaInicio").value);
+      const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
+      const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
+      const importeReintegro = (reintegro === "Parcial")
+        ? parseFloat(document.getElementById("importeReintegro").value)
+        : parseFloat(document.getElementById("importe").value);
+      const tipoInteres = parseFloat(document.getElementById("tipoInteres").value) / 100;
+      const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
+      const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
+
+
+      // Validar los campos
+      if (!validarCampos()) {
         return;
       }
 
       // Calcula duraciones en meses y días
-      const MS_PER_DAY = 1000 * 60 * 60 * 24;
-      const DIAS_EN_UN_MES = 30.44;
-      const MONTHS_PER_YEAR = 12;
-      const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * DIAS_EN_UN_MES);
-      const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
-      const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
+      const duraciones = calcularDuracion(fechaInicio, fechaVencimiento, fechaReintegro);
+      const duracionMeses = duraciones.duracionMeses;
+      const diasTranscurridos = duraciones.diasTranscurridos;
+      const diasRemanentes = duraciones.diasRemanentes;
 
       // Calcula los intereses devengados y los intereses a reintegrar en euros
       const interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
@@ -186,8 +212,6 @@
       const retencion = -retencionEuros;
       const penalizacion = -penalizacionAplicar;
       const total = capital + interesesEuros + retencion + penalizacion;
-
-
 
       // Muestra los resultados en los elementos HTML correspondientes
       document.getElementById("duracionMeses").innerText = `Duración (meses): ${duracionMeses.toFixed(2)}`;

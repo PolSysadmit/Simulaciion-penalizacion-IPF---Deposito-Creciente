@@ -65,7 +65,7 @@
     
 }
 
-<# Describe "Verificar Errores de entrada" {
+Describe "Verificar Errores de entrada" {
     It "Importe < 0" {
 
         $Campos = @{
@@ -261,7 +261,7 @@
     }
 
 }
- #>
+ 
 Describe "Verificar cálculos" {
 
     BeforeAll {
