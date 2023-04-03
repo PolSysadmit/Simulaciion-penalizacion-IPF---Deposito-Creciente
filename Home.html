@@ -35,11 +35,11 @@
     <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15">
     <br>
     <label for="fechaReintegro">Fecha reintegro:</label>
-    <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-09-15">
+    <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15">
     <br>
     <div id="importeReintegroContainer">
       <label for="importeReintegro">Importe reintegro:</label>
-      <input type="number" id="importeReintegro" name="importeReintegro" value="70000">
+      <input type="number" id="importeReintegro" name="importeReintegro" value="50000">
     </div>
     <label for="tipoInteres"> Tipo de interés:</label>
     <input type="number" id="tipoInteres" name="tipoInteres" value="1">
@@ -149,59 +149,114 @@
         return;
       }
 
-
-
-
       // Realiza los cálculos necesarios
       const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
       const diasTranscurridos = (fechaReintegro - fechaInicio) / (1000 * 60 * 60 * 24);
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
-      //const interesesEuros = importe * tipoInteres * diasTranscurridos / 365;
 
-      //Importe * tipo intereés * días transcurridos * /365
-      // Cálculo de los intereses devengados por el período transcurrido antes del reintegro
-      const interesesEurosReintegro = (tipoTarifa === 'Ordinaria')
-        ? importeReintegro * tipoInteres * diasRemanentes / 365
-        : importeReintegro * tipoInteres * diasTranscurridos / 365;
+      let interesesEuros;
+      let interesesEurosReintegro;
+      let interesesEurosDevengados;
+      let retencionEuros;
+      let penalizacionEuros;
+      let maximoInteresesBrutos;
+      let penalizacionAplicar;
 
-      const intereses = interesesEurosReintegro;
-      const interesesEuros = interesesEurosReintegro;
 
-      // Cálculo de los intereses devengados durante el período de remanencia después del reintegro
-      // Si el tipo de tarifa es "Coyuntural", se resta el importe de los intereses devengados hasta el reintegro
-      //=+E3*E13*E10/365
-      const interesesEurosDevengados = (tipoTarifa === 'Ordinaria')
-        ? importe * tipoInteres * diasRemanentes / 365
-        : importe * tipoInteres * diasTranscurridos / 365;
+      if (reintegro === 'Total' && tipoTarifa === 'Ordinaria') {
+        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
+        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+        interesesEuros = interesesEurosDevengados;
 
-      const retencionEuros = interesesEurosReintegro * porcentajeRetencion;
-      //const penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+        retencionEuros = interesesEuros * porcentajeRetencion;
+        penalizacionEuros = importe * diasRemanentes * porcentajePenalizacion / 365;
+        maximoInteresesBrutos = interesesEuros;
 
-      // Calcula la penalización en euros
-      // Si el tipo de tarifa es Coyuntural y el reintegro es Total, la penalización se calcula en función de los días remanentes
-      // Si no, se calcula en función de los días transcurridos
-      const penalizacionEuros = (tipoTarifa === 'Ordinaria')
-        ? importeReintegro * diasRemanentes * porcentajePenalizacion / 365
-        : importeReintegro * diasTranscurridos * porcentajePenalizacion / 365;
+        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
-      //Continuar aquí, si caso3 
-      const maximoInteresesBrutos = interesesEurosDevengados;
-      const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+      }
 
-      // Liquidación a realizar
-      //const capital = importe;
-      const capital = (reintegro === "Parcial")
-        ? importeReintegro
-        : importe;
 
-      //const intereses = (reintegro === "Parcial")
-      //  ? interesesEurosReintegro
-      //  : interesesEuros;
 
-      const retencion = -retencionEuros;
-      //const penalizacion = (reintegro === "Total") ? -penalizacionAplicar : 0; // Cambiar "Parcial" por "Total"
-      const penalizacion = -penalizacionAplicar;
-      const total = capital + intereses + retencion + penalizacion;
+      if (reintegro === 'Parcial' && tipoTarifa === 'Ordinaria') {
+
+        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365; //59.45
+        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365; //42.47
+        interesesEuros = interesesEurosReintegro;
+        maximoInteresesBrutos = interesesEurosDevengados; //59.45
+
+
+        //Variacion respecto Total
+        retencionEuros = interesesEurosReintegro * porcentajeRetencion; //8.49
+        //Variacion respecto Total
+        penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365; //458.90
+
+        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos); //59.45
+
+      }
+
+      if (reintegro === 'Total' && tipoTarifa === 'Coyuntural') {
+        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
+        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+        interesesEuros = interesesEurosDevengados;
+
+        retencionEuros = interesesEuros * porcentajeRetencion;
+        penalizacionEuros = importe * diasTranscurridos * porcentajePenalizacion / 365;
+        maximoInteresesBrutos = interesesEuros;
+
+        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+
+      }
+
+
+      if (reintegro === 'Parcial' && tipoTarifa === 'Coyuntural') {
+
+        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365; //59.45
+        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365; //42.47
+        interesesEuros = interesesEurosReintegro;
+        maximoInteresesBrutos = interesesEurosDevengados; //59.45
+
+
+        //Variacion respecto Total
+        retencionEuros = interesesEurosReintegro * porcentajeRetencion; //8.49
+        //Variacion respecto Total
+        penalizacionEuros = importeReintegro * diasTranscurridos * porcentajePenalizacion / 365; //458.90
+
+        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos); //59.45
+
+      }
+
+
+      const capital = importeReintegro //50000
+      const retencion = -retencionEuros; //-8.49
+      const penalizacion = -penalizacionAplicar; //-59.45
+      const total = capital + interesesEuros + retencion + penalizacion; //49974.52
+
+
+
+      // const 
+      // const 
+
+      // const interesesEuros = (reintegro === 'Total')
+      //   ? interesesEurosDevengados
+      //   : interesesEurosReintegro;
+
+
+
+      // const diasPenalizacion = (tipoTarifa === 'Ordinaria')
+      //   ? diasRemanentes
+      //   : diasTranscurridos;
+
+      //const penalizacionEuros = importeReintegro * diasPenalizacion * porcentajePenalizacion / 365;
+
+      //const maximoInteresesBrutos = interesesEuros;
+
+      //const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+      // const penalizacionAplicar = (penalizacionEuros > maximoInteresesBrutos)
+      //   ? maximoInteresesBrutos
+      //   : penalizacionEuros;
+
+      //= Math.min(penalizacionEuros, maximoInteresesBrutos);
 
       // Muestra los resultados en los elementos HTML correspondientes
       document.getElementById("duracionMeses").innerText = `Duración (meses): ${duracionMeses.toFixed(2)}`;
@@ -216,7 +271,7 @@
       document.getElementById("penalizacionAplicar").innerText = `Penalización a aplicar: ${penalizacionAplicar.toFixed(2)}`;
       document.getElementById("liquidacionRealizar").innerText = "Liquidación a realizar:";
       document.getElementById("capital").innerText = `+Capital: ${capital.toFixed(2)}`;
-      document.getElementById("intereses").innerText = `+Intereses: ${intereses.toFixed(2)}`;
+      document.getElementById("intereses").innerText = `+Intereses: ${interesesEuros.toFixed(2)}`;
       document.getElementById("retencion").innerText = `-Retención: ${retencion.toFixed(2)}`;
       document.getElementById("penalizacion").innerText = `-Penalización: ${penalizacion.toFixed(2)}`;
       document.getElementById("total").innerText = `Total: ${total.toFixed(2)}`;

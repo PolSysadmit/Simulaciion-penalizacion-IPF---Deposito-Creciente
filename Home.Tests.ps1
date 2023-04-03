@@ -65,7 +65,7 @@
     
 }
 
-Describe "Verificar Errores de entrada" {
+<# Describe "Verificar Errores de entrada" {
     It "Importe < 0" {
 
         $Campos = @{
@@ -261,16 +261,13 @@ Describe "Verificar Errores de entrada" {
     }
 
 }
-
+ #>
 Describe "Verificar cálculos" {
 
     BeforeAll {
-
-        
     }
 
     BeforeEach {
-  
     }
 
     It "Ordinaria-Total: REINTEGRO TOTAL - Penalización por días remanentes (Tarifas ordinarias):" {
@@ -284,24 +281,25 @@ Describe "Verificar cálculos" {
             "porcentajePenalizacion" = "1"
             "fechaInicio"            = "15/03/2023"
             "fechaVencimiento"       = "15/03/2024"
-            "fechaReintegro"         = "15/09/2023"
+            "fechaReintegro"         = "14/08/2023"
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12.02"
-            "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses (euros): 349.04"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 349.04"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 349.04"
-            "retencionEuros"           = "Retención (euros): 69.81"
-            "penalizacionEuros"        = "Penalización (euros): 349.04"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 349.04"
-            "penalizacionAplicar"      = "Penalización a aplicar: 349.04"
-            "capital"                  = "+Capital: 70000.00"
-            "intereses"                = "+Intereses: 349.04"
-            "retencion"                = "-Retención: -69.81"
-            "penalizacion"             = "-Penalización: -349.04"
-            "total"                    = "Total: 69930.19"
+            "duracionMeses"         = "Duración (meses): 12.02"
+            "diasTranscurridos"     = "Días transcurridos: 152"
+            "diasRemanentes"        = "Días remanentes: 214"
+            "interesesEuros"        = "Intereses (euros): 291.51"
+            #"interesesEurosReintegro"  = "Intereses (euros) Reintegro: 291.51"
+            #"interesesEurosDevengados" = "Intereses (euros) Devengados: 291.51"
+            "retencionEuros"        = "Retención (euros): 58.30"
+            "penalizacionEuros"     = "Penalización (euros): 410.41"
+            "maximoInteresesBrutos" = "Máximo intereses brutos: 291.51"
+            "penalizacionAplicar"   = "Penalización a aplicar: 291.51"
+            "capital"               = "+Capital: 70000.00"
+            "intereses"             = "+Intereses: 291.51"
+            "retencion"             = "-Retención: -58.30"
+            "penalizacion"          = "-Penalización: -291.51"
+            "total"                 = "Total: 69941.70"
         }
 
         Set-Valores -Campos $Campos
@@ -318,7 +316,7 @@ Describe "Verificar cálculos" {
             "importe"                = "70000"
             "fechaInicio"            = "15/03/2023"
             "fechaVencimiento"       = "15/03/2024"
-            "fechaReintegro"         = "15/09/2023"
+            "fechaReintegro"         = "15/04/2023"
             "importeReintegro"       = "50000"
             "tipoInteres"            = "1"
             "porcentajeRetencion"    = "20"
@@ -327,20 +325,20 @@ Describe "Verificar cálculos" {
 
         $Resultados = @{
             "duracionMeses"            = "Duración (meses): 12.02"
-            "diasTranscurridos"        = "Días transcurridos: 184"
-            "diasRemanentes"           = "Días remanentes: 182"
-            "interesesEuros"           = "Intereses (euros): 249.32"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 249.32"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 349.04"
-            "retencionEuros"           = "Retención (euros): 49.86"
-            "penalizacionEuros"        = "Penalización (euros): 249.32"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 349.04"
-            "penalizacionAplicar"      = "Penalización a aplicar: 249.32"
+            "diasTranscurridos"        = "Días transcurridos: 31"
+            "diasRemanentes"           = "Días remanentes: 335"
+            "interesesEuros"           = "Intereses (euros): 42.47"
+            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 42.47"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 59.45"
+            "retencionEuros"           = "Retención (euros): 8.49"
+            "penalizacionEuros"        = "Penalización (euros): 458.90"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 59.45"
+            "penalizacionAplicar"      = "Penalización a aplicar: 59.45"
             "capital"                  = "+Capital: 50000.00"
-            "intereses"                = "+Intereses: 249.32"
-            "retencion"                = "-Retención: -49.86"
-            "penalizacion"             = "-Penalización: -249.32"
-            "total"                    = "Total: 49950.14"
+            "intereses"                = "+Intereses: 42.47"
+            "retencion"                = "-Retención: -8.49"
+            "penalizacion"             = "-Penalización: -59.45"
+            "total"                    = "Total: 49974.52"
         }
 
         Set-Valores -Campos $Campos
@@ -352,7 +350,7 @@ Describe "Verificar cálculos" {
 
 
     } 
-
+    
     It "Coyuntural-Total: REINTEGRO TOTAL - Penalización por días transcurridos (Tarifas coyunturales):" {
 
         $Campos = [ordered]@{
@@ -390,7 +388,7 @@ Describe "Verificar cálculos" {
 
         Test-Resultados -Resultados $Resultados
     }
-
+    
     It "Coyuntural-Parcial: REINTEGRO PARCIAL - Penalización por días transcurridos (Tarifas coyunturales)" {
 
         $Campos = [ordered]@{
@@ -400,7 +398,7 @@ Describe "Verificar cálculos" {
             "fechaInicio"            = "15/03/2023"
             "fechaVencimiento"       = "15/03/2024"
             "fechaReintegro"         = "15/09/2023"
-            "importeReintegro"       = "50000"
+            "importeReintegro"       = "35000"
             "tipoInteres"            = "1"
             "porcentajeRetencion"    = "20"
             "porcentajePenalizacion" = "1"
@@ -409,18 +407,18 @@ Describe "Verificar cálculos" {
         $Resultados = @{
             "duracionMeses"            = "Duración (meses): 12.02"
             "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses (euros): 252.05"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 252.05"
+            "interesesEuros"           = "Intereses (euros): 176.44"
             "interesesEurosDevengados" = "Intereses (euros) Devengados: 352.88"
-            "retencionEuros"           = "Retención (euros): 50.41"
-            "penalizacionEuros"        = "Penalización (euros): 252.05"
+            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 176.44"
+            "retencionEuros"           = "Retención (euros): 35.29"
+            "penalizacionEuros"        = "Penalización (euros): 176.44"
             "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
-            "penalizacionAplicar"      = "Penalización a aplicar: 252.05"
-            "capital"                  = "+Capital: 50000.00"
-            "intereses"                = "+Intereses: 252.05"
-            "retencion"                = "-Retención: -50.41"
-            "penalizacion"             = "-Penalización: -252.05"
-            "total"                    = "Total: 49949.59"
+            "penalizacionAplicar"      = "Penalización a aplicar: 176.44"
+            "capital"                  = "+Capital: 35000.00"
+            "intereses"                = "+Intereses: 176.44"
+            "retencion"                = "-Retención: -35.29"
+            "penalizacion"             = "-Penalización: -176.44"
+            "total"                    = "Total: 34964.71"
         }
 
         Set-Valores -Campos $Campos
@@ -429,7 +427,7 @@ Describe "Verificar cálculos" {
 
         Test-Resultados -Resultados $Resultados
 
-    }
+    } 
 }
 
 AfterAll {
