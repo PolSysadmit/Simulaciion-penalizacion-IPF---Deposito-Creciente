@@ -285,21 +285,21 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"         = "Duración (meses): 12.02"
-            "diasTranscurridos"     = "Días transcurridos: 152"
-            "diasRemanentes"        = "Días remanentes: 214"
-            "interesesEuros"        = "Intereses (euros): 291.51"
-            #"interesesEurosReintegro"  = "Intereses (euros) Reintegro: 291.51"
-            #"interesesEurosDevengados" = "Intereses (euros) Devengados: 291.51"
-            "retencionEuros"        = "Retención (euros): 58.30"
-            "penalizacionEuros"     = "Penalización (euros): 410.41"
-            "maximoInteresesBrutos" = "Máximo intereses brutos: 291.51"
-            "penalizacionAplicar"   = "Penalización a aplicar: 291.51"
-            "capital"               = "+Capital: 70000.00"
-            "intereses"             = "+Intereses: 291.51"
-            "retencion"             = "-Retención: -58.30"
-            "penalizacion"          = "-Penalización: -291.51"
-            "total"                 = "Total: 69941.70"
+            "duracionMeses"            = "Duración (meses): 12.02"
+            "diasTranscurridos"        = "Días transcurridos: 152"
+            "diasRemanentes"           = "Días remanentes: 214"
+            "interesesEuros"           = "Intereses (euros): 291.51"
+            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 291.51"
+            "interesesEurosDevengados" = "Intereses (euros) Devengados: 291.51"
+            "retencionEuros"           = "Retención (euros): 58.30"
+            "penalizacionEuros"        = "Penalización (euros): 410.41"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 291.51"
+            "penalizacionAplicar"      = "Penalización a aplicar: 291.51"
+            "capital"                  = "+Capital: 70000.00"
+            "intereses"                = "+Intereses: 291.51"
+            "retencion"                = "-Retención: -58.30"
+            "penalizacion"             = "-Penalización: -291.51"
+            "total"                    = "Total: 69941.70"
         }
 
         Set-Valores -Campos $Campos
