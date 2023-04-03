@@ -149,116 +149,40 @@
         return;
       }
 
-      // Realiza los cálculos necesarios
-      const duracionMeses = (fechaVencimiento - fechaInicio) / (1000 * 60 * 60 * 24 * 30.44);
-      const diasTranscurridos = (fechaReintegro - fechaInicio) / (1000 * 60 * 60 * 24);
-      const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
+      // Calcula duraciones en meses y días
+      const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      const MONTHS_PER_YEAR = 12;
+      const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * 30.44);
+      const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
+      const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
 
-      let interesesEuros;
+      const interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
+      const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
 
+      let interesesEuros = interesesEurosReintegro;
+      let retencionEuros = interesesEurosReintegro * porcentajeRetencion;
+      let maximoInteresesBrutos = interesesEurosDevengados;
 
-      let retencionEuros;
-      let penalizacionEuros;
-      let maximoInteresesBrutos;
-
-      let interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
-      let interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
-
-      if (reintegro === 'Total' && tipoTarifa === 'Ordinaria') {
-
-
+      if (reintegro === 'Total') {
         interesesEuros = interesesEurosDevengados;
-
         retencionEuros = interesesEuros * porcentajeRetencion;
-        penalizacionEuros = importe * diasRemanentes * porcentajePenalizacion / 365;
-        maximoInteresesBrutos = interesesEuros;
-
-
-
       }
 
+      penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
 
+      if (tipoTarifa === 'Coyuntural') {
 
-      if (reintegro === 'Parcial' && tipoTarifa === 'Ordinaria') {
-
-        //59.45
-        //42.47
-        interesesEuros = interesesEurosReintegro;
-        maximoInteresesBrutos = interesesEurosDevengados; //59.45
-
-
-        //Variacion respecto Total
-        retencionEuros = interesesEurosReintegro * porcentajeRetencion; //8.49
-        //Variacion respecto Total
-        penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365; //458.90
-
-
-
-      }
-
-      if (reintegro === 'Total' && tipoTarifa === 'Coyuntural') {
-
-
-        interesesEuros = interesesEurosDevengados;
-
-        retencionEuros = interesesEuros * porcentajeRetencion;
-        penalizacionEuros = importe * diasTranscurridos * porcentajePenalizacion / 365;
-        maximoInteresesBrutos = interesesEuros;
-
-
-
-      }
-
-
-      if (reintegro === 'Parcial' && tipoTarifa === 'Coyuntural') {
-
-        //59.45
-        //42.47
-        interesesEuros = interesesEurosReintegro;
-        maximoInteresesBrutos = interesesEurosDevengados; //59.45
-
-
-        //Variacion respecto Total
-        retencionEuros = interesesEurosReintegro * porcentajeRetencion; //8.49
-        //Variacion respecto Total
-        penalizacionEuros = importeReintegro * diasTranscurridos * porcentajePenalizacion / 365; //458.90
-
-
+        penalizacionEuros = importeReintegro * diasTranscurridos * porcentajePenalizacion / 365;
 
       }
 
       const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
-      const capital = importeReintegro //50000
-      const retencion = -retencionEuros; //-8.49
-      const penalizacion = -penalizacionAplicar; //-59.45
-      const total = capital + interesesEuros + retencion + penalizacion; //49974.52
+      const capital = importeReintegro;
+      const retencion = -retencionEuros;
+      const penalizacion = -penalizacionAplicar;
+      const total = capital + interesesEuros + retencion + penalizacion;
 
-
-
-      // const 
-      // const 
-
-      // const interesesEuros = (reintegro === 'Total')
-      //   ? interesesEurosDevengados
-      //   : interesesEurosReintegro;
-
-
-
-      // const diasPenalizacion = (tipoTarifa === 'Ordinaria')
-      //   ? diasRemanentes
-      //   : diasTranscurridos;
-
-      //const penalizacionEuros = importeReintegro * diasPenalizacion * porcentajePenalizacion / 365;
-
-      //const maximoInteresesBrutos = interesesEuros;
-
-      //const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
-      // const penalizacionAplicar = (penalizacionEuros > maximoInteresesBrutos)
-      //   ? maximoInteresesBrutos
-      //   : penalizacionEuros;
-
-      //= Math.min(penalizacionEuros, maximoInteresesBrutos);
 
       // Muestra los resultados en los elementos HTML correspondientes
       document.getElementById("duracionMeses").innerText = `Duración (meses): ${duracionMeses.toFixed(2)}`;
