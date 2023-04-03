@@ -135,7 +135,6 @@
         }
       }
 
-
       if (fechaVencimiento < fechaInicio) {
         alert("Error: La 'fecha de vencimiento' debe ser posterior a la 'fecha de inicio'.");
         return;
@@ -151,37 +150,43 @@
 
       // Calcula duraciones en meses y días
       const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      const DIAS_EN_UN_MES = 30.44;
       const MONTHS_PER_YEAR = 12;
-      const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * 30.44);
+      const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * DIAS_EN_UN_MES);
       const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
       const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
 
+      // Calcula los intereses devengados y los intereses a reintegrar en euros
       const interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
       const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
 
+      // Establece valores iniciales para los intereses, la retención y la penalización
       let interesesEuros = interesesEurosReintegro;
       let retencionEuros = interesesEurosReintegro * porcentajeRetencion;
       let maximoInteresesBrutos = interesesEurosDevengados;
 
+      // Actualiza los valores de intereses y retención si el reintegro es total
       if (reintegro === 'Total') {
         interesesEuros = interesesEurosDevengados;
         retencionEuros = interesesEuros * porcentajeRetencion;
       }
 
-      penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365;
+      // Calcula las penalizaciones en euros según el tipo de tarifa
+      const penalizacionEuros = importeReintegro * (
+        tipoTarifa === 'Coyuntural'
+          ? diasTranscurridos
+          : diasRemanentes
+      ) * porcentajePenalizacion / 365;
 
-      if (tipoTarifa === 'Coyuntural') {
-
-        penalizacionEuros = importeReintegro * diasTranscurridos * porcentajePenalizacion / 365;
-
-      }
-
+      // Selecciona la penalización a aplicar (la menor entre la penalización y los intereses brutos)
       const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
+      // Calcula el capital, la retención, la penalización y el total a pagar
       const capital = importeReintegro;
       const retencion = -retencionEuros;
       const penalizacion = -penalizacionAplicar;
       const total = capital + interesesEuros + retencion + penalizacion;
+
 
 
       // Muestra los resultados en los elementos HTML correspondientes
