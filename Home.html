@@ -155,24 +155,25 @@
       const diasRemanentes = (fechaVencimiento - fechaReintegro) / (1000 * 60 * 60 * 24);
 
       let interesesEuros;
-      let interesesEurosReintegro;
-      let interesesEurosDevengados;
+
+
       let retencionEuros;
       let penalizacionEuros;
       let maximoInteresesBrutos;
-      let penalizacionAplicar;
 
+      let interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
+      let interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
 
       if (reintegro === 'Total' && tipoTarifa === 'Ordinaria') {
-        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
-        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+
+
         interesesEuros = interesesEurosDevengados;
 
         retencionEuros = interesesEuros * porcentajeRetencion;
         penalizacionEuros = importe * diasRemanentes * porcentajePenalizacion / 365;
         maximoInteresesBrutos = interesesEuros;
 
-        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+
 
       }
 
@@ -180,8 +181,8 @@
 
       if (reintegro === 'Parcial' && tipoTarifa === 'Ordinaria') {
 
-        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365; //59.45
-        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365; //42.47
+        //59.45
+        //42.47
         interesesEuros = interesesEurosReintegro;
         maximoInteresesBrutos = interesesEurosDevengados; //59.45
 
@@ -191,28 +192,28 @@
         //Variacion respecto Total
         penalizacionEuros = importeReintegro * diasRemanentes * porcentajePenalizacion / 365; //458.90
 
-        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos); //59.45
+
 
       }
 
       if (reintegro === 'Total' && tipoTarifa === 'Coyuntural') {
-        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
-        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+
+
         interesesEuros = interesesEurosDevengados;
 
         retencionEuros = interesesEuros * porcentajeRetencion;
         penalizacionEuros = importe * diasTranscurridos * porcentajePenalizacion / 365;
         maximoInteresesBrutos = interesesEuros;
 
-        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+
 
       }
 
 
       if (reintegro === 'Parcial' && tipoTarifa === 'Coyuntural') {
 
-        interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365; //59.45
-        interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365; //42.47
+        //59.45
+        //42.47
         interesesEuros = interesesEurosReintegro;
         maximoInteresesBrutos = interesesEurosDevengados; //59.45
 
@@ -222,10 +223,11 @@
         //Variacion respecto Total
         penalizacionEuros = importeReintegro * diasTranscurridos * porcentajePenalizacion / 365; //458.90
 
-        penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos); //59.45
+
 
       }
 
+      const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
 
       const capital = importeReintegro //50000
       const retencion = -retencionEuros; //-8.49
