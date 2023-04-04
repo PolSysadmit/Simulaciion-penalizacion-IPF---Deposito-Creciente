@@ -93,8 +93,10 @@
   </div>
 
   <script>
-
+    // Esta función valida los campos de entrada del formulario y muestra alertas de error si hay algún problema
     function validarCampos() {
+
+      // Crear un objeto con los campos y sus descripciones
       const campos = {
         "importe": "El importe",
         "fechaInicio": "La fecha de inicio",
@@ -105,21 +107,24 @@
         "porcentajePenalizacion": "El porcentaje de penalización"
       };
 
+      // Iterar a través de los campos para validarlos
       for (let campo in campos) {
         const valor = document.getElementById(campo).value.trim();
-
+        // Validar campos de fecha  
         if (campo.includes("fecha")) {
           const fecha = new Date(valor);
           if (isNaN(fecha.getTime())) {
             alert(`El valor de '${campos[campo]}' no es una fecha válida.`);
             return false;
           }
+          // Validar campos numéricos
         } else if (valor === "" || isNaN(valor) || valor < 0) {
           alert(`'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
           return false;
         }
       }
 
+      // Validar fechas de inicio, vencimiento y reintegro
       const fechaInicio = new Date(document.getElementById("fechaInicio").value);
       const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
       const fechaReintegro = new Date(document.getElementById("fechaReintegro").value);
@@ -139,14 +144,21 @@
 
       return true;
     }
-
+    // Esta función calcula la duración en meses entre la fecha de inicio y la fecha de vencimiento, los días transcurridos entre la fecha de inicio y la fecha de reintegro, y los días remanentes entre la fecha de reintegro y la fecha de vencimiento.
     function calcularDuracion(fechaInicio, fechaVencimiento, fechaReintegro) {
+      // Constante para representar el número de milisegundos en un día
       const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      // Constante para representar el promedio de días en un mes
       const DIAS_EN_UN_MES = 30.44;
+
+      // Calcular la duración en meses
       const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * DIAS_EN_UN_MES);
+      // Calcular los días transcurridos entre la fecha de inicio y la fecha de reintegro
       const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
+      // Calcular los días remanentes entre la fecha de reintegro y la fecha de vencimiento
       const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
 
+      // Devolver la duración en meses, días transcurridos y días remanentes en un objeto
       return {
         duracionMeses,
         diasTranscurridos,
@@ -247,24 +259,6 @@
       calcularLiquidacion
     }
 
-    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro); // Añade el evento "change" a "Reintegro" que llama a la función "toggleImporteReintegro" cuando se selecciona una opción distinta
-    toggleImporteReintegro(); // Establece el estado inicial en la carga de la página, para que el campo "Importe Reintegro" esté oculto si "Reintegro" tiene la opción "Total" seleccionada
-
-    // Función que cambia la visibilidad del campo "Días remanentes" en función del valor de la opción seleccionada en "Tipo de Tarifa"
-    document.getElementById("tipoTarifa").addEventListener("change", function () {
-
-      const tipoTarifa = document.getElementById("tipoTarifa").value; // Obtiene el valor de "Tipo de Tarifa"
-      const diasRemanentesContainer = document.getElementById("diasRemanentesContainer"); // Obtiene el contenedor del campo "Días remanentes"
-
-      if (tipoTarifa === "Ordinaria") { // Si se seleccionó "Ordinaria" en "Tipo de Tarifa"
-        diasRemanentesContainer.style.display = "block"; // Muestra el campo "Días remanentes"
-      } else {
-        diasRemanentesContainer.style.display = "none"; // Oculta el campo "Días remanentes"
-      }
-    });
-    document.getElementById("tipoTarifa").dispatchEvent(new Event("change")); // Establece el estado inicial en la carga de la página, para que el campo "Días remanentes" esté visible si "Tipo de Tarifa" tiene la opción "Ordinaria" seleccionada
-
-    // Crea una función para mostrar los resultados
     function showResults() {
       const resultadosDiv = document.getElementById("resultados");
       resultadosDiv.style.display = "block";
@@ -276,6 +270,8 @@
     }
 
     function assignInputEvents() {
+
+      // Crear una lista de IDs de elementos de entrada en el formulario
       const inputs = [
         "tipoTarifa",
         "reintegro",
@@ -289,15 +285,14 @@
         "porcentajePenalizacion",
       ];
 
+      // Recorrer cada ID de elemento de entrada en la lista
       for (const input of inputs) {
+        // Agregar un escuchador de eventos 'input' a cada elemento de entrada
+        // El evento se activa cada vez que el usuario cambia el valor del elemento de entrada
+        // Llama a la función 'hideResults' para ocultar los resultados cuando se modifica cualquier elemento de entrada
         document.getElementById(input).addEventListener("input", hideResults);
       }
     }
-
-    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro);
-    toggleImporteReintegro();
-
-    assignInputEvents();
 
     // Función que se ejecuta cuando se presiona una tecla en el formulario
     function handleKeyDown(event) {
@@ -306,12 +301,31 @@
         calcularLiquidacion(); // Llama a la función para calcular la liquidación
       }
     }
+    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro); // Añade el evento "change" a "Reintegro" que llama a la función "toggleImporteReintegro" cuando se selecciona una opción distinta
+    toggleImporteReintegro(); // Establece el estado inicial en la carga de la página, para que el campo "Importe Reintegro" esté oculto si "Reintegro" tiene la opción "Total" seleccionada
+
+    // document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro);
+    // toggleImporteReintegro();
+
+    // Función que cambia la visibilidad del campo "Días remanentes" en función del valor de la opción seleccionada en "Tipo de Tarifa"
+    document.getElementById("tipoTarifa").addEventListener("change", function () {
+
+      const tipoTarifa = document.getElementById("tipoTarifa").value; // Obtiene el valor de "Tipo de Tarifa"
+      const diasRemanentesContainer = document.getElementById("diasRemanentesContainer"); // Obtiene el contenedor del campo "Días remanentes"
+
+      if (tipoTarifa === "Ordinaria") { // Si se seleccionó "Ordinaria" en "Tipo de Tarifa"
+        diasRemanentesContainer.style.display = "block"; // Muestra el campo "Días remanentes"
+      } else {
+        diasRemanentesContainer.style.display = "none"; // Oculta el campo "Días remanentes"
+      }
+    });
+    // Establece el estado inicial en la carga de la página, para que el campo "Días remanentes" esté visible si "Tipo de Tarifa" tiene la opción "Ordinaria" seleccionada
+    document.getElementById("tipoTarifa").dispatchEvent(new Event("change"));
+
+    assignInputEvents();
 
     // Agrega el event listener al objeto document
     document.addEventListener("keydown", handleKeyDown);
-
-
-
 
   </script>
 
