@@ -270,6 +270,35 @@
       resultadosDiv.style.display = "block";
     }
 
+    function hideResults() {
+      const resultados = document.getElementById("resultados");
+      resultados.style.display = "none";
+    }
+
+    function assignInputEvents() {
+      const inputs = [
+        "tipoTarifa",
+        "reintegro",
+        "importe",
+        "fechaInicio",
+        "fechaVencimiento",
+        "fechaReintegro",
+        "importeReintegro",
+        "tipoInteres",
+        "porcentajeRetencion",
+        "porcentajePenalizacion",
+      ];
+
+      for (const input of inputs) {
+        document.getElementById(input).addEventListener("input", hideResults);
+      }
+    }
+
+    document.getElementById("reintegro").addEventListener("change", toggleImporteReintegro);
+    toggleImporteReintegro();
+
+    assignInputEvents();
+
     // Función que se ejecuta cuando se presiona una tecla en el formulario
     function handleKeyDown(event) {
       if (event.key === 'Enter') {
