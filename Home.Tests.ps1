@@ -283,23 +283,22 @@ Describe "Verificar cálculos" {
             "fechaVencimiento"       = "15/03/2024"
             "fechaReintegro"         = "14/08/2023"
         }
-
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12.02"
+            "duracionMeses"            = "Duración (meses): 12,02"
             "diasTranscurridos"        = "Días transcurridos: 152"
             "diasRemanentes"           = "Días remanentes: 214"
-            "interesesEuros"           = "Intereses (euros): 291.51"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 291.51"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 291.51"
-            "retencionEuros"           = "Retención (euros): 58.30"
-            "penalizacionEuros"        = "Penalización (euros): 410.41"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 291.51"
-            "penalizacionAplicar"      = "Penalización a aplicar: 291.51"
-            "capital"                  = "+Capital: 70000.00"
-            "intereses"                = "+Intereses: 291.51"
-            "retencion"                = "-Retención: -58.30"
-            "penalizacion"             = "-Penalización: -291.51"
-            "total"                    = "Total: 69941.70"
+            "interesesEuros"           = "Intereses: 291,51 euros"
+            "interesesEurosReintegro"  = "Intereses Reintegro: 291,51 euros"
+            "interesesEurosDevengados" = "Intereses Devengados: 291,51 euros"
+            "retencionEuros"           = "Retención: 58,30 euros"
+            "penalizacionEuros"        = "Penalización: 410,41 euros"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 291,51 euros"
+            "penalizacionAplicar"      = "Penalización a aplicar: 291,51 euros"
+            "capital"                  = "+Capital: 70.000,00 euros"
+            "intereses"                = "+Intereses: 291,51 euros"
+            "retencion"                = "-Retención: -58,30 euros"
+            "penalizacion"             = "-Penalización: -291,51 euros"
+            "total"                    = "Total: 69.941,70 euros"
         }
 
         Set-Valores -Campos $Campos
@@ -324,21 +323,21 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12.02"
+            "duracionMeses"            = "Duración (meses): 12,02"
             "diasTranscurridos"        = "Días transcurridos: 31"
             "diasRemanentes"           = "Días remanentes: 335"
-            "interesesEuros"           = "Intereses (euros): 42.47"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 42.47"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 59.45"
-            "retencionEuros"           = "Retención (euros): 8.49"
-            "penalizacionEuros"        = "Penalización (euros): 458.90"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 59.45"
-            "penalizacionAplicar"      = "Penalización a aplicar: 59.45"
-            "capital"                  = "+Capital: 50000.00"
-            "intereses"                = "+Intereses: 42.47"
-            "retencion"                = "-Retención: -8.49"
-            "penalizacion"             = "-Penalización: -59.45"
-            "total"                    = "Total: 49974.52"
+            "interesesEuros"           = "Intereses: 42,47 euros"
+            "interesesEurosReintegro"  = "Intereses Reintegro: 42,47 euros"
+            "interesesEurosDevengados" = "Intereses Devengados: 59,45 euros"
+            "retencionEuros"           = "Retención: 8,49 euros"
+            "penalizacionEuros"        = "Penalización: 458,90 euros"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 59,45 euros"
+            "penalizacionAplicar"      = "Penalización a aplicar: 59,45 euros"
+            "capital"                  = "+Capital: 50.000,00 euros"
+            "intereses"                = "+Intereses: 42,47 euros"
+            "retencion"                = "-Retención: -8,49 euros"
+            "penalizacion"             = "-Penalización: -59,45 euros"
+            "total"                    = "Total: 49.974,52 euros"
         }
 
         Set-Valores -Campos $Campos
@@ -366,20 +365,20 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12.02"
+            "duracionMeses"            = "Duración (meses): 12,02"
             "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses (euros): 352.88"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 352.88"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 352.88"
-            "retencionEuros"           = "Retención (euros): 70.58"
-            "penalizacionEuros"        = "Penalización (euros): 352.88"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
-            "penalizacionAplicar"      = "Penalización a aplicar: 352.88"
-            "capital"                  = "+Capital: 70000.00"
-            "intereses"                = "+Intereses: 352.88"
-            "retencion"                = "-Retención: -70.58"
-            "penalizacion"             = "-Penalización: -352.88"
-            "total"                    = "Total: 69929.42"
+            "interesesEuros"           = "Intereses: 352,88 euros"
+            "interesesEurosReintegro"  = "Intereses Reintegro: 352,88 euros"
+            "interesesEurosDevengados" = "Intereses Devengados: 352,88 euros"
+            "retencionEuros"           = "Retención: 70,58 euros"
+            "penalizacionEuros"        = "Penalización: 352,88 euros"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352,88 euros"
+            "penalizacionAplicar"      = "Penalización a aplicar: 352,88 euros"
+            "capital"                  = "+Capital: 70.000,00 euros"
+            "intereses"                = "+Intereses: 352,88 euros"
+            "retencion"                = "-Retención: -70,58 euros"
+            "penalizacion"             = "-Penalización: -352,88 euros"
+            "total"                    = "Total: 69.929,42 euros"
         }
 
         Set-Valores -Campos $Campos
@@ -405,20 +404,20 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12.02"
+            "duracionMeses"            = "Duración (meses): 12,02"
             "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses (euros): 176.44"
-            "interesesEurosDevengados" = "Intereses (euros) Devengados: 352.88"
-            "interesesEurosReintegro"  = "Intereses (euros) Reintegro: 176.44"
-            "retencionEuros"           = "Retención (euros): 35.29"
-            "penalizacionEuros"        = "Penalización (euros): 176.44"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352.88"
-            "penalizacionAplicar"      = "Penalización a aplicar: 176.44"
-            "capital"                  = "+Capital: 35000.00"
-            "intereses"                = "+Intereses: 176.44"
-            "retencion"                = "-Retención: -35.29"
-            "penalizacion"             = "-Penalización: -176.44"
-            "total"                    = "Total: 34964.71"
+            "interesesEuros"           = "Intereses: 176,44 euros"
+            "interesesEurosDevengados" = "Intereses Devengados: 352,88 euros"
+            "interesesEurosReintegro"  = "Intereses Reintegro: 176,44 euros"
+            "retencionEuros"           = "Retención: 35,29 euros"
+            "penalizacionEuros"        = "Penalización: 176,44 euros"
+            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352,88 euros"
+            "penalizacionAplicar"      = "Penalización a aplicar: 176,44 euros"
+            "capital"                  = "+Capital: 35.000,00 euros"
+            "intereses"                = "+Intereses: 176,44 euros"
+            "retencion"                = "-Retención: -35,29 euros"
+            "penalizacion"             = "-Penalización: -176,44 euros"
+            "total"                    = "Total: 34.964,71 euros"
         }
 
         Set-Valores -Campos $Campos
