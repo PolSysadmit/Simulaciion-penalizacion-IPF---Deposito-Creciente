@@ -6,107 +6,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIMULACIÓN DE PENALIZACIÓN DE IPF's</title>
   <style>
-body {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
-}
-button {
-  background-color: #00594F; /* Green */
-  border: none;
-  color: white;
+    body {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+    }
 
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  height:30px;
-  width:200px;
-}
+    button {
+      background-color: #00594F;
+      /* Green */
+      border: none;
+      color: white;
 
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      height: 30px;
+      width: 200px;
+    }
 
+    td label {
+      display: inline-block;
+      width: 180px;
+      vertical-align: top;
+    }
 
+    #resultados>div {
+      font-weight: bold;
+    }
 
-
+    #resultados>div h3 {
+      font-weight: normal;
+    }
   </style>
 </head>
 
 <body>
   <h1>SIMULACIÓN DE PENALIZACIÓN DE IPF's</h1>
   <form id="calculadora">
-  <table style="border: hidden">
-  <tr>
-  <td>
-    <label for="tipoTarifa">Tipo de Tarifa:</label>
-	</td><td>
-    <select id="tipoTarifa" name="tipoTarifa">
-      <option value="Ordinaria">Ordinaria</option>
-      <option value="Coyuntural">Coyuntural</option>
-    </select>
-    </td></tr><tr><td>
-    <label for="reintegro">Reintegro:</label>
-</td><td>
-    <select id="reintegro" name="reintegro">
-      <option value="Total">Total</option>
-      <option value="Parcial">Parcial</option>
-    </select>
-    </td></tr><tr><td>
-    <label for="importe">Importe (euros):</label>
-</td><td>
-    <!-- <input type="number" id="importe" name="importe" value="70000"> -->
-    <input type="number" id="importe" name="importe">
-    </td></tr><tr><td>
-    <label for="fechaInicio">Fecha inicio:</label>
-</td><td>
-    <!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> -->
-    <input type="date" id="fechaInicio" name="fechaInicio">
-    </td></tr><tr><td>
-    <label for="fechaVencimiento">Fecha vencimiento:</label>
-</td><td>
-    <!-- <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15"> -->
-    <input type="date" id="fechaVencimiento" name="fechaVencimiento">
-    </td></tr><tr><td>
-    <label for="fechaReintegro">Fecha reintegro:</label>
-</td><td>
-    <!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> -->
-    <input type="date" id="fechaReintegro" name="fechaReintegro">
-    </td></tr>
+    <table style="border: hidden">
+      <tr>
+        <td>
+          <label for="tipoTarifa">Tipo de Tarifa:</label>
+        </td>
+        <td>
+          <select id="tipoTarifa" name="tipoTarifa">
+            <option value="Ordinaria">Ordinaria</option>
+            <option value="Coyuntural">Coyuntural</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="reintegro">Reintegro:</label>
+        </td>
+        <td>
+          <select id="reintegro" name="reintegro">
+            <option value="Total">Total</option>
+            <option value="Parcial">Parcial</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="importe">Importe (euros):</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="importe" name="importe" value="70000"> -->
+          <input type="number" id="importe" name="importe">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fechaInicio">Fecha inicio:</label>
+        </td>
+        <td>
+          <!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> -->
+          <input type="date" id="fechaInicio" name="fechaInicio">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fechaVencimiento">Fecha vencimiento:</label>
+        </td>
+        <td>
+          <!-- <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15"> -->
+          <input type="date" id="fechaVencimiento" name="fechaVencimiento">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fechaReintegro">Fecha reintegro:</label>
+        </td>
+        <td>
+          <!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> -->
+          <input type="date" id="fechaReintegro" name="fechaReintegro">
+        </td>
+      </tr>
 
-	<tr id="importeReintegroContainer">
-	<td>
-      <label for="importeReintegro">Importe reintegro (euros):</label>
-</td><td>
-      <!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> -->
-      <input type="number" id="importeReintegro" name="importeReintegro">
-</td>
-</tr>
 
-	
-<tr><td>
-    <label for="tipoInteres"> % Tipo de interés:</label>
-</td><td>
-    <!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> -->
-    <input type="number" id="tipoInteres" name="tipoInteres">
+      <tr id="importeReintegroContainer">
+        <td>
+          <label for="importeReintegro">Importe reintegro (euros):</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> -->
+          <input type="number" id="importeReintegro" name="importeReintegro">
+        </td>
+      </tr>
 
-    </td></tr><tr><td>
-    <label for="porcentajeRetencion"> % Retención:</label>
-</td><td>
-    <!-- <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20"> -->
-    <input type="number" id="porcentajeRetencion" name="porcentajeRetencion">
-    </td></tr><tr><td>
-    <label for="porcentajePenalizacion"> % Penalización:</label>
-</td><td>
-    <!-- <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion" value="1"> -->
-    <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion">
-    </td></tr>
+      <tr>
+        <td>
+          <label for="tipoInteres"> % Tipo de interés:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> -->
+          <input type="number" id="tipoInteres" name="tipoInteres">
 
-	<tr><td colspan=2>
-	<br>
-    <center><button type="button" onclick="calcularLiquidacion()">Calcular Liquidación</button></center>
-</td>
-	</table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="porcentajeRetencion"> % Retención:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20"> -->
+          <input type="number" id="porcentajeRetencion" name="porcentajeRetencion">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="porcentajePenalizacion"> % Penalización:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion" value="1"> -->
+          <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion">
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan=2>
+          <br>
+          <center><button type="button" onclick="calcularLiquidacion()">Calcular Liquidación</button></center>
+        </td>
+    </table>
   </form>
   <div id="resultados" style="display: none;">
     <h2>Resultados</h2>
@@ -281,8 +327,8 @@ button {
 
       // Muestra los resultados en los elementos HTML correspondientes
       document.getElementById("duracionMeses").innerText = `Duración (meses): ${formatearNumero(duracionMeses)}`;
-      document.getElementById("diasTranscurridos").innerText = `Días transcurridos: ${diasTranscurridos.toFixed(0)}`;
-      document.getElementById("diasRemanentes").innerText = `Días remanentes: ${diasRemanentes.toFixed(0)}`;
+      document.getElementById("diasTranscurridos").innerText = `Días transcurridos: ${formatearNumero(diasTranscurridos)}`;
+      document.getElementById("diasRemanentes").innerText = `Días remanentes: ${formatearNumero(diasRemanentes)}`;
       document.getElementById("interesesEuros").innerText = `Intereses: ${formatearNumero(interesesEuros)} euros`;
       document.getElementById("interesesEurosReintegro").innerText = `Intereses Reintegro: ${formatearNumero(interesesEurosReintegro)} euros`;
       document.getElementById("interesesEurosDevengados").innerText = `Intereses Devengados: ${formatearNumero(interesesEurosDevengados)} euros`;
@@ -304,11 +350,16 @@ button {
     function toggleImporteReintegro() {
       const reintegro = document.getElementById("reintegro").value; // Obtiene el valor de "Reintegro"
       const importeReintegroContainer = document.getElementById("importeReintegroContainer"); // Obtiene el contenedor del campo "Importe Reintegro"
+      const importeReintegroCells = importeReintegroContainer.getElementsByTagName("td"); // Obtiene las celdas de la tabla dentro de la fila
 
       if (reintegro === "Parcial") { // Si se seleccionó "Parcial" en "Reintegro"
-        importeReintegroContainer.style.display = "block"; // Muestra el campo "Importe Reintegro"
+        for (let i = 0; i < importeReintegroCells.length; i++) {
+          importeReintegroCells[i].style.display = "table-cell"; // Muestra las celdas de la tabla
+        }
       } else {
-        importeReintegroContainer.style.display = "none"; // Oculta el campo "Importe Reintegro"
+        for (let i = 0; i < importeReintegroCells.length; i++) {
+          importeReintegroCells[i].style.display = "none"; // Oculta las celdas de la tabla
+        }
       }
 
       calcularLiquidacion
@@ -348,6 +399,17 @@ button {
     // Agrega el event listener al objeto document
     document.addEventListener("keydown", handleKeyDown);
 
+    function hideResults() {
+      const resultadosDiv = document.getElementById("resultados");
+      resultadosDiv.style.display = "none";
+    }
+
+    // Establecer eventos para ejecutar CalcularLiquidacion cuando se modifiquen los campos
+    const campos = ["reintegro", "importe", "importeReintegro", "fechaInicio", "fechaVencimiento", "fechaReintegro", "importeReintegro", "tipoInteres", "porcentajeRetencion", "porcentajePenalizacion"];
+
+    for (let i = 0; i < campos.length; i++) {
+      document.getElementById(campos[i]).addEventListener("change", hideResults);
+    }
 
 
 
