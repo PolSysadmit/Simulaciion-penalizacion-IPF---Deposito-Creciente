@@ -50,8 +50,7 @@
             $Resultados
 
         )
-
-           
+     
 
             
 
@@ -66,6 +65,30 @@
 }
 
 Describe "Verificar Errores de entrada" {
+
+
+    BeforeEach {
+        $CamposIniciales = [ordered]@{
+            "importe"                = "70000"
+            "tipoInteres"            = "1"
+            "porcentajeRetencion"    = "20"
+            "porcentajePenalizacion" = "1"
+            "fechaInicio"            = "15/03/2023"
+            "fechaVencimiento"       = "1/03/2023"
+            "fechaReintegro"         = "15/09/2023" 
+
+        }
+
+        foreach ($CampoInicial in $CamposIniciales.GetEnumerator())
+        {
+            $Global:Driver.FindElementById($CampoInicial.Key).clear()
+            $Global:Driver.FindElementById($CampoInicial.Key).SendKeys($CampoInicial.Value)
+            
+        }
+
+
+    }
+
     It "Importe < 0" {
 
         $Campos = @{
@@ -74,7 +97,7 @@ Describe "Verificar Errores de entrada" {
         } 
 
         Set-Valores -Campos $Campos
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
         $Global:Driver.SwitchTo().alert().text | Should -Be "'El importe' es obligatorio y debe ser un valor numérico superior a 0."
         $Global:Driver.SwitchTo().alert().accept()
     
@@ -89,15 +112,15 @@ Describe "Verificar Errores de entrada" {
             "porcentajePenalizacion" = "-1"  
         }
 
-       
+   
 
         foreach ($Campo in $Campos.GetEnumerator())
         {
-   
+           
+
             $Global:Driver.FindElementById($Campo.Key).clear()
             $Global:Driver.FindElementById($Campo.Key).SendKeys($Campo.Value)
-
-            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
             $Global:Driver.SwitchTo().alert().text | Should -BeLike "* es obligatorio y debe ser un valor numérico superior a 0."
             $Global:Driver.SwitchTo().alert().accept()
             $Global:Driver.FindElementById($Campo.Key).clear()
@@ -127,7 +150,7 @@ Describe "Verificar Errores de entrada" {
    
             $Global:Driver.FindElementById($Campo.Key).clear()
             
-            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
             $Global:Driver.SwitchTo().alert().text | Should -BeLike "* es obligatorio y debe ser un valor numérico superior a 0."
             $Global:Driver.SwitchTo().alert().accept()
             $Global:Driver.FindElementById($Campo.Key).clear()
@@ -170,7 +193,7 @@ Describe "Verificar Errores de entrada" {
             Set-Valores -Campos $CamposIniciales
             $Global:Driver.FindElementById($CampoVerificar.Key).clear()
             
-            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
             $Global:Driver.SwitchTo().alert().text | Should -BeLike "* no es una fecha válida."
             $Global:Driver.SwitchTo().alert().accept()
             
@@ -202,7 +225,7 @@ Describe "Verificar Errores de entrada" {
 
 
             
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
         $Global:Driver.SwitchTo().alert().text | Should -Be "Error: La 'fecha de vencimiento' debe ser posterior a la 'fecha de inicio'."
         $Global:Driver.SwitchTo().alert().accept()
             
@@ -228,7 +251,7 @@ Describe "Verificar Errores de entrada" {
 
 
             
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
         $Global:Driver.SwitchTo().alert().text | Should -Be "Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'."
         $Global:Driver.SwitchTo().alert().accept()
             
@@ -254,7 +277,7 @@ Describe "Verificar Errores de entrada" {
 
 
             
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click() 
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click() 
         $Global:Driver.SwitchTo().alert().text | Should -Be "Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'."
         $Global:Driver.SwitchTo().alert().accept()
             
@@ -270,7 +293,7 @@ Describe "Verificar cálculos" {
     BeforeEach {
     }
 
-    It "Ordinaria-Total: REINTEGRO TOTAL - Penalización por días remanentes (Tarifas ordinarias):" {
+    It "Ordinaria-REINTEGRO TOTAL - Penalización por días remanentes (Tarifas ordinarias):" {
 
         $Campos = @{
             "tipoTarifa"             = "Ordinaria"
@@ -284,25 +307,25 @@ Describe "Verificar cálculos" {
             "fechaReintegro"         = "14/08/2023"
         }
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12,02"
-            "diasTranscurridos"        = "Días transcurridos: 152"
-            "diasRemanentes"           = "Días remanentes: 214"
-            "interesesEuros"           = "Intereses: 291,51 euros"
-            "interesesEurosReintegro"  = "Intereses Reintegro: 291,51 euros"
-            "interesesEurosDevengados" = "Intereses Devengados: 291,51 euros"
-            "retencionEuros"           = "Retención: 58,30 euros"
-            "penalizacionEuros"        = "Penalización: 410,41 euros"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 291,51 euros"
-            "penalizacionAplicar"      = "Penalización a aplicar: 291,51 euros"
-            "capital"                  = "+Capital: 70.000,00 euros"
-            "intereses"                = "+Intereses: 291,51 euros"
-            "retencion"                = "-Retención: -58,30 euros"
-            "penalizacion"             = "-Penalización: -291,51 euros"
-            "total"                    = "Total: 69.941,70 euros"
+            "duracionMeses"            = "12,02"
+            "diasTranscurridos"        = "152,00"
+            "diasRemanentes"           = "214,00"
+            "interesesEuros"           = "291,51 euros"
+            "interesesEurosReintegro"  = "291,51 euros"
+            "interesesEurosDevengados" = "291,51 euros"
+            "retencionEuros"           = "58,30 euros"
+            "penalizacionEuros"        = "410,41 euros"
+            "maximoInteresesBrutos"    = "291,51 euros"
+            "penalizacionAplicar"      = "291,51 euros"
+            "capital"                  = "70.000,00 euros"
+            "intereses"                = "291,51 euros"
+            "retencion"                = "-58,30 euros"
+            "penalizacion"             = "-291,51 euros"
+            "total"                    = "69.941,70 euros"
         }
 
         Set-Valores -Campos $Campos
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click()
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click()
         Test-Resultados -Resultados $Resultados
 
     }
@@ -323,26 +346,26 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12,02"
-            "diasTranscurridos"        = "Días transcurridos: 31"
-            "diasRemanentes"           = "Días remanentes: 335"
-            "interesesEuros"           = "Intereses: 42,47 euros"
-            "interesesEurosReintegro"  = "Intereses Reintegro: 42,47 euros"
-            "interesesEurosDevengados" = "Intereses Devengados: 59,45 euros"
-            "retencionEuros"           = "Retención: 8,49 euros"
-            "penalizacionEuros"        = "Penalización: 458,90 euros"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 59,45 euros"
-            "penalizacionAplicar"      = "Penalización a aplicar: 59,45 euros"
-            "capital"                  = "+Capital: 50.000,00 euros"
-            "intereses"                = "+Intereses: 42,47 euros"
-            "retencion"                = "-Retención: -8,49 euros"
-            "penalizacion"             = "-Penalización: -59,45 euros"
-            "total"                    = "Total: 49.974,52 euros"
+            "duracionMeses"            = "12,02"
+            "diasTranscurridos"        = "31,00"
+            "diasRemanentes"           = "335,00"
+            "interesesEuros"           = "42,47 euros"
+            "interesesEurosReintegro"  = "42,47 euros"
+            "interesesEurosDevengados" = "59,45 euros"
+            "retencionEuros"           = "8,49 euros"
+            "penalizacionEuros"        = "458,90 euros"
+            "maximoInteresesBrutos"    = "59,45 euros"
+            "penalizacionAplicar"      = "59,45 euros"
+            "capital"                  = "50.000,00 euros"
+            "intereses"                = "42,47 euros"
+            "retencion"                = "-8,49 euros"
+            "penalizacion"             = "-59,45 euros"
+            "total"                    = "49.974,52 euros"
         }
 
         Set-Valores -Campos $Campos
 
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click()
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click()
 
         Test-Resultados -Resultados $Resultados
 
@@ -350,7 +373,7 @@ Describe "Verificar cálculos" {
 
     } 
     
-    It "Coyuntural-Total: REINTEGRO TOTAL - Penalización por días transcurridos (Tarifas coyunturales):" {
+    It "Coyuntural-REINTEGRO TOTAL - Penalización por días transcurridos (Tarifas coyunturales):" {
 
         $Campos = [ordered]@{
             "tipoTarifa"             = "Coyuntural"
@@ -365,25 +388,25 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12,02"
-            "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses: 352,88 euros"
-            "interesesEurosReintegro"  = "Intereses Reintegro: 352,88 euros"
-            "interesesEurosDevengados" = "Intereses Devengados: 352,88 euros"
-            "retencionEuros"           = "Retención: 70,58 euros"
-            "penalizacionEuros"        = "Penalización: 352,88 euros"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352,88 euros"
-            "penalizacionAplicar"      = "Penalización a aplicar: 352,88 euros"
-            "capital"                  = "+Capital: 70.000,00 euros"
-            "intereses"                = "+Intereses: 352,88 euros"
-            "retencion"                = "-Retención: -70,58 euros"
-            "penalizacion"             = "-Penalización: -352,88 euros"
-            "total"                    = "Total: 69.929,42 euros"
+            "duracionMeses"            = "12,02"
+            "diasTranscurridos"        = "184,00"
+            "interesesEuros"           = "352,88 euros"
+            "interesesEurosReintegro"  = "352,88 euros"
+            "interesesEurosDevengados" = "352,88 euros"
+            "retencionEuros"           = "70,58 euros"
+            "penalizacionEuros"        = "352,88 euros"
+            "maximoInteresesBrutos"    = "352,88 euros"
+            "penalizacionAplicar"      = "352,88 euros"
+            "capital"                  = "70.000,00 euros"
+            "intereses"                = "352,88 euros"
+            "retencion"                = "-70,58 euros"
+            "penalizacion"             = "-352,88 euros"
+            "total"                    = "69.929,42 euros"
         }
 
         Set-Valores -Campos $Campos
 
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click()
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click()
 
         Test-Resultados -Resultados $Resultados
     }
@@ -404,25 +427,25 @@ Describe "Verificar cálculos" {
         }
 
         $Resultados = @{
-            "duracionMeses"            = "Duración (meses): 12,02"
-            "diasTranscurridos"        = "Días transcurridos: 184"
-            "interesesEuros"           = "Intereses: 176,44 euros"
-            "interesesEurosDevengados" = "Intereses Devengados: 352,88 euros"
-            "interesesEurosReintegro"  = "Intereses Reintegro: 176,44 euros"
-            "retencionEuros"           = "Retención: 35,29 euros"
-            "penalizacionEuros"        = "Penalización: 176,44 euros"
-            "maximoInteresesBrutos"    = "Máximo intereses brutos: 352,88 euros"
-            "penalizacionAplicar"      = "Penalización a aplicar: 176,44 euros"
-            "capital"                  = "+Capital: 35.000,00 euros"
-            "intereses"                = "+Intereses: 176,44 euros"
-            "retencion"                = "-Retención: -35,29 euros"
-            "penalizacion"             = "-Penalización: -176,44 euros"
-            "total"                    = "Total: 34.964,71 euros"
+            "duracionMeses"            = "12,02"
+            "diasTranscurridos"        = "184,00"
+            "interesesEuros"           = "176,44 euros"
+            "interesesEurosDevengados" = "352,88 euros"
+            "interesesEurosReintegro"  = "176,44 euros"
+            "retencionEuros"           = "35,29 euros"
+            "penalizacionEuros"        = "176,44 euros"
+            "maximoInteresesBrutos"    = "352,88 euros"
+            "penalizacionAplicar"      = "176,44 euros"
+            "capital"                  = "35.000,00 euros"
+            "intereses"                = "176,44 euros"
+            "retencion"                = "-35,29 euros"
+            "penalizacion"             = "-176,44 euros"
+            "total"                    = "34.964,71 euros"
         }
 
         Set-Valores -Campos $Campos
 
-        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/button').click()
+        $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[11]/td/center/button').click()
 
         Test-Resultados -Resultados $Resultados
 
