@@ -78,651 +78,109 @@
 </head>
 
 <body>
-  <h1>REINTEGRO DEPOSITO CRECIENTE 18M - Penalización por días transcurridos (Tarifas coyunturales)</h1>
+  <h1>SIMULACIÓN DE PENALIZACIÓN DE IPF's</h1>
   <form id="calculadora">
     <table style="border: hidden">
-<tr>
-      <td width="167">
+      <tr>
+        <td>
+          <label for="tipoTarifa">Tipo de Tarifa:</label>
+        </td>
+        <td>
+          <select id="tipoTarifa" name="tipoTarifa">
+            <option value="Ordinaria">Ordinaria</option>
+            <option value="Coyuntural">Coyuntural</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="reintegro">Reintegro:</label>
+        </td>
+        <td>
+          <select id="reintegro" name="reintegro">
+            <option value="Total">Total</option>
+            <option value="Parcial">Parcial</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <label for="importe">Importe (euros):</label>
         </td>
-      <td width="144"><input type="number" id="importe" name="importe"></td>
-      <td width="1">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td>&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td width="1">&nbsp;</td>
-      <td width="1">&nbsp;</td>
-        <td width="258">
-        <!-- <input type="number" id="importe" name="importe" value="70000"> --></td>
+        <td>
+          <!-- <input type="number" id="importe" name="importe" value="70000"> -->
+          <input type="number" id="importe" name="importe">
+        </td>
       </tr>
       <tr>
         <td>
           <label for="fechaInicio">Fecha inicio:</label>
         </td>
-        <td><input type="date" id="fechaInicio" name="fechaInicio"></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
         <td>
-        <!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> --></td>
+          <!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> -->
+          <input type="date" id="fechaInicio" name="fechaInicio">
+        </td>
       </tr>
       <tr>
         <td>
           <label for="fechaVencimiento">Fecha vencimiento:</label>
         </td>
-        <td><input type="date" id="fechaVencimiento" name="fechaVencimiento"></td>
-        <td>&nbsp;</td>
-        <td colspan="2">LIQUIDACIÓN PRIMER SEMESTRE </td>
-        <td colspan="2">LIQUIDACIÓN SEGUNDO SEMESTRE </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
         <td>
-        <!-- <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15"> --></td>
-      </tr>
-      <tr>
-        <td><label for="porcentajePenalizacion5"> % Penalización Reintegro:</label></td>
-        <td><input type="number" id="porcentajePenalizacion5" name="porcentajePenalizacion2"></td>
-        <td>&nbsp;</td>
-        <td>Importe vivo </td>
-        <td>&nbsp;</td>
-        <td>Importe vivo </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion" value="1"> --></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td width="281">Fecha    liquidación</td>
-        <td>&nbsp;</td>
-        <td width="281">Fecha    liquidación</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>1er SEMESTRE</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>Fecha liquidación</td>
-        <td><input type="date" id="fechaInicio3" name="fechaLiquidacion1"></td>
-        <td>&nbsp;</td>
-        <td>Tipo de interés</td>
-        <td>&nbsp;</td>
-        <td>Tipo de interés</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> --></td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="tipoInteres1">% Tipo de interés:</label>
+          <!-- <input type="date" id="fechaVencimiento" name="fechaVencimiento" value="2024-03-15"> -->
+          <input type="date" id="fechaVencimiento" name="fechaVencimiento">
         </td>
-        <td><input type="number" id="tipoInteres1" name="tipoInteres1"></td>
-        <td>&nbsp;</td>
-        <td>Intereses Euros</td>
-        <td>&nbsp;</td>
-        <td>Intereses Euros</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+      </tr>
+      <tr>
         <td>
-        <!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> --></td>
+          <label for="fechaReintegro">Fecha reintegro:</label>
+        </td>
+        <td>
+          <!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> -->
+          <input type="date" id="fechaReintegro" name="fechaReintegro">
+        </td>
       </tr>
-      <tr id="importeReintegroContainer2">
-        <td><label for="importeReintegro3">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="importeReintegro3" name="importeReintegro1"></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> --></td>
-      </tr>
-      <tr>
-        <td><label for="fechaReintegro3">Fecha reintegro:</label></td>
-        <td><input type="date" id="fechaReintegro3" name="fechaReintegro1"></td>
-        <td>&nbsp;</td>
-        <td width="281">%    Retención  </td>
-        <td>&nbsp;</td>
-        <td width="281">%    Retención  </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> --></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Retención  Euros</td>
-        <td>&nbsp;</td>
-        <td>Retención  Euros</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>2º SEMESTRE</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>Fecha liquidación</td>
-        <td><input type="date" id="fechaLiquidacion2" name="fechaLiquidacion2"></td>
-        <td>&nbsp;</td>
-        <td>Simulación liquidación </td>
-        <td>&nbsp;</td>
-        <td>Simulación liquidación </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> --></td>
-      </tr>
-      <tr>
-        <td><label for="tipoInteres1">% Tipo de interés:</label></td>
-        <td><input type="number" id="tipoInteres1" name="tipoInteres2"></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> --></td>
-      </tr>
+
       <tr id="importeReintegroContainer">
-        <td><label for="importeReintegro4">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="importeReintegro4" name="importeReintegro2"></td>
-        <td>&nbsp;</td>
-        <td width="281"> +Intereses</td>
-        <td>&nbsp;</td>
-        <td width="281"> +Intereses</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> --></td>
-      </tr>
-      <tr>
-        <td><label for="fechaReintegro4">Fecha reintegro:</label></td>
-        <td><input type="date" id="fechaReintegro4" name="fechaReintegro2"></td>
-        <td>&nbsp;</td>
-        <td> -Retención</td>
-        <td>&nbsp;</td>
-        <td> -Retención</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> --></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>3er SEMESTRE</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>Fecha liquidación</td>
-        <td><input type="date" id="fechaLiquidacion3" name="fechaLiquidacion3"></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaInicio" name="fechaInicio" value="2023-03-15"> --></td>
-      </tr>
-      <tr>
-        <td><label for="tipoInteres1">% Tipo de interés:</label></td>
-        <td><input type="number" id="tipoInteres1" name="tipoInteres3"></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> --></td>
-      </tr>
-      <tr id="importeReintegroContainer3">
-        <td><label for="importeReintegro5">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="importeReintegro5" name="importeReintegro3"></td>
-        <td>&nbsp;</td>
-        <td colspan="2">REINTEGRO PRIMER SEMESTRE </td>
-        <td colspan="2">REINTEGRO SEGUNDO SEMESTRE </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> --></td>
-      </tr>
-      <tr>
-        <td><label for="fechaReintegro5">Fecha reintegro:</label></td>
-        <td><input type="date" id="fechaReintegro5" name="fechaReintegro3"></td>
-        <td>&nbsp;</td>
-        <td width="281">Importe    Reintegro</td>
-        <td>&nbsp;</td>
-        <td width="281">Importe    Reintegro</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td><!-- <input type="date" id="fechaReintegro" name="fechaReintegro" value="2023-04-15"> --></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Fecha reintegro</td>
-        <td>&nbsp;</td>
-        <td>Fecha reintegro</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>% Penalización</td>
-        <td>&nbsp;</td>
-        <td>% Penalización</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos desde    inicio</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos desde    inicio</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos desde    anterior liquidación</td>
-        <td>&nbsp;</td>
-        <td>Días transcurridos desde    anterior liquidación</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Intereses reintegro</td>
-        <td>&nbsp;</td>
-        <td>Intereses reintegro</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Penalización Euros</td>
-        <td>&nbsp;</td>
-        <td>Penalización Euros</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Máximo intereses brutos</td>
-        <td>&nbsp;</td>
-        <td>Máximo intereses brutos</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Penalización a aplicar</td>
-        <td>&nbsp;</td>
-        <td>Penalización a aplicar</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td width="281">%    Retención  </td>
-        <td>&nbsp;</td>
-        <td width="281">%    Retención  </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>Retención  Euros</td>
-        <td>&nbsp;</td>
-        <td>Retención  Euros</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td width="281">Simulación    reintegro</td>
-        <td>&nbsp;</td>
-        <td width="281">Simulación    reintegro</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td> +Capital</td>
-        <td>&nbsp;</td>
-        <td> +Capital</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td> +Intereses</td>
-        <td>&nbsp;</td>
-        <td> +Intereses</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td> -Retención</td>
-        <td>&nbsp;</td>
-        <td> -Retención</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td> -Penalización</td>
-        <td>&nbsp;</td>
-        <td> -Penalización</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td>
+          <label for="importeReintegro">Importe reintegro (euros):</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="importeReintegro" name="importeReintegro" value="50000"> -->
+          <input type="number" id="importeReintegro" name="importeReintegro">
+        </td>
       </tr>
 
       <tr>
-        <td colspan=13>
+        <td>
+          <label for="tipoInteres"> % Tipo de interés:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="tipoInteres" name="tipoInteres" value="1"> -->
+          <input type="number" id="tipoInteres" name="tipoInteres">
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="porcentajeRetencion"> % Retención:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="porcentajeRetencion" name="porcentajeRetencion" value="20"> -->
+          <input type="number" id="porcentajeRetencion" name="porcentajeRetencion">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="porcentajePenalizacion"> % Penalización:</label>
+        </td>
+        <td>
+          <!-- <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion" value="1"> -->
+          <input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion">
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan=2>
           <br>
           <center><button type="button" onclick="calcularLiquidacion()">Calcular Liquidación</button></center>
         </td>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMULACIÓN DE PENALIZACIÓN DE IPF's</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+    }
+
+    button {
+      background-color: #00594F;
+      /* Green */
+      border: none;
+      color: white;
+
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      height: 30px;
+      width: 200px;
+    }
+
+    td label {
+      display: inline-block;
+      width: 180px;
+      vertical-align: top;
+    }
+
+    .resultados td:first-child {
+      font-weight: bold;
+      text-align: left;
+      padding-right: 5px;
+    }
+
+    .resultados td:last-child {
+      text-align: left;
+    }
+
+    .total-row {
+      /* background-color: rgb(227, 240, 216); */
+      font-size: 14px;
+      font-weight: bold;
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+      border: 1;
+    }
+
+    .total-row td {
+      font-weight: bold;
+      font-weight: bold;
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+      border: 1;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    tr.noBorder td {
+      font-weight: bold;
+      background-color: rgb(227, 240, 216);
+      border-width: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>REINTEGRO DEPOSITO CRECIENTE 18M - Penalización por días transcurridos (Tarifas coyunturales)</h1>
+  <form id="calculadora">
+    <table style="border: hidden">
+      <tr>
+        <td width="167">
+          <label for="importe">Importe (euros):</label>
+        </td>
+        <td width="144"><input type="number" id="importe" name="importe"></td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fechaInicio">Fecha inicio:</label>
+        </td>
+        <td><input type="date" id="fechaInicio" name="fechaInicio"></td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fechaVencimiento">Fecha vencimiento:</label>
+        </td>
+        <td><input type="date" id="fechaVencimiento" name="fechaVencimiento"></td>
+      </tr>
+      <tr>
+        <td><label for="porcentajePenalizacion5"> % Penalización Reintegro:</label></td>
+        <td><input type="number" id="porcentajePenalizacion" name="porcentajePenalizacion"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><label for="porcentajeRetencion">% Retención</label></td>
+        <td><input type="number" id="porcentajeRetencion" name="porcentajeRetencion"></td>
+      </tr>
+      <tr>
+        <td>1er SEMESTRE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Fecha liquidación</td>
+        <td><input type="date" id="fechaLiquidacion1" name="fechaLiquidacion1"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <label for="tipoInteres1">% Tipo de interés:</label>
+        </td>
+        <td><input type="number" id="tipoInteres1" name="tipoInteres1"></td>
+      </tr>
+      <tr id="importeReintegroContainer1">
+        <td><label for="importeReintegro1">Importe reintegro (euros):</label></td>
+        <td><input type="number" id="importeReintegro1" name="importeReintegro1"></td>
+      </tr>
+      <tr>
+        <td><label for="fechaReintegro3">Fecha reintegro:</label></td>
+        <td><input type="date" id="fechaReintegro1" name="fechaReintegro1"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2º SEMESTRE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Fecha liquidación</td>
+        <td><input type="date" id="fechaLiquidacion2" name="fechaLiquidacion2"></td>
+      </tr>
+      <tr>
+        <td><label for="tipoInteres1">% Tipo de interés:</label></td>
+        <td><input type="number" id="tipoInteres2" name="tipoInteres2"></td>
+      </tr>
+      <tr id="importeReintegroContainer2">
+        <td><label for="importeReintegro2">Importe reintegro (euros):</label></td>
+        <td><input type="number" id="importeReintegro2" name="importeReintegro2"></td>
+      </tr>
+      <tr>
+        <td><label for="fechaReintegro4">Fecha reintegro:</label></td>
+        <td><input type="date" id="fechaReintegro2" name="fechaReintegro2"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3er SEMESTRE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Fecha liquidación</td>
+        <td><input type="date" id="fechaLiquidacion3" name="fechaLiquidacion3"></td>
+      </tr>
+      <tr>
+        <td><label for="tipoInteres3">% Tipo de interés:</label></td>
+        <td><input type="number" id="tipoInteres3" name="tipoInteres3"></td>
+      </tr>
+      <tr id="importeReintegroContainer3">
+        <td><label for="importeReintegro3">Importe reintegro (euros):</label></td>
+        <td><input type="number" id="importeReintegro3" name="importeReintegro3"></td>
+      </tr>
+      <tr>
+        <td><label for="fechaReintegro3">Fecha reintegro:</label></td>
+        <td><input type="date" id="fechaReintegro3" name="fechaReintegro3"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>
+          <br>
+          <center><button type="button" onclick="calcularLiquidacion()">Calcular Liquidación</button></center>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+
+  <p>&nbsp;</p>
+
+  <!-- <div id="resultados" style="display: none;"> -->
+  <div id="resultados">
+    <h2>Resultados</h2>
+    <table class="resultados">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>LIQUIDACIÓN PRIMER SEMESTRE</td>
+        <td></td>
+        <td></td>
+        <td>LIQUIDACIÓN SEGUNDO SEMESTRE</td>
+        <td></td>
+        <td></td>
+        <td>LIQUIDACIÓN TERCER SEMESTRE</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Importe vivo</td>
+        <td id="ImporteVivoLiqudacion1L"></td>
+        <td></td>
+        <td>Importe vivo</td>
+        <td id="ImporteVivoLiqudacion2L"></td>
+        <td></td>
+        <td>Importe vivo</td>
+        <td id="ImporteVivoLiqudacion3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Fecha liquidación</td>
+        <td id="fechaLiquidacion1L"></td>
+        <td></td>
+        <td>Fecha liquidación</td>
+        <td id="fechaLiquidacion2L"></td>
+        <td></td>
+        <td>Fecha liquidación</td>
+        <td id="fechaLiquidacion3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Días transcurridos</td>
+        <td id="DiasTranscurridos1L"></td>
+        <td></td>
+        <td>Días transcurridos</td>
+        <td id="DiasTranscurridos2L"></td>
+        <td></td>
+        <td>Días transcurridos</td>
+        <td id="DiasTranscurridos3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Tipo de interés</td>
+        <td id="TipoInteres1L"></td>
+        <td></td>
+        <td>Tipo de interés</td>
+        <td id="TipoInteres2L"></td>
+        <td></td>
+        <td>Tipo de interés</td>
+        <td id="TipoInteres3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Intereses Euros</td>
+        <td id="InteresesEuros1L"></td>
+        <td></td>
+        <td>Intereses Euros</td>
+        <td id="InteresesEuros2L"></td>
+        <td></td>
+        <td>Intereses Euros</td>
+        <td id="InteresesEuros3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>% Retención </td>
+        <td id="PorcentajeRetencion1L"></td>
+        <td></td>
+        <td>% Retención </td>
+        <td id="PorcentajeRetencion2L"></td>
+        <td></td>
+        <td>% Retención </td>
+        <td id="PorcentajeRetencion3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros1L"></td>
+        <td></td>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros2L"></td>
+        <td></td>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td id="SimulacionLiquidacion1L">Simulación liquidación</td>
+        <td></td>
+        <td></td>
+        <td id="SimulacionLiquidacion2L">Simulación liquidación</td>
+        <td></td>
+        <td></td>
+        <td id="SimulacionLiquidacion3L">Simulación liquidación</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> +Intereses</td>
+        <td id="+Intereses1L"></td>
+        <td></td>
+        <td> +Intereses</td>
+        <td id="+Intereses2L"></td>
+        <td></td>
+        <td> +Intereses</td>
+        <td id="+Intereses3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> -Retención</td>
+        <td id="-Retencion1L"></td>
+        <td></td>
+        <td> -Retención</td>
+        <td id="-Retencion2L"></td>
+        <td></td>
+        <td> -Retención</td>
+        <td id="-Retencion3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="Resultado1L"></td>
+        <td></td>
+        <td></td>
+        <td id="Resultado2L"></td>
+        <td></td>
+        <td></td>
+        <td id="Resultado3L"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>REINTEGRO PRIMER SEMESTRE</td>
+        <td></td>
+        <td></td>
+        <td>REINTEGRO SEGUNDO SEMESTRE</td>
+        <td></td>
+        <td></td>
+        <td>REINTEGRO TERCER SEMESTRE</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Importe Reintegro</td>
+        <td id="importeReintegro1R"></td>
+        <td></td>
+        <td>Importe Reintegro</td>
+        <td id="importeReintegro2R"></td>
+        <td></td>
+        <td>Importe Reintegro</td>
+        <td id="importeReintegro3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Fecha reintegro</td>
+        <td id="FechaReintegro1R"></td>
+        <td></td>
+        <td>Fecha reintegro</td>
+        <td id="FechaReintegro2R"></td>
+        <td></td>
+        <td>Fecha reintegro</td>
+        <td id="FechaReintegro3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>% Penalización</td>
+        <td id="porcentajePenalizacion1R"></td>
+        <td></td>
+        <td>% Penalización</td>
+        <td id="porcentajePenalizacion2R"></td>
+        <td></td>
+        <td>% Penalización</td>
+        <td id="porcentajePenalizacion3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Días transcurridos desde inicio</td>
+        <td id="DiasTranscurridos1R"></td>
+        <td></td>
+        <td>Días transcurridos</td>
+        <td id="DiasTranscurridos2R"></td>
+        <td></td>
+        <td>Días transcurridos</td>
+        <td id="DiasTranscurridos3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="diasTranscurridosDesdeAnteriorLiuidacion1R"></td>
+        <td></td>
+        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="diasTranscurridosDesdeAnteriorLiuidacion2R"></td>
+        <td></td>
+        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="diasTranscurridosDesdeAnteriorLiuidacion3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Intereses reintegro</td>
+        <td id="InteresesReintegor1R"></td>
+        <td></td>
+        <td>Intereses reintegro</td>
+        <td id="InteresesReintegor2R"></td>
+        <td></td>
+        <td>Intereses reintegro</td>
+        <td id="InteresesReintegor3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Penalización Euros</td>
+        <td id="penalizacionEuros1R"></td>
+        <td></td>
+        <td>Penalización Euros</td>
+        <td id="penalizacionEuros2R"></td>
+        <td></td>
+        <td>Penalización Euros</td>
+        <td id="penalizacionEuros3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Máximo intereses brutos</td>
+        <td id="maximoInteresesBrutos1R"></td>
+        <td></td>
+        <td>Máximo intereses brutos</td>
+        <td id="maximoInteresesBrutos2R"></td>
+        <td></td>
+        <td>Máximo intereses brutos</td>
+        <td id="maximoInteresesBrutos3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Penalización a aplicar</td>
+        <td id="penalizacionAplicar1R"></td>
+        <td></td>
+        <td>Penalización a aplicar</td>
+        <td id="penalizacionAplicar2R"></td>
+        <td></td>
+        <td>Penalización a aplicar</td>
+        <td id="penalizacionAplicar3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>% Retención </td>
+        <td id="porcentajeRetencion1R"></td>
+        <td></td>
+        <td>% Retención </td>
+        <td id="porcentajeRetencion2R"></td>
+        <td></td>
+        <td>% Retención </td>
+        <td id="porcentajeRetencion3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros1R"></td>
+        <td></td>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros2R"></td>
+        <td></td>
+        <td>Retención Euros</td>
+        <td id="RetencionEuros3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Simulación reintegro</td>
+        <td></td>
+        <td></td>
+        <td>Simulación reintegro</td>
+        <td></td>
+        <td></td>
+        <td>Simulación reintegro</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> +Capital</td>
+        <td id="+Capital1R"></td>
+        <td></td>
+        <td> +Capital</td>
+        <td id="+Capital2R"></td>
+        <td></td>
+        <td> +Capital</td>
+        <td id="+Capital3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> +Intereses</td>
+        <td id="+Intereses1R"></td>
+        <td></td>
+        <td> +Intereses</td>
+        <td id="+Intereses2R"></td>
+        <td></td>
+        <td> +Intereses</td>
+        <td id="+Intereses3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> -Retención</td>
+        <td id="-Retencion1R"></td>
+        <td></td>
+        <td> -Retención</td>
+        <td id="-Retencion2R"></td>
+        <td></td>
+        <td> -Retención</td>
+        <td id="-Retencion3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td> -Penalización</td>
+        <td id="-Penalicacion1R"></td>
+        <td></td>
+        <td> -Penalización</td>
+        <td id="-Penalicacion2R"></td>
+        <td></td>
+        <td> -Penalización</td>
+        <td id="-Penalicacion3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="Resultado1R"></td>
+        <td></td>
+        <td></td>
+        <td id="Resultado2R"></td>
+        <td></td>
+        <td></td>
+        <td id="Resultado3R"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script>
+  // Crea una función para mostrar los resultados
+  function showResults() {
+
+    const resultadosDiv = document.getElementById("resultados");
+    resultadosDiv.style.display = "block";
+    toggleDiasRemanentes();
+
+  }
+
+  function calcularDuracion(fechaInicio, fechaVencimiento, fechaReintegro) {
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const DIAS_EN_UN_MES = 30.44;
+    const duracionMeses = (fechaVencimiento - fechaInicio) / (MS_PER_DAY * DIAS_EN_UN_MES);
+    const diasTranscurridos = Math.round((fechaReintegro - fechaInicio) / MS_PER_DAY);
+    const diasRemanentes = Math.round((fechaVencimiento - fechaReintegro) / MS_PER_DAY);
+
+    return {
+      duracionMeses,
+      diasTranscurridos,
+      diasRemanentes,
+    };
+  }
+
+  function calcularLiquidacion() {
+
+    // Obtén los valores de los elementos de entrada
+    const importe = parseFloat(document.getElementById("importe").value);
+    const fechaInicio = new Date(document.getElementById("fechaInicio").value);
+    const fechaVencimiento = new Date(document.getElementById("fechaVencimiento").value);
+    const porcentajePenalizacion = parseFloat(document.getElementById("porcentajePenalizacion").value) / 100;
+    const porcentajeRetencion = parseFloat(document.getElementById("porcentajeRetencion").value) / 100;
+
+    const fechaLiquidacion1 = new Date(document.getElementById("fechaLiquidacion1").value);
+    const fechaLiquidacion2 = new Date(document.getElementById("fechaLiquidacion2").value);
+    const fechaLiquidacion3 = new Date(document.getElementById("fechaLiquidacion3").value);
+
+    const tipoInteres1 = parseFloat(document.getElementById("tipoInteres1").value) / 100;
+    const tipoInteres2 = parseFloat(document.getElementById("tipoInteres2").value) / 100;
+    const tipoInteres3 = parseFloat(document.getElementById("tipoInteres3").value) / 100;
+
+    const importeReintegro1 = parseFloat(document.getElementById("importeReintegro1").value);
+    const importeReintegro2 = parseFloat(document.getElementById("importeReintegro2").value);
+    const importeReintegro3 = parseFloat(document.getElementById("importeReintegro3").value);
+
+    const fechaReintegro1 = new Date(document.getElementById("fechaReintegro1").value);
+    const fechaReintegro2 = new Date(document.getElementById("fechaReintegro2").value);
+    const fechaReintegro3 = new Date(document.getElementById("fechaReintegro3").value);
+
+
+    const fechaLiquidacion1S = fechaLiquidacion1
+    const fechaLiquidacion2S = fechaLiquidacion2
+    const fechaLiquidacion3S = fechaLiquidacion3
+
+    const FechaReintegro1R = fechaReintegro1
+    const FechaReintegro2R = fechaReintegro2
+    const FechaReintegro3R = fechaReintegro3
+
+    const tipoInteresS1 = tipoInteres1
+    const tipoInteresS2 = tipoInteres2
+    const tipoInteresS3 = tipoInteres3
+
+    const PorcentajeRetencion1L = porcentajeRetencion
+    const PorcentajeRetencion2L = porcentajeRetencion
+    const PorcentajeRetencion3L = porcentajeRetencion
+
+    const importeReintegro1R = importeReintegro1
+    const importeReintegro2R = importeReintegro2
+    const importeReintegro3R = importeReintegro3
+
+    const porcentajePenalizacion1R = porcentajePenalizacion
+    const porcentajePenalizacion2R = porcentajePenalizacion
+    const porcentajePenalizacion3R = porcentajePenalizacion
+
+    const ImporteVivoLiqudacion1L = importe - importeReintegro1R
+    const ImporteVivoLiqudacion2L = importe - importeReintegro2R
+    const ImporteVivoLiqudacion3L = importe - importeReintegro3R
+
+
+    // Validar los campos
+    if (!validarCampos()) {
+      return;
+    }
+
+    // Calcula duraciones en meses y días
+    const duraciones = calcularDuracion(fechaInicio, fechaVencimiento, fechaReintegro);
+    const duracionMeses = duraciones.duracionMeses;
+    const diasTranscurridos = duraciones.diasTranscurridos;
+    const diasRemanentes = duraciones.diasRemanentes;
+
+    // Calcula los intereses devengados y los intereses a reintegrar en euros
+    const interesesEurosDevengados = importe * tipoInteres * diasTranscurridos / 365;
+    const interesesEurosReintegro = importeReintegro * tipoInteres * diasTranscurridos / 365;
+
+    // Establece valores iniciales para los intereses, la retención y la penalización
+    let interesesEuros = interesesEurosReintegro;
+    let retencionEuros = interesesEurosReintegro * porcentajeRetencion;
+    let maximoInteresesBrutos = interesesEurosDevengados;
+
+    // Actualiza los valores de intereses y retención si el reintegro es total
+    if (reintegro === 'Total') {
+      interesesEuros = interesesEurosDevengados;
+      retencionEuros = interesesEuros * porcentajeRetencion;
+    }
+
+    // Calcula las penalizaciones en euros según el tipo de tarifa
+    const penalizacionEuros = importeReintegro * (
+      tipoTarifa === 'Coyuntural'
+        ? diasTranscurridos
+        : diasRemanentes
+    ) * porcentajePenalizacion / 365;
+
+    // Selecciona la penalización a aplicar (la menor entre la penalización y los intereses brutos)
+    const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+
+    // Calcula el capital, la retención, la penalización y el total a pagar
+    const capital = importeReintegro;
+    const retencion = -retencionEuros;
+    const penalizacion = -penalizacionAplicar;
+    const total = capital + interesesEuros + retencion + penalizacion;
+
+
+    // Muestra los resultados en los elementos HTML correspondientes
+    document.getElementById("duracionMeses").innerText = formatearNumero(duracionMeses);
+    document.getElementById("diasTranscurridos").innerText = formatearNumero(diasTranscurridos);
+    document.getElementById("diasRemanentes").innerText = formatearNumero(diasRemanentes);
+    document.getElementById("interesesEuros").innerText = formatearNumero(interesesEuros) + " euros";
+    document.getElementById("interesesEurosReintegro").innerText = formatearNumero(interesesEurosReintegro) + " euros";
+    document.getElementById("interesesEurosDevengados").innerText = formatearNumero(interesesEurosDevengados) + " euros";
+    document.getElementById("retencionEuros").innerText = formatearNumero(retencionEuros) + " euros";
+    document.getElementById("penalizacionEuros").innerText = formatearNumero(penalizacionEuros) + " euros";
+    document.getElementById("maximoInteresesBrutos").innerText = formatearNumero(maximoInteresesBrutos) + " euros";
+    document.getElementById("penalizacionAplicar").innerText = formatearNumero(penalizacionAplicar) + " euros";
+    document.getElementById("capital").innerText = formatearNumero(capital) + " euros";
+    document.getElementById("intereses").innerText = formatearNumero(interesesEuros) + " euros";
+    document.getElementById("retencion").innerText = formatearNumero(retencion) + " euros";
+    document.getElementById("penalizacion").innerText = formatearNumero(penalizacion) + " euros";
+    document.getElementById("total").innerText = formatearNumero(total) + " euros";
+
+
+
+    showResults();
+  }
+</script>
+
+
+
+</html>
