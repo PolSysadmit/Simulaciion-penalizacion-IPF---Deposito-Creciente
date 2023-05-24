@@ -820,6 +820,36 @@
     }
   }
 
+  function rellenarCamposAnidados(obj) {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        var subObj = obj[key];
+        for (var subKey in subObj) {
+          if (subObj.hasOwnProperty(subKey)) {
+            var subArray = subObj[subKey];
+            for (var i = 0; i < subArray.length; i++) {
+              var fullKey = subKey + key + (i + 1); // Construir el id del elemento
+              var elem = document.getElementById(fullKey);
+              if (elem) {
+                if (subArray[i] instanceof Date) {
+                  elem.innerText = formatearFecha(subArray[i]);
+                } else {
+                  elem.innerText = formatearNumero(subArray[i]);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
   function roundHalfToEven(value, precision) {
     const scale = Math.pow(10, precision);
     const rounded = Math.round(value * scale);
@@ -952,7 +982,6 @@
     const MaximoInteresesBrutosR2 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + InteresesReintegorR2;
 
     const MaximoInteresesBrutosR3 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + MasInteresesR2 + InteresesEurosL3 + InteresesReintegorR3;
-    //const MaximoInteresesBrutosR3 = Math.abs(MasInteresesR1) + InteresesEurosL1 + InteresesReintegorR1 + InteresesEurosL2 + InteresesEurosL3 + InteresesReintegorR3;
 
     let PenalizacionAplicarR1 = (PenalizacionEurosR1 > MaximoInteresesBrutosR1) ? MaximoInteresesBrutosR1 : PenalizacionEurosR1;
     let PenalizacionAplicarR2 = (PenalizacionEurosR2 > MaximoInteresesBrutosR2) ? MaximoInteresesBrutosR2 : PenalizacionEurosR2;
@@ -962,98 +991,45 @@
     const MenosPenalicacionR2 = PenalizacionAplicarR2 * -1;
     const MenosPenalicacionR3 = PenalizacionAplicarR3 * -1;
 
-
     const ResultadoR1 = MasCapitalR1 + MasInteresesR1 + MenosRetencionR1 + MenosPenalicacionR1;
     const ResultadoR2 = MasCapitalR2 + MasInteresesR2 + MenosRetencionR2 + MenosPenalicacionR2;
     const ResultadoR3 = MasCapitalR3 + MasInteresesR3 + MenosRetencionR3 + MenosPenalicacionR3;
 
-    var Campos = {
-      ImporteVivoL1: ImporteVivoL1,
-      ImporteVivoL2: ImporteVivoL2,
-      ImporteVivoL3: ImporteVivoL3,
-      PorcentajeTipoInteresL1: PorcentajeTipoInteresL1,
-      PorcentajeTipoInteresL2: PorcentajeTipoInteresL2,
-      PorcentajeTipoInteresL3: PorcentajeTipoInteresL3,
-      PorcentajeRetencionL1: PorcentajeRetencionL1,
-      PorcentajeRetencionL2: PorcentajeRetencionL2,
-      PorcentajeRetencionL3: PorcentajeRetencionL3,
-      ImporteReintegroR1: ImporteReintegroR1,
-      ImporteReintegroR2: ImporteReintegroR2,
-      ImporteReintegroR3: ImporteReintegroR3,
-      PorcentajePenalizacionR1: PorcentajePenalizacionR1,
-      PorcentajePenalizacionR2: PorcentajePenalizacionR2,
-      PorcentajePenalizacionR3: PorcentajePenalizacionR3,
-      DiasTranscurridosL1: DiasTranscurridosL1,
-      DiasTranscurridosL2: DiasTranscurridosL2,
-      DiasTranscurridosL3: DiasTranscurridosL3,
-      InteresesEurosL1: InteresesEurosL1,
-      InteresesEurosL2: InteresesEurosL2,
-      InteresesEurosL3: InteresesEurosL3,
-      FechaLiquidacionL1: FechaLiquidacionL1,
-      FechaLiquidacionL2: FechaLiquidacionL2,
-      FechaLiquidacionL3: FechaLiquidacionL3,
-      FechaReintegroR1: FechaReintegroR1,
-      FechaReintegroR2: FechaReintegroR2,
-      FechaReintegroR3: FechaReintegroR3,
-      RetencionEurosL1: RetencionEurosL1,
-      RetencionEurosL2: RetencionEurosL2,
-      RetencionEurosL3: RetencionEurosL3,
-      MasInteresesL1: MasInteresesL1,
-      MasInteresesL2: MasInteresesL2,
-      MasInteresesL3: MasInteresesL3,
-      MenosRetencionL1: MenosRetencionL1,
-      MenosRetencionL2: MenosRetencionL2,
-      MenosRetencionL3: MenosRetencionL3,
-      ResultadoL1: ResultadoL1,
-      ResultadoL2: ResultadoL2,
-      ResultadoL3: ResultadoL3,
-      DiasTranscurridosR1: DiasTranscurridosR1,
-      DiasTranscurridosR2: DiasTranscurridosR2,
-      DiasTranscurridosR3: DiasTranscurridosR3,
-      DiasTranscurridosDesdeAnteriorLiquidacionR1: DiasTranscurridosDesdeAnteriorLiquidacionR1,
-      DiasTranscurridosDesdeAnteriorLiquidacionR2: DiasTranscurridosDesdeAnteriorLiquidacionR2,
-      DiasTranscurridosDesdeAnteriorLiquidacionR3: DiasTranscurridosDesdeAnteriorLiquidacionR3,
-      InteresesReintegorR1: InteresesReintegorR1,
-      InteresesReintegorR2: InteresesReintegorR2,
-      InteresesReintegorR3: InteresesReintegorR3,
-      PenalizacionEurosR1: PenalizacionEurosR1,
-      PenalizacionEurosR2: PenalizacionEurosR2,
-      PenalizacionEurosR3: PenalizacionEurosR3,
-      MaximoInteresesBrutosR1: MaximoInteresesBrutosR1,
-      MaximoInteresesBrutosR2: MaximoInteresesBrutosR2,
-      MaximoInteresesBrutosR3: MaximoInteresesBrutosR3,
-      PenalizacionAplicarR1: PenalizacionAplicarR1,
-      PorcentajeRetencionR1: PorcentajeRetencionR1,
-      PorcentajeRetencionR2: PorcentajeRetencionR2,
-      PorcentajeRetencionR3: PorcentajeRetencionR3,
-      RetencionEurosR1: RetencionEurosR1,
-      RetencionEurosR2: RetencionEurosR2,
-      RetencionEurosR3: RetencionEurosR3,
-      MasCapitalR1: MasCapitalR1,
-      MasCapitalR2: MasCapitalR2,
-      MasCapitalR3: MasCapitalR3,
-      MasInteresesR1: MasInteresesR1,
-      MasInteresesR2: MasInteresesR2,
-      MasInteresesR3: MasInteresesR3,
-      MenosRetencionR1: MenosRetencionR1,
-      MenosRetencionR2: MenosRetencionR2,
-      MenosRetencionR3: MenosRetencionR3,
-      MenosPenalicacionR1: MenosPenalicacionR1,
-      MenosPenalicacionR2: MenosPenalicacionR2,
-      MenosPenalicacionR3: MenosPenalicacionR3,
-      ResultadoR1: ResultadoR1,
-      ResultadoR2: ResultadoR2,
-      ResultadoR3: ResultadoR3
 
-
-
+    var CamposAnidados = {
+      L: {
+        ImporteVivo: [ImporteVivoL1, ImporteVivoL2, ImporteVivoL3],
+        PorcentajeTipoInteres: [PorcentajeTipoInteresL1, PorcentajeTipoInteresL2, PorcentajeTipoInteresL3],
+        PorcentajeRetencion: [PorcentajeRetencionL1, PorcentajeRetencionL2, PorcentajeRetencionL3],
+        DiasTranscurridos: [DiasTranscurridosL1, DiasTranscurridosL2, DiasTranscurridosL3],
+        InteresesEuros: [InteresesEurosL1, InteresesEurosL2, InteresesEurosL3],
+        FechaLiquidacion: [FechaLiquidacionL1, FechaLiquidacionL2, FechaLiquidacionL3],
+        RetencionEuros: [RetencionEurosL1, RetencionEurosL2, RetencionEurosL3],
+        MasIntereses: [MasInteresesL1, MasInteresesL2, MasInteresesL3],
+        MenosRetencion: [MenosRetencionL1, MenosRetencionL2, MenosRetencionL3],
+        Resultado: [ResultadoL1, ResultadoL2, ResultadoL3]
+      },
+      R: {
+        ImporteReintegro: [ImporteReintegroR1, ImporteReintegroR2, ImporteReintegroR3],
+        PorcentajePenalizacion: [PorcentajePenalizacionR1, PorcentajePenalizacionR2, PorcentajePenalizacionR3],
+        DiasTranscurridos: [DiasTranscurridosR1, DiasTranscurridosR2, DiasTranscurridosR3],
+        DiasTranscurridosDesdeAnteriorLiquidacion: [DiasTranscurridosDesdeAnteriorLiquidacionR1, DiasTranscurridosDesdeAnteriorLiquidacionR2, DiasTranscurridosDesdeAnteriorLiquidacionR3],
+        InteresesReintegor: [InteresesReintegorR1, InteresesReintegorR2, InteresesReintegorR3],
+        PenalizacionEuros: [PenalizacionEurosR1, PenalizacionEurosR2, PenalizacionEurosR3],
+        MaximoInteresesBrutos: [MaximoInteresesBrutosR1, MaximoInteresesBrutosR2, MaximoInteresesBrutosR3],
+        PenalizacionAplicar: [PenalizacionAplicarR1, PenalizacionAplicarR2, PenalizacionAplicarR3],
+        PorcentajeRetencion: [PorcentajeRetencionR1, PorcentajeRetencionR2, PorcentajeRetencionR3],
+        RetencionEuros: [RetencionEurosR1, RetencionEurosR2, RetencionEurosR3],
+        MasCapital: [MasCapitalR1, MasCapitalR2, MasCapitalR3],
+        MasIntereses: [MasInteresesR1, MasInteresesR2, MasInteresesR3],
+        MenosRetencion: [MenosRetencionR1, MenosRetencionR2, MenosRetencionR3],
+        MenosPenalizacion: [MenosPenalicacionR1, MenosPenalicacionR2, MenosPenalicacionR3],
+        Resultado: [ResultadoR1, ResultadoR2, ResultadoR3]
+      }
     }
 
-    //rellenarCamposFecha(CamposFecha);
 
-    rellenarCampos(Campos);
-
-
+    rellenarCamposAnidados(CamposAnidados);
 
     // document.getElementById("MaximoInteresesBrutosR1").innerText = formatearNumero(MaximoInteresesBrutosR1);
     // document.getElementById("MaximoInteresesBrutosR2").innerText = MaximoInteresesBrutosR2;
