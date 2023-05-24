@@ -506,13 +506,13 @@
       </tr>
       <tr>
         <td>Días transcurridos desde anterior liquidación</td>
-        <td id="diasTranscurridosDesdeAnteriorLiuidacionR1"></td>
+        <td id="DiasTranscurridosDesdeAnteriorLiquidacionR1"></td>
         <td></td>
         <td>Días transcurridos desde anterior liquidación</td>
-        <td id="diasTranscurridosDesdeAnteriorLiuidacionR2"></td>
+        <td id="DiasTranscurridosDesdeAnteriorLiquidacionR2"></td>
         <td></td>
         <td>Días transcurridos desde anterior liquidación</td>
-        <td id="diasTranscurridosDesdeAnteriorLiuidacionR3"></td>
+        <td id="DiasTranscurridosDesdeAnteriorLiquidacionR3"></td>
         <td></td>
       </tr>
       <tr>
@@ -528,29 +528,29 @@
       </tr>
       <tr>
         <td>Penalización Euros</td>
-        <td id="penalizacionEurosR1"></td>
+        <td id="PenalizacionEurosR1"></td>
         <td></td>
         <td>Penalización Euros</td>
-        <td id="penalizacionEurosR2"></td>
+        <td id="PenalizacionEurosR2"></td>
         <td></td>
         <td>Penalización Euros</td>
-        <td id="penalizacionEurosR3"></td>
+        <td id="PenalizacionEurosR3"></td>
         <td></td>
       </tr>
       <tr>
         <td>Máximo intereses brutos</td>
-        <td id="maximoInteresesBrutosR1"></td>
+        <td id="MaximoInteresesBrutosR1"></td>
         <td></td>
         <td>Máximo intereses brutos</td>
-        <td id="maximoInteresesBrutosR2"></td>
+        <td id="MaximoInteresesBrutosR2"></td>
         <td></td>
         <td>Máximo intereses brutos</td>
-        <td id="maximoInteresesBrutosR3"></td>
+        <td id="MaximoInteresesBrutosR3"></td>
         <td></td>
       </tr>
       <tr>
         <td>Penalización a aplicar</td>
-        <td id="penalizacionAplicarR1"></td>
+        <td id="PenalizacionAplicarR1"></td>
         <td></td>
         <td>Penalización a aplicar</td>
         <td id="penalizacionAplicarR2"></td>
@@ -655,7 +655,7 @@
         <td id="MenosRetencionR2"></td>
         <td></td>
         <td> -Retención</td>
-        <td id="MenosetencionR3"></td>
+        <td id="MenosRetencionR3"></td>
         <td></td>
       </tr>
       <tr>
@@ -820,6 +820,13 @@
     }
   }
 
+  function roundHalfToEven(value, precision) {
+    const scale = Math.pow(10, precision);
+    const rounded = Math.round(value * scale);
+    const adjustment = (rounded % 2 === 1 && value * scale % 1 === 0.5) ? -1 : 0;
+    return (rounded + adjustment) / scale;
+  }
+
 
 
   function calcularLiquidacion() {
@@ -847,6 +854,7 @@
     const FechaReintegro2 = new Date(document.getElementById("FechaReintegro2").value);
     const FechaReintegro3 = new Date(document.getElementById("FechaReintegro3").value);
 
+
     const FechaLiquidacionL1 = FechaLiquidacion1;
     const FechaLiquidacionL2 = FechaLiquidacion2;
     const FechaLiquidacionL3 = FechaLiquidacion3;
@@ -863,6 +871,11 @@
     const PorcentajeRetencionL2 = PorcentajeRetencion * 100;
     const PorcentajeRetencionL3 = PorcentajeRetencion * 100;
 
+    const PorcentajeRetencionR1 = PorcentajeRetencion * 100;
+    const PorcentajeRetencionR2 = PorcentajeRetencion * 100;
+    const PorcentajeRetencionR3 = PorcentajeRetencion * 100;
+
+
     const ImporteReintegroR1 = ImporteReintegro1;
     const ImporteReintegroR2 = ImporteReintegro2;
     const ImporteReintegroR3 = ImporteReintegro3;
@@ -871,14 +884,15 @@
     const PorcentajePenalizacionR2 = PorcentajePenalizacion * 100;
     const PorcentajePenalizacionR3 = PorcentajePenalizacion * 100;
 
+    //Calcular Liquidaciones
+
     const ImporteVivoL1 = Importe - ImporteReintegroR1;
     const ImporteVivoL2 = ImporteVivoL1 - ImporteReintegroR2;
     const ImporteVivoL3 = ImporteVivoL2 - ImporteReintegroR3;
 
-    const DiasTranscurridosL1 = calcularDuracion(FechaInicio, FechaLiquidacionL1).duracionDias;
-    const DiasTranscurridosL2 = calcularDuracion(FechaLiquidacionL1, FechaLiquidacionL2).duracionDias;
-    const DiasTranscurridosL3 = calcularDuracion(FechaLiquidacionL2, FechaLiquidacionL3).duracionDias;
-
+    const DiasTranscurridosL1 = Math.abs(calcularDuracion(FechaInicio, FechaLiquidacionL1).duracionDias);
+    const DiasTranscurridosL2 = Math.abs(calcularDuracion(FechaLiquidacionL1, FechaLiquidacionL2).duracionDias);
+    const DiasTranscurridosL3 = Math.abs(calcularDuracion(FechaLiquidacionL2, FechaLiquidacionL3).duracionDias);
 
     const InteresesEurosL1 = ImporteVivoL1 * PorcentajeTipoInteres1 * DiasTranscurridosL1 / 365;
     const InteresesEurosL2 = ImporteVivoL2 * PorcentajeTipoInteres2 * DiasTranscurridosL2 / 365;
@@ -896,7 +910,62 @@
     const MenosRetencionL2 = RetencionEurosL2 * -1;
     const MenosRetencionL3 = RetencionEurosL3 * -1;
 
+    const ResultadoL1 = Math.abs(MasInteresesL1 + MenosRetencionL1);
+    const ResultadoL2 = Math.abs(MasInteresesL2 + MenosRetencionL2);
+    const ResultadoL3 = Math.abs(MasInteresesL3 + MenosRetencionL3);
 
+    //Calcular Reintegros
+
+    const DiasTranscurridosR1 = Math.abs(calcularDuracion(FechaInicio, FechaReintegroR1).duracionDias);
+    const DiasTranscurridosR2 = Math.abs(calcularDuracion(FechaInicio, FechaReintegroR2).duracionDias);
+    const DiasTranscurridosR3 = Math.abs(calcularDuracion(FechaInicio, FechaReintegroR3).duracionDias);
+
+    const DiasTranscurridosDesdeAnteriorLiquidacionR1 = Math.abs(DiasTranscurridosR1);
+    const DiasTranscurridosDesdeAnteriorLiquidacionR2 = Math.abs(calcularDuracion(FechaReintegroR2, FechaLiquidacionL1).duracionDias);
+    const DiasTranscurridosDesdeAnteriorLiquidacionR3 = Math.abs(calcularDuracion(FechaReintegroR3, FechaLiquidacionL2).duracionDias);
+
+    const InteresesReintegorR1 = Math.abs(ImporteReintegroR1) * PorcentajeTipoInteres1 * DiasTranscurridosR1 / 365;
+    const InteresesReintegorR2 = Math.abs(ImporteReintegroR2) * PorcentajeTipoInteres2 * DiasTranscurridosDesdeAnteriorLiquidacionR2 / 365;
+    const InteresesReintegorR3 = Math.abs(ImporteReintegroR3) * PorcentajeTipoInteres3 * DiasTranscurridosDesdeAnteriorLiquidacionR3 / 365;
+
+    const PenalizacionEurosR1 = Math.abs(ImporteReintegroR1) * PorcentajePenalizacion * DiasTranscurridosR1 / 365;
+    const PenalizacionEurosR2 = Math.abs(ImporteReintegroR2) * PorcentajePenalizacion * DiasTranscurridosR2 / 365;
+    const PenalizacionEurosR3 = Math.abs(ImporteReintegroR3) * PorcentajePenalizacion * DiasTranscurridosR3 / 365;
+
+    const RetencionEurosR1 = Math.abs(InteresesReintegorR1) * PorcentajeRetencion;
+    const RetencionEurosR2 = Math.abs(InteresesReintegorR2) * PorcentajeRetencion;
+    const RetencionEurosR3 = Math.abs(InteresesReintegorR3) * PorcentajeRetencion;
+
+    const MasCapitalR1 = Math.abs(ImporteReintegroR1);
+    const MasCapitalR2 = Math.abs(ImporteReintegroR2);
+    const MasCapitalR3 = Math.abs(ImporteReintegroR3);
+
+    const MasInteresesR1 = Math.abs(InteresesReintegorR1);
+    const MasInteresesR2 = Math.abs(InteresesReintegorR2);
+    const MasInteresesR3 = Math.abs(InteresesReintegorR3);
+
+    const MenosRetencionR1 = RetencionEurosR1 * -1;
+    const MenosRetencionR2 = RetencionEurosR2 * -1;
+    const MenosRetencionR3 = RetencionEurosR3 * -1;
+
+    const MaximoInteresesBrutosR1 = Math.abs(Importe) * PorcentajeTipoInteres1 * DiasTranscurridosR1 / 365;
+    const MaximoInteresesBrutosR2 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + InteresesReintegorR2;
+
+    const MaximoInteresesBrutosR3 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + MasInteresesR2 + InteresesEurosL3 + InteresesReintegorR3;
+    //const MaximoInteresesBrutosR3 = Math.abs(MasInteresesR1) + InteresesEurosL1 + InteresesReintegorR1 + InteresesEurosL2 + InteresesEurosL3 + InteresesReintegorR3;
+
+    let PenalizacionAplicarR1 = (PenalizacionEurosR1 > MaximoInteresesBrutosR1) ? MaximoInteresesBrutosR1 : PenalizacionEurosR1;
+    let PenalizacionAplicarR2 = (PenalizacionEurosR2 > MaximoInteresesBrutosR2) ? MaximoInteresesBrutosR2 : PenalizacionEurosR2;
+    let PenalizacionAplicarR3 = (PenalizacionEurosR3 > MaximoInteresesBrutosR3) ? MaximoInteresesBrutosR3 : PenalizacionEurosR3;
+
+    const MenosPenalicacionR1 = PenalizacionAplicarR1 * -1;
+    const MenosPenalicacionR2 = PenalizacionAplicarR2 * -1;
+    const MenosPenalicacionR3 = PenalizacionAplicarR3 * -1;
+
+
+    const ResultadoR1 = MasCapitalR1 + MasInteresesR1 + MenosRetencionR1 + MenosPenalicacionR1;
+    const ResultadoR2 = MasCapitalR2 + MasInteresesR2 + MenosRetencionR2 + MenosPenalicacionR2;
+    const ResultadoR3 = MasCapitalR3 + MasInteresesR3 + MenosRetencionR3 + MenosPenalicacionR3;
 
     var Campos = {
       ImporteVivoL1: ImporteVivoL1,
@@ -934,7 +1003,50 @@
       MasInteresesL3: MasInteresesL3,
       MenosRetencionL1: MenosRetencionL1,
       MenosRetencionL2: MenosRetencionL2,
-      MenosRetencionL3: MenosRetencionL3
+      MenosRetencionL3: MenosRetencionL3,
+      ResultadoL1: ResultadoL1,
+      ResultadoL2: ResultadoL2,
+      ResultadoL3: ResultadoL3,
+      DiasTranscurridosR1: DiasTranscurridosR1,
+      DiasTranscurridosR2: DiasTranscurridosR2,
+      DiasTranscurridosR3: DiasTranscurridosR3,
+      DiasTranscurridosDesdeAnteriorLiquidacionR1: DiasTranscurridosDesdeAnteriorLiquidacionR1,
+      DiasTranscurridosDesdeAnteriorLiquidacionR2: DiasTranscurridosDesdeAnteriorLiquidacionR2,
+      DiasTranscurridosDesdeAnteriorLiquidacionR3: DiasTranscurridosDesdeAnteriorLiquidacionR3,
+      InteresesReintegorR1: InteresesReintegorR1,
+      InteresesReintegorR2: InteresesReintegorR2,
+      InteresesReintegorR3: InteresesReintegorR3,
+      PenalizacionEurosR1: PenalizacionEurosR1,
+      PenalizacionEurosR2: PenalizacionEurosR2,
+      PenalizacionEurosR3: PenalizacionEurosR3,
+      MaximoInteresesBrutosR1: MaximoInteresesBrutosR1,
+      MaximoInteresesBrutosR2: MaximoInteresesBrutosR2,
+      MaximoInteresesBrutosR3: MaximoInteresesBrutosR3,
+      PenalizacionAplicarR1: PenalizacionAplicarR1,
+      PorcentajeRetencionR1: PorcentajeRetencionR1,
+      PorcentajeRetencionR2: PorcentajeRetencionR2,
+      PorcentajeRetencionR3: PorcentajeRetencionR3,
+      RetencionEurosR1: RetencionEurosR1,
+      RetencionEurosR2: RetencionEurosR2,
+      RetencionEurosR3: RetencionEurosR3,
+      MasCapitalR1: MasCapitalR1,
+      MasCapitalR2: MasCapitalR2,
+      MasCapitalR3: MasCapitalR3,
+      MasInteresesR1: MasInteresesR1,
+      MasInteresesR2: MasInteresesR2,
+      MasInteresesR3: MasInteresesR3,
+      MenosRetencionR1: MenosRetencionR1,
+      MenosRetencionR2: MenosRetencionR2,
+      MenosRetencionR3: MenosRetencionR3,
+      MenosPenalicacionR1: MenosPenalicacionR1,
+      MenosPenalicacionR2: MenosPenalicacionR2,
+      MenosPenalicacionR3: MenosPenalicacionR3,
+      ResultadoR1: ResultadoR1,
+      ResultadoR2: ResultadoR2,
+      ResultadoR3: ResultadoR3
+
+
+
     }
 
     //rellenarCamposFecha(CamposFecha);
@@ -943,10 +1055,9 @@
 
 
 
-    // document.getElementById("ImporteVivoL1").innerText = formatearNumero(ImporteVivoL1);
-    // document.getElementById("ImporteVivoL2").innerText = formatearNumero(ImporteVivoL2);
-    // document.getElementById("ImporteVivoL3").innerText = formatearNumero(ImporteVivoL3);
-    // document.getElementById("TipoInteresL1").innerText = formatearNumero(TipoInteresL1) + "%";
+    // document.getElementById("MaximoInteresesBrutosR1").innerText = formatearNumero(MaximoInteresesBrutosR1);
+    // document.getElementById("MaximoInteresesBrutosR2").innerText = MaximoInteresesBrutosR2;
+    // document.getElementById("MaximoInteresesBrutosR3").innerText = MaximoInteresesBrutosR3;
 
 
 
@@ -971,7 +1082,7 @@
     // // Establece valores iniciales para los intereses, la retención y la penalización
     // let InteresesEuros = InteresesEurosReintegro;
     // let retencionEuros = InteresesEurosReintegro * PorcentajeRetencion;
-    // let maximoInteresesBrutos = InteresesEurosDevengados;
+    // let MaximoInteresesBrutos = InteresesEurosDevengados;
 
     // // Actualiza los valores de intereses y retención si el reintegro es total
     // if (reintegro === 'Total') {
@@ -980,14 +1091,14 @@
     // }
 
     // // Calcula las penalizaciones en euros según el tipo de tarifa
-    // const penalizacionEuros = ImporteReintegro * (
+    // const PenalizacionEuros = ImporteReintegro * (
     //   tipoTarifa === 'Coyuntural'
     //     ? diasTranscurridos
     //     : diasRemanentes
     // ) * PorcentajePenalizacion / 365;
 
     // // Selecciona la penalización a aplicar (la menor entre la penalización y los intereses brutos)
-    // const penalizacionAplicar = Math.min(penalizacionEuros, maximoInteresesBrutos);
+    // const penalizacionAplicar = Math.min(PenalizacionEuros, MaximoInteresesBrutos);
 
     // // Calcula el capital, la retención, la penalización y el total a pagar
     // const capital = ImporteReintegro;
@@ -1004,8 +1115,8 @@
     // document.getElementById("InteresesEurosReintegro").innerText = formatearNumero(InteresesEurosReintegro) + " euros";
     // document.getElementById("InteresesEurosDevengados").innerText = formatearNumero(InteresesEurosDevengados) + " euros";
     // document.getElementById("retencionEuros").innerText = formatearNumero(retencionEuros) + " euros";
-    // document.getElementById("penalizacionEuros").innerText = formatearNumero(penalizacionEuros) + " euros";
-    // document.getElementById("maximoInteresesBrutos").innerText = formatearNumero(maximoInteresesBrutos) + " euros";
+    // document.getElementById("PenalizacionEuros").innerText = formatearNumero(PenalizacionEuros) + " euros";
+    // document.getElementById("MaximoInteresesBrutos").innerText = formatearNumero(MaximoInteresesBrutos) + " euros";
     // document.getElementById("penalizacionAplicar").innerText = formatearNumero(penalizacionAplicar) + " euros";
     // document.getElementById("capital").innerText = formatearNumero(capital) + " euros";
     // document.getElementById("intereses").innerText = formatearNumero(InteresesEuros) + " euros";
