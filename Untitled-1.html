@@ -11,7 +11,6 @@
       font-size: 12px;
     }
 
-
     .calculadora tr:nth-of-type(7) td:first-child,
     .calculadora tr:nth-of-type(13) td:first-child,
     .calculadora tr:nth-of-type(19) td:first-child {
@@ -46,17 +45,28 @@
       vertical-align: top;
     }
 
+
+    .TituloResultado {
+      /* Estilos para las celdas con la clase "casilla-especial" */
+      font-weight: bold;
+      background-color: #E2EFDA;
+
+
+    }
+
     .resultados td:nth-child(1),
+    .resultados td:nth-child(3),
     .resultados td:nth-child(4),
     .resultados td:nth-child(7) {
       font-weight: bold;
-      text-align: left;
       padding-right: 5px;
+
     }
 
-    .resultados td:last-child {
-      text-align: left;
+    .TituloSimulacion {
+      border: 1px solid black;
     }
+
 
     .total-row {
       /* background-color: rgb(227, 240, 216); */
@@ -249,11 +259,11 @@
         <td></td>
       </tr>
       <tr>
-        <td colspan="2">LIQUIDACIÓN PRIMER SEMESTRE</td>
-        <td></td>
-        <td colspan="2">LIQUIDACIÓN SEGUNDO SEMESTRE</td>
-        <td></td>
-        <td colspan="2">LIQUIDACIÓN TERCER SEMESTRE</td>
+        <td colspan="2" class="TituloResultado">LIQUIDACIÓN PRIMER SEMESTRE</td>
+        <td>&nbsp;</td>
+        <td colspan="2" class="TituloResultado">LIQUIDACIÓN SEGUNDO SEMESTRE</td>
+        <td>&nbsp;</td>
+        <td colspan="2" class="TituloResultado">LIQUIDACIÓN TERCER SEMESTRE</td>
       </tr>
       <tr>
         <td>Importe vivo</td>
@@ -347,7 +357,7 @@
       </tr>
       <tr>
         <td></td>
-		<td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -356,45 +366,67 @@
         <td></td>
       </tr>
       <tr>
-        <td id="SimulacionLiquidacionL1">Simulación liquidación</td>
-        <td>&nbsp;</td>
+        <td class="TituloSimulacion" id="SimulacionLiquidacionL1">Simulación liquidación</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
-        <td id="SimulacionLiquidacionL2">Simulación liquidación</td>
-        <td>&nbsp;</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion"
+          id="SimulacionLiquidacionL2">Simulación liquidación</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
-        <td id="SimulacionLiquidacionL3">Simulación liquidación</td>
-        <td>&nbsp;</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion"
+          id="SimulacionLiquidacionL3">Simulación liquidación</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
       </tr>
 
       <tr>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;">&nbsp;</td>
+        <td style="border-right: 1px solid black;"></td>
         <td></td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;"></td>
+        <td style="border-right: 1px solid black;"></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;"></td>
+        <td style="border-right: 1px solid black;"></td>
       </tr>
       <tr>
-        <td> +Intereses</td>
-        <td id="MasInteresesL1"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right: 1px solid black;" id="MasInteresesL1"></td>
         <td></td>
-        <td> +Intereses</td>
-        <td id="MasInteresesL2"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right:  1px solid black;" id="MasInteresesL2"></td>
         <td></td>
-        <td> +Intereses</td>
-        <td id="MasInteresesL3"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right:  1px solid black;" id="MasInteresesL3"></td>
       </tr>
       <tr>
-        <td> -Retención</td>
-        <td id="MenosRetencionL1"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionL1"></td>
         <td></td>
-        <td> -Retención</td>
-        <td id="MenosRetencionL2"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionL2"></td>
         <td></td>
-        <td> -Retención</td>
-        <td id="MenosRetencionL3"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionL3"></td>
+      </tr>
+      <tr>
+        <td style="border-left: 1px solid black;">&nbsp;</td>
+        <td style="border-right: 1px solid black;"></td>
+        <td></td>
+        <td style="border-left: 1px solid black;"></td>
+        <td style="border-right: 1px solid black;"></td>
+        <td style="border-right: 1px solid black;"></td>
+        <td></td>
+        <td style="border-right: 1px solid black;"></td>
+      </tr>
+      <tr>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL1"></td>
+        <td></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL2"></td>
+        <td style="border-right: 1px solid black;"></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL3"></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -407,34 +439,11 @@
         <td></td>
       </tr>
       <tr>
+        <td colspan="2" class="TituloResultado">REINTEGRO PRIMER SEMESTRE</td>
         <td></td>
-        <td id="ResultadoL1"></td>
+        <td colspan="2" class="TituloResultado">REINTEGRO SEGUNDO SEMESTRE</td>
         <td></td>
-        <td></td>
-        <td id="ResultadoL2"></td>
-        <td></td>
-        <td></td>
-        <td id="ResultadoL3"></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>REINTEGRO PRIMER SEMESTRE</td>
-        <td></td>
-        <td></td>
-        <td>REINTEGRO SEGUNDO SEMESTRE</td>
-        <td></td>
-        <td></td>
-        <td>REINTEGRO TERCER SEMESTRE</td>
-        <td></td>
+        <td colspan="2" class="TituloResultado">REINTEGRO TERCER SEMESTRE</td>
       </tr>
       <tr>
         <td>Importe Reintegro</td>
@@ -577,64 +586,66 @@
         <td></td>
       </tr>
       <tr>
-        <td>Simulación reintegro</td>
+        <td class="TituloSimulacion">Simulación reintegro</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion">Simulación
+          reintegro</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
-        <td>Simulación reintegro</td>
-        <td></td>
-        <td></td>
-        <td>Simulación reintegro</td>
-        <td></td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion">Simulación
+          reintegro</td>
+        <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>></td>
       </tr>
       <tr>
-        <td> +Capital</td>
-        <td id="MasCapitalR1"></td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-right: 1px solid black;" id="MasCapitalR1"></td>
         <td></td>
-        <td> +Capital</td>
-        <td id="MasCapitalR2"></td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-right: 1px solid black;" id="MasCapitalR2"></td>
         <td></td>
-        <td> +Capital</td>
-        <td id="MasCapitalR3"></td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-right: 1px solid black;" id="MasCapitalR3"></td>
       </tr>
       <tr>
-        <td> +Intereses</td>
-        <td id="MasInteresesR1"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right: 1px solid black;" id="MasInteresesR1"></td>
         <td></td>
-        <td> +Intereses</td>
-        <td id="MasInteresesR2"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right: 1px solid black;" id="MasInteresesR2"></td>
         <td></td>
-        <td> +Intereses</td>
-        <td id="MasInteresesR3"></td>
+        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-right: 1px solid black;" id="MasInteresesR3"></td>
       </tr>
       <tr>
-        <td> -Retención</td>
-        <td id="MenosRetencionR1"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionR1"></td>
         <td></td>
-        <td> -Retención</td>
-        <td id="MenosRetencionR2"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionR2"></td>
         <td></td>
-        <td> -Retención</td>
-        <td id="MenosRetencionR3"></td>
+        <td style="border-left: 1px solid black;"> -Retención</td>
+        <td style="border-right: 1px solid black;" id="MenosRetencionR3"></td>
       </tr>
       <tr>
-        <td> -Penalización</td>
-        <td id="MenosPenalicacionR1"></td>
+        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-right: 1px solid black;" id="MenosPenalicacionR1"></td>
         <td></td>
-        <td> -Penalización</td>
-        <td id="MenosPenalicacionR2"></td>
-        <td></td>
-        <td> -Penalización</td>
-        <td id="MenosPenalicacionR3"></td>
+        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-right: 1px solid black;" id="MenosPenalicacionR2"></td>
+        <td style="border-right: 1px solid black;"></td>
+        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-right: 1px solid black;" id="MenosPenalicacionR3"></td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
-        <td id="ResultadoR1"></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
+        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR1"></td>
         <td></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
+        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR2"></td>
         <td></td>
-        <td id="ResultadoR2"></td>
-        <td></td>
-        <td></td>
-        <td id="ResultadoR3"></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
+        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR3"></td>
       </tr>
       <tr>
         <td></td>
