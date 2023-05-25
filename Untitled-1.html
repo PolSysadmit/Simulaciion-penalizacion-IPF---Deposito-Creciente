@@ -26,6 +26,10 @@
     }
 
 
+    td.clase-sangria {
+      padding-left: 5px;
+    }
+
 
     /* Añadir € al final de las casillas de € */
     .input-EurosWrapper {
@@ -96,7 +100,6 @@
     .resultados td:nth-child(2),
     .resultados td:nth-child(5),
     .resultados td:nth-child(8) {
-
       text-align: right;
 
     }
@@ -105,7 +108,7 @@
 
       font-weight: bold;
       background-color: #E2EFDA;
-      text-align: center;
+      text-align: center !important;
 
     }
 
@@ -380,6 +383,7 @@
         <td colspan="2" class="TituloResultado">LIQUIDACIÓN SEGUNDO SEMESTRE</td>
         <td>&nbsp;</td>
         <td colspan="2" class="TituloResultado">LIQUIDACIÓN TERCER SEMESTRE</td>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>Importe vivo</td>
@@ -505,24 +509,24 @@
         <td style="border-right: 1px solid black;"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesL1"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right:  1px solid black;" class="euro-cell" id="MasInteresesL2"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right:  1px solid black;" class="euro-cell" id="MasInteresesL3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL1"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL1"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL2"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL2"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL3"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;">&nbsp;</td>
@@ -715,43 +719,43 @@
         </td>
       </tr>
       <tr>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR1"></td>
         <td></td>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR2"></td>
         <td></td>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
+        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR1"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR2"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> +Intereses</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR1"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR1"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR2"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR2"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR3"></td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR1"></td>
         <td></td>
-        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR2"></td>
         <td style="border-right: 1px solid black;"></td>
-        <td style="border-left: 1px solid black;"> -Penalización</td>
+        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR3"></td>
       </tr>
       <tr>
