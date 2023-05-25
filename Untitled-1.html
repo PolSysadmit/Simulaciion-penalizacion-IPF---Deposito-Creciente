@@ -11,11 +11,19 @@
       font-size: 12px;
     }
 
-    .calculadora tr:nth-of-type(7) td:first-child,
+    .TituloCalculadora {
+      /* Estilos para las celdas con la clase "casilla-especial" */
+      font-weight: bold;
+      background-color: #E2EFDA;
+
+
+    }
+
+    /* .calculadora tr:nth-of-type(7) td:first-child,
     .calculadora tr:nth-of-type(13) td:first-child,
     .calculadora tr:nth-of-type(19) td:first-child {
       background-color: #E2EFDA;
-    }
+    } */
 
     .calculadora {
       width: 10px;
@@ -60,6 +68,14 @@
     .resultados td:nth-child(7) {
       font-weight: bold;
       padding-right: 5px;
+
+    }
+
+    .resultados td:nth-child(2),
+    .resultados td:nth-child(5),
+    .resultados td:nth-child(8) {
+
+      text-align: right;
 
     }
 
@@ -136,7 +152,7 @@
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="2">1er SEMESTRE</td>
+        <td colspan="2" class="TituloResultado">1er SEMESTRE</td>
       </tr>
       <tr>
         <td>Fecha liquidación</td>
@@ -162,7 +178,7 @@
         <td></td>
       </tr>
       <tr>
-        <td colspan="2">2º SEMESTRE</td>
+        <td colspan="2" class="TituloResultado">2º SEMESTRE</td>
       </tr>
       <tr>
         <td>Fecha liquidación</td>
@@ -185,7 +201,7 @@
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td colspan="2">3er SEMESTRE</td>
+        <td colspan="2" class="TituloResultado">3er SEMESTRE</td>
       </tr>
       <tr>
         <td>Fecha liquidación</td>
@@ -220,7 +236,6 @@
       </tr>
     </table>
   </form>
-
 
   <p>&nbsp;</p>
 
@@ -420,13 +435,19 @@
       </tr>
       <tr>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL1"></td>
+        <td
+          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
+          id="ResultadoL1"></td>
         <td></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL2"></td>
+        <td
+          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
+          id="ResultadoL2"></td>
         <td style="border-right: 1px solid black;"></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td style="border-bottom: 1px solid black; border-right: 1px solid black;" id="ResultadoL3"></td>
+        <td
+          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
+          id="ResultadoL3"></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -730,6 +751,8 @@
     </table>
   </div>
 </body>
+
+
 <script>
   // Crea una función para mostrar los resultados
   function showResults() {
