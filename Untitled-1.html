@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -11,19 +11,58 @@
       font-size: 12px;
     }
 
+    input {
+      width: 90px;
+      text-align: right;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+    }
+
+    input[type="date"] {
+      box-sizing: border-box;
+      width: 98px;
+      /* width: 200px; */
+      /* height: 30px; */
+    }
+
+
+
+    /* Añadir € al final de las casillas de € */
+    .input-EurosWrapper {
+      position: relative;
+    }
+
+    .input-EurosWrapper::after {
+      content: "€";
+      position: absolute;
+      right: 10px;
+      top: 45%;
+      transform: translateY(-50%);
+    }
+
+    /* Añadir % al final de las casillas de % */
+    .input-PorcientoWrapper {
+      position: relative;
+    }
+
+    .input-PorcientoWrapper::after {
+      content: "%";
+      position: absolute;
+      right: 5px;
+      top: 48%;
+      transform: translateY(-50%);
+    }
+
+
     .TituloCalculadora {
-      /* Estilos para las celdas con la clase "casilla-especial" */
+
       font-weight: bold;
       background-color: #E2EFDA;
 
 
     }
 
-    /* .calculadora tr:nth-of-type(7) td:first-child,
-    .calculadora tr:nth-of-type(13) td:first-child,
-    .calculadora tr:nth-of-type(19) td:first-child {
-      background-color: #E2EFDA;
-    } */
+
 
     .calculadora {
       width: 10px;
@@ -54,11 +93,19 @@
     }
 
 
+    .resultados td:nth-child(2),
+    .resultados td:nth-child(5),
+    .resultados td:nth-child(8) {
+
+      text-align: right;
+
+    }
+
     .TituloResultado {
-      /* Estilos para las celdas con la clase "casilla-especial" */
+
       font-weight: bold;
       background-color: #E2EFDA;
-
+      text-align: center;
 
     }
 
@@ -71,13 +118,7 @@
 
     }
 
-    .resultados td:nth-child(2),
-    .resultados td:nth-child(5),
-    .resultados td:nth-child(8) {
 
-      text-align: right;
-
-    }
 
     .TituloSimulacion {
       border: 1px solid black;
@@ -86,12 +127,12 @@
 
     .total-row {
       /* background-color: rgb(227, 240, 216); */
-      font-size: 14px;
-      font-weight: bold;
-      border-top: none;
-      border-right: none;
-      border-bottom: none;
-      border-left: none;
+      /* font-size: 14px; */
+      /* font-weight: bold; */
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
       border: 1;
     }
 
@@ -104,6 +145,20 @@
       border-left: none;
       border: 1;
     }
+
+    .euro-cell::after {
+      content: "€";
+      margin-left: 1px;
+      /* Espacio entre el número y el símbolo de euro */
+    }
+
+    .percent-cell::after {
+      content: "%";
+      margin-left: 1px;
+      /* Espacio entre el número y el símbolo de euro */
+    }
+
+
 
     table {
       border-collapse: collapse;
@@ -125,7 +180,14 @@
         <td>
           <label for="Importe">Importe (euros):</label>
         </td>
-        <td><input type="number" id="Importe" name="Importe" value="100000"></td>
+
+        <td>
+          <div class="input-EurosWrapper">
+            <input type="number" id="Importe" name="Importe" value="100000" class="input-field">
+          </div>
+        </td>
+
+
       </tr>
       <tr>
         <td>
@@ -140,12 +202,24 @@
         <td><input type="date" id="FechaVencimiento" name="FechaVencimiento" value="2024-09-15"></td>
       </tr>
       <tr>
+
         <td><label for="PorcentajePenalizacion5"> % Penalización Reintegro:</label></td>
-        <td><input type="number" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2"></td>
+
+        <td>
+          <div class="input-PorcientoWrapper">
+            <input type="number" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2"
+              class="input-field">
+          </div>
+        </td>
+
       </tr>
       <tr>
         <td><label for="PorcentajeRetencion">% Retención</label></td>
-        <td><input type="number" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19"></td>
+        <td>
+          <div class="input-PorcientoWrapper">
+            <input type="number" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19" class="input-field">
+          </div>
+        </td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -163,11 +237,20 @@
         <td>
           <label for="TipoInteres1">% Tipo de interés:</label>
         </td>
-        <td><input type="number" id="TipoInteres1" name="TipoInteres1" value="2.75"></td>
+        <td>
+          <div class="input-PorcientoWrapper">
+            <input type="number" id="TipoInteres1" name="TipoInteres1" value="2.75" class="input-field">
+          </div>
+        </td>
+
       </tr>
       <tr id="ImporteReintegroContainer1">
         <td><label for="ImporteReintegro1">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="ImporteReintegro1" name="ImporteReintegro1" value="500"></td>
+        <td>
+          <div class="input-EurosWrapper">
+            <input type="number" id="ImporteReintegro1" name="ImporteReintegro1" value="500" class="input-field">
+          </div>
+        </td>
       </tr>
       <tr>
         <td><label for="FechaReintegro3">Fecha reintegro:</label></td>
@@ -182,15 +265,26 @@
       </tr>
       <tr>
         <td>Fecha liquidación</td>
-        <td><input type="date" id="FechaLiquidacion2" name="FechaLiquidacion2" value="2024-03-15"></td>
+        <td>
+          <input type="date" id="FechaLiquidacion2" name="FechaLiquidacion2" value="2024-03-15">
+        </td>
       </tr>
       <tr>
         <td><label for="TipoInteres1">% Tipo de interés:</label></td>
-        <td><input type="number" id="TipoInteres2" name="TipoInteres2" value="3"></td>
+
+        <td>
+          <div class="input-PorcientoWrapper">
+            <input type="number" id="TipoInteres2" name="TipoInteres2" value="3" class="input-field">
+          </div>
+        </td>
       </tr>
       <tr id="ImporteReintegroContainer2">
         <td><label for="ImporteReintegro2">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="ImporteReintegro2" name="ImporteReintegro2" value="700"></td>
+        <td>
+          <div class="input-EurosWrapper">
+            <input type="number" id="ImporteReintegro2" name="ImporteReintegro2" value="700" class="input-field">
+          </div>
+        </td>
       </tr>
       <tr>
         <td><label for="FechaReintegro4">Fecha reintegro:</label></td>
@@ -209,11 +303,20 @@
       </tr>
       <tr>
         <td><label for="TipoInteres3">% Tipo de interés:</label></td>
-        <td><input type="number" id="TipoInteres3" name="TipoInteres3" value="3.75"></td>
+        <td>
+          <div class="input-PorcientoWrapper">
+            <input type="number" id="TipoInteres3" name="TipoInteres3" value="3.75" class="input-field">
+          </div>
+        </td>
+
       </tr>
       <tr id="ImporteReintegroContainer3">
         <td><label for="ImporteReintegro3">Importe reintegro (euros):</label></td>
-        <td><input type="number" id="ImporteReintegro3" name="ImporteReintegro3" value="800"></td>
+        <td>
+          <div class="input-EurosWrapper">
+            <input type="number" id="ImporteReintegro3" name="ImporteReintegro3" value="800" class="input-field">
+          </div>
+        </td>
       </tr>
       <tr>
         <td><label for="FechaReintegro3">Fecha reintegro:</label></td>
@@ -282,13 +385,13 @@
       </tr>
       <tr>
         <td>Importe vivo</td>
-        <td id="ImporteVivoL1"></td>
+        <td class="euro-cell" id="ImporteVivoL1"></td>
         <td></td>
         <td>Importe vivo</td>
-        <td id="ImporteVivoL2"></td>
+        <td class="euro-cell" id="ImporteVivoL2"></td>
         <td></td>
         <td>Importe vivo</td>
-        <td id="ImporteVivoL3"></td>
+        <td class="euro-cell" id="ImporteVivoL3"></td>
       </tr>
       <tr>
         <td>Fecha liquidación</td>
@@ -312,23 +415,23 @@
       </tr>
       <tr>
         <td>Tipo de interés</td>
-        <td id="PorcentajeTipoInteresL1"></td>
+        <td class="percent-cell" id="PorcentajeTipoInteresL1"></td>
         <td></td>
         <td>Tipo de interés</td>
-        <td id="PorcentajeTipoInteresL2"></td>
+        <td class="percent-cell" id="PorcentajeTipoInteresL2"></td>
         <td></td>
         <td>Tipo de interés</td>
-        <td id="PorcentajeTipoInteresL3"></td>
+        <td class="percent-cell" id="PorcentajeTipoInteresL3"></td>
       </tr>
       <tr>
         <td>Intereses Euros</td>
-        <td id="InteresesEurosL1"></td>
+        <td class="euro-cell" id="InteresesEurosL1"></td>
         <td></td>
         <td>Intereses Euros</td>
-        <td id="InteresesEurosL2"></td>
+        <td class="euro-cell" id="InteresesEurosL2"></td>
         <td></td>
         <td>Intereses Euros</td>
-        <td id="InteresesEurosL3"></td>
+        <td class="euro-cell" id="InteresesEurosL3"></td>
       </tr>
       <tr>
         <td></td>
@@ -342,23 +445,23 @@
       </tr>
       <tr>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionL1"></td>
+        <td class="percent-cell" id="PorcentajeRetencionL1"></td>
         <td></td>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionL2"></td>
+        <td class="percent-cell" id="PorcentajeRetencionL2"></td>
         <td></td>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionL3"></td>
+        <td class="percent-cell" id="PorcentajeRetencionL3"></td>
       </tr>
       <tr>
         <td>Retención Euros</td>
-        <td id="RetencionEurosL1"></td>
+        <td class="euro-cell" id="RetencionEurosL1"></td>
         <td></td>
         <td>Retención Euros</td>
-        <td id="RetencionEurosL2"></td>
+        <td class="euro-cell" id="RetencionEurosL2"></td>
         <td></td>
         <td>Retención Euros</td>
-        <td id="RetencionEurosL3"></td>
+        <td class="euro-cell" id="RetencionEurosL3"></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -405,23 +508,23 @@
       </tr>
       <tr>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right: 1px solid black;" id="MasInteresesL1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesL1"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right:  1px solid black;" id="MasInteresesL2"></td>
+        <td style="border-right:  1px solid black;" class="euro-cell" id="MasInteresesL2"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right:  1px solid black;" id="MasInteresesL3"></td>
+        <td style="border-right:  1px solid black;" class="euro-cell" id="MasInteresesL3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionL1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL1"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionL2"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL2"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionL3"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionL3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;">&nbsp;</td>
@@ -435,19 +538,13 @@
       </tr>
       <tr>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td
-          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
-          id="ResultadoL1"></td>
+        <td class="total-row euro-cell" id="ResultadoL1"></td>
         <td></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td
-          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
-          id="ResultadoL2"></td>
+        <td class="total-row euro-cell" id="ResultadoL2"></td>
         <td style="border-right: 1px solid black;"></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td
-          style="border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black;"
-          id="ResultadoL3"></td>
+        <td class="total-row euro-cell" id="ResultadoL3"></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -468,13 +565,13 @@
       </tr>
       <tr>
         <td>Importe Reintegro</td>
-        <td id="ImporteReintegroR1"></td>
+        <td class="euro-cell" id="ImporteReintegroR1"></td>
         <td></td>
         <td>Importe Reintegro</td>
-        <td id="ImporteReintegroR2"></td>
+        <td class="euro-cell" id="ImporteReintegroR2"></td>
         <td></td>
         <td>Importe Reintegro</td>
-        <td id="ImporteReintegroR3"></td>
+        <td class="euro-cell" id="ImporteReintegroR3"></td>
       </tr>
       <tr>
         <td>Fecha reintegro</td>
@@ -488,13 +585,13 @@
       </tr>
       <tr>
         <td>% Penalización</td>
-        <td id="PorcentajePenalizacionR1"></td>
+        <td class="percent-cell" id="PorcentajePenalizacionR1"></td>
         <td></td>
         <td>% Penalización</td>
-        <td id="PorcentajePenalizacionR2"></td>
+        <td class="percent-cell" id="PorcentajePenalizacionR2"></td>
         <td></td>
         <td>% Penalización</td>
-        <td id="PorcentajePenalizacionR3"></td>
+        <td class="percent-cell" id="PorcentajePenalizacionR3"></td>
       </tr>
       <tr>
         <td>Días transcurridos desde inicio</td>
@@ -518,43 +615,43 @@
       </tr>
       <tr>
         <td>Intereses reintegro</td>
-        <td id="InteresesReintegorR1"></td>
+        <td class="euro-cell" id="InteresesReintegorR1"></td>
         <td></td>
         <td>Intereses reintegro</td>
-        <td id="InteresesReintegorR2"></td>
+        <td class="euro-cell" id="InteresesReintegorR2"></td>
         <td></td>
         <td>Intereses reintegro</td>
-        <td id="InteresesReintegorR3"></td>
+        <td class="euro-cell" id="InteresesReintegorR3"></td>
       </tr>
       <tr>
         <td>Penalización Euros</td>
-        <td id="PenalizacionEurosR1"></td>
+        <td class="euro-cell" id="PenalizacionEurosR1"></td>
         <td></td>
         <td>Penalización Euros</td>
-        <td id="PenalizacionEurosR2"></td>
+        <td class="euro-cell" id="PenalizacionEurosR2"></td>
         <td></td>
         <td>Penalización Euros</td>
-        <td id="PenalizacionEurosR3"></td>
+        <td class="euro-cell" id="PenalizacionEurosR3"></td>
       </tr>
       <tr>
         <td>Máximo intereses brutos</td>
-        <td id="MaximoInteresesBrutosR1"></td>
+        <td class="euro-cell" id="MaximoInteresesBrutosR1"></td>
         <td></td>
         <td>Máximo intereses brutos</td>
-        <td id="MaximoInteresesBrutosR2"></td>
+        <td class="euro-cell" id="MaximoInteresesBrutosR2"></td>
         <td></td>
         <td>Máximo intereses brutos</td>
-        <td id="MaximoInteresesBrutosR3"></td>
+        <td class="euro-cell" id="MaximoInteresesBrutosR3"></td>
       </tr>
       <tr>
         <td>Penalización a aplicar</td>
-        <td id="PenalizacionAplicarR1"></td>
+        <td class="euro-cell" id="PenalizacionAplicarR1"></td>
         <td></td>
         <td>Penalización a aplicar</td>
-        <td id="penalizacionAplicarR2"></td>
+        <td class="euro-cell" id="PenalizacionAplicarR2"></td>
         <td></td>
         <td>Penalización a aplicar</td>
-        <td id="penalizacionAplicarR3"></td>
+        <td class="euro-cell" id="PenalizacionAplicarR3"></td>
       </tr>
       <tr>
         <td></td>
@@ -568,23 +665,23 @@
       </tr>
       <tr>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionR1"></td>
+        <td class="percent-cell" id="PorcentajeRetencionR1"></td>
         <td></td>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionR2"></td>
+        <td class="percent-cell" id="PorcentajeRetencionR2"></td>
         <td></td>
         <td>% Retención </td>
-        <td id="PorcentajeRetencionR3"></td>
+        <td class="percent-cell" id="PorcentajeRetencionR3"></td>
       </tr>
       <tr>
         <td>Retención Euros</td>
-        <td id="RetencionEurosR1"></td>
+        <td class="euro-cell" id="RetencionEurosR1"></td>
         <td></td>
         <td>Retención Euros</td>
-        <td id="RetencionEurosR2"></td>
+        <td class="euro-cell" id="RetencionEurosR2"></td>
         <td></td>
         <td>Retención Euros</td>
-        <td id="RetencionEurosR3"></td>
+        <td class="euro-cell" id="RetencionEurosR3"></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -620,53 +717,53 @@
       </tr>
       <tr>
         <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
-        <td style="border-right: 1px solid black;" id="MasCapitalR1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR1"></td>
         <td></td>
         <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
-        <td style="border-right: 1px solid black;" id="MasCapitalR2"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR2"></td>
         <td></td>
         <td style="border-top: 1px solid black; border-left: 1px solid black;"> +Capital</td>
-        <td style="border-right: 1px solid black;" id="MasCapitalR3"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right: 1px solid black;" id="MasInteresesR1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR1"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right: 1px solid black;" id="MasInteresesR2"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR2"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> +Intereses</td>
-        <td style="border-right: 1px solid black;" id="MasInteresesR3"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionR1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR1"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionR2"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR2"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> -Retención</td>
-        <td style="border-right: 1px solid black;" id="MenosRetencionR3"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black;"> -Penalización</td>
-        <td style="border-right: 1px solid black;" id="MenosPenalicacionR1"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR1"></td>
         <td></td>
         <td style="border-left: 1px solid black;"> -Penalización</td>
-        <td style="border-right: 1px solid black;" id="MenosPenalicacionR2"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR2"></td>
         <td style="border-right: 1px solid black;"></td>
         <td style="border-left: 1px solid black;"> -Penalización</td>
-        <td style="border-right: 1px solid black;" id="MenosPenalicacionR3"></td>
+        <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR3"></td>
       </tr>
       <tr>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
-        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR1"></td>
+        <td class="total-row euro-cell" id="ResultadoR1"></td>
         <td></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
-        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR2"></td>
+        <td class="total-row euro-cell" id="ResultadoR2"></td>
         <td></td>
         <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
-        <td style="border-right: 1px solid black; border-bottom: 1px solid black;" id="ResultadoR3"></td>
+        <td class="total-row euro-cell" id="ResultadoR3"></td>
       </tr>
       <tr>
         <td></td>
@@ -944,17 +1041,17 @@
 
     const MaximoInteresesBrutosR3 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + MasInteresesR2 + InteresesEurosL3 + InteresesReintegorR3;
 
-    let PenalizacionAplicarR1 = (PenalizacionEurosR1 > MaximoInteresesBrutosR1) ? MaximoInteresesBrutosR1 : PenalizacionEurosR1;
-    let PenalizacionAplicarR2 = (PenalizacionEurosR2 > MaximoInteresesBrutosR2) ? MaximoInteresesBrutosR2 : PenalizacionEurosR2;
-    let PenalizacionAplicarR3 = (PenalizacionEurosR3 > MaximoInteresesBrutosR3) ? MaximoInteresesBrutosR3 : PenalizacionEurosR3;
+    const PenalizacionAplicarR1 = (PenalizacionEurosR1 > MaximoInteresesBrutosR1) ? MaximoInteresesBrutosR1 : PenalizacionEurosR1;
+    const PenalizacionAplicarR2 = (PenalizacionEurosR2 > MaximoInteresesBrutosR2) ? MaximoInteresesBrutosR2 : PenalizacionEurosR2;
+    const PenalizacionAplicarR3 = (PenalizacionEurosR3 > MaximoInteresesBrutosR3) ? MaximoInteresesBrutosR3 : PenalizacionEurosR3;
 
-    const MenosPenalicacionR1 = PenalizacionAplicarR1 * -1;
-    const MenosPenalicacionR2 = PenalizacionAplicarR2 * -1;
-    const MenosPenalicacionR3 = PenalizacionAplicarR3 * -1;
+    const MenosPenalizacionR1 = PenalizacionAplicarR1 * -1;
+    const MenosPenalizacionR2 = PenalizacionAplicarR2 * -1;
+    const MenosPenalizacionR3 = PenalizacionAplicarR3 * -1;
 
-    const ResultadoR1 = MasCapitalR1 + MasInteresesR1 + MenosRetencionR1 + MenosPenalicacionR1;
-    const ResultadoR2 = MasCapitalR2 + MasInteresesR2 + MenosRetencionR2 + MenosPenalicacionR2;
-    const ResultadoR3 = MasCapitalR3 + MasInteresesR3 + MenosRetencionR3 + MenosPenalicacionR3;
+    const ResultadoR1 = MasCapitalR1 + MasInteresesR1 + MenosRetencionR1 + MenosPenalizacionR1;
+    const ResultadoR2 = MasCapitalR2 + MasInteresesR2 + MenosRetencionR2 + MenosPenalizacionR2;
+    const ResultadoR3 = MasCapitalR3 + MasInteresesR3 + MenosRetencionR3 + MenosPenalizacionR3;
 
 
     var CamposAnidados = {
@@ -984,7 +1081,7 @@
         MasCapital: [MasCapitalR1, MasCapitalR2, MasCapitalR3],
         MasIntereses: [MasInteresesR1, MasInteresesR2, MasInteresesR3],
         MenosRetencion: [MenosRetencionR1, MenosRetencionR2, MenosRetencionR3],
-        MenosPenalizacion: [MenosPenalicacionR1, MenosPenalicacionR2, MenosPenalicacionR3],
+        MenosPenalizacion: [MenosPenalizacionR1, MenosPenalizacionR2, MenosPenalizacionR3],
         Resultado: [ResultadoR1, ResultadoR2, ResultadoR3]
       }
     }
@@ -992,7 +1089,7 @@
 
     rellenarCamposAnidados(CamposAnidados);
 
-    // document.getElementById("MaximoInteresesBrutosR1").innerText = formatearNumero(MaximoInteresesBrutosR1);
+    // document.getElementById("PenalizacionAplicarR2").innerText = formatearNumero(PenalizacionAplicarR2);
     // document.getElementById("MaximoInteresesBrutosR2").innerText = MaximoInteresesBrutosR2;
     // document.getElementById("MaximoInteresesBrutosR3").innerText = MaximoInteresesBrutosR3;
 
