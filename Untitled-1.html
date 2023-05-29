@@ -66,8 +66,6 @@
 
     }
 
-
-
     .calculadora {
       width: 10px;
       box-sizing: border-box;
@@ -343,8 +341,8 @@
     </table>
   </form>
   <!-- <p>&nbsp;</p> -->
-  <!-- <div id="resultados" style="display: none;"> -->
-  <div id="resultados">
+  <div id="resultados" style="display: none;">
+    <!-- <div id="resultados"> -->
     <h2>Resultados</h2>
     <table class="resultados">
       <tr>
@@ -854,12 +852,95 @@
 
 
 <script>
+
+  function validarCampos() {
+    const campos = {
+      "Importe": "El Importe",
+      "FechaInicio": "La fecha de inicio",
+      "FechaLiquidacion1": "La fecha de liquidación del 1er Semestre",
+      "FechaLiquidacion2": "La fecha de liquidación del 2º Semestre",
+      "FechaLiquidacion3": "La fecha de liquidación del 3er Semestre",
+      "FechaVencimiento": "La fecha de vencimiento",
+      "PorcentajeRetencion": "La retención",
+      "PorcentajePenalizacion": "El porcentaje de penalización",
+      "TipoInteres1": "El porcentaje de tipo de interés del 1er Semestre",
+      "TipoInteres2": "El porcentaje de tipo de interés del 2º Semestre",
+      "TipoInteres3": "El porcentaje de tipo de interés del 3er Semestre",
+      "ImporteReintegro1": "El Importe reintegrado del 1er Semestre",
+      "ImporteReintegro2": "El Importe reintegrado del 2º Semestre",
+      "ImporteReintegro3": "El Importe reintegrado del 3er Semestre",
+      "FechaReintegro1": "La fecha de reintegro del 1er Semestre",
+      "FechaReintegro2": "La fecha de reintegro del 2º Semestre",
+      "FechaReintegro3": "La fecha de reintegro del 3er Semestre"
+    };
+
+    for (let campo in campos) {
+      const valor = document.getElementById(campo).value.trim();
+
+      if (campo.toLowerCase().includes("fecha")) {
+        const fecha = new Date(valor);
+        if (isNaN(fecha.getTime())) {
+          alert(`El valor de '${campos[campo]}' no es una fecha válida.`);
+          return false;
+        }
+      } else if (valor === "" || isNaN(valor) || valor < 0) {
+        alert(`'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
+        return false;
+      }
+    }
+
+    const FechaInicio = new Date(document.getElementById("FechaInicio").value);
+    const FechaVencimiento = new Date(document.getElementById("FechaVencimiento").value);
+
+    // const FechaLiquidacion1 = new Date(document.getElementById("FechaLiquidacion1").value);
+    // const FechaLiquidacion2 = new Date(document.getElementById("FechaLiquidacion2").value);
+    // const FechaLiquidacion3 = new Date(document.getElementById("FechaLiquidacion2").value);
+    // const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
+    // const FechaReintegro2 = new Date(document.getElementById("FechaReintegro2").value);
+    // const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
+
+    if (FechaVencimiento < FechaInicio) {
+      alert("Error: La 'fecha de Vencimiento' debe ser posterior a la 'Fecha de Inicio'.");
+      return false;
+    }
+    //   if (FechaLiquidacion1 < fechaInicio) {
+    //   alert("Error: La 'fecha de liquidación del 1er Semestre' debe ser posterior a la 'fecha de inicio'.");
+    //   return false;
+    // }
+    // if (fechaReintegro < fechaInicio) {
+    //   alert("Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'.");
+    //   return false;
+    // }
+    // if (fechaReintegro < fechaInicio || fechaReintegro > fechaVencimiento) {
+    //   alert("Error: La 'fecha de reintegro' no es válida. Debe ser mayor a la 'fecha de inicio' y menor a la 'fecha de vencimiento'.");
+    //   return false;
+    // }
+
+    return true;
+  }
+
   // Crea una función para mostrar los resultados
   function showResults() {
 
     const resultadosDiv = document.getElementById("resultados");
     resultadosDiv.style.display = "block";
 
+  }
+
+  // Función que se ejecuta cuando se presiona una tecla en el formulario
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Evita la acción predeterminada del evento (por ejemplo, enviar el formulario)
+      calcularLiquidacion(); // Llama a la función para calcular la liquidación
+    }
+  }
+
+  // Agrega el event listener al objeto document
+  document.addEventListener("keydown", handleKeyDown);
+
+  function hideResults() {
+    const resultadosDiv = document.getElementById("resultados");
+    resultadosDiv.style.display = "none";
   }
 
   function calcularDuracion(FechaInicio, fechaFin) {
@@ -911,6 +992,32 @@
     }
   }
 
+  // Establecer eventos para ejecutar CalcularLiquidacion cuando se modifiquen los campos
+  const campos = [
+    "Importe",
+    "FechaInicio",
+    "FechaVencimiento",
+    "PorcentajePenalizacion",
+    "PorcentajeRetencion",
+    "FechaLiquidacion1",
+    "FechaLiquidacion2",
+    "FechaLiquidacion3",
+    "TipoInteres1",
+    "TipoInteres2",
+    "TipoInteres3",
+    "ImporteReintegro1",
+    "ImporteReintegro2",
+    "ImporteReintegro3",
+    "FechaReintegro1",
+    "FechaReintegro2",
+    "FechaReintegro3"
+  ];
+
+
+
+  for (let i = 0; i < campos.length; i++) {
+    document.getElementById(campos[i]).addEventListener("change", hideResults);
+  }
 
 
 
@@ -940,10 +1047,10 @@
     const FechaReintegro3 = new Date(document.getElementById("FechaReintegro3").value);
 
 
-    // // Validar los campos
-    // if (!validarCampos()) {
-    //   return;
-    // }
+    // Validar los campos
+    if (!validarCampos()) {
+      return;
+    }
 
 
     const FechaLiquidacionL1 = FechaLiquidacion1;
