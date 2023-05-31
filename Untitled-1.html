@@ -188,7 +188,6 @@
           </div>
         </td>
 
-
       </tr>
       <tr>
         <td>
@@ -853,6 +852,16 @@
 
 <script>
 
+  function mostrarError(campoId, mensaje) {
+    let error = document.createElement('div');
+    error.textContent = mensaje;
+    error.style.color = 'red';
+
+    let inputField = document.getElementById(campoId);
+    inputField.style.border = '1px solid red';
+    inputField.after(error);
+  }
+
   function validarCampos() {
     const campos = {
       "Importe": "El Importe",
@@ -892,18 +901,56 @@
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
     const FechaVencimiento = new Date(document.getElementById("FechaVencimiento").value);
 
-    // const FechaLiquidacion1 = new Date(document.getElementById("FechaLiquidacion1").value);
-    // const FechaLiquidacion2 = new Date(document.getElementById("FechaLiquidacion2").value);
-    // const FechaLiquidacion3 = new Date(document.getElementById("FechaLiquidacion2").value);
-    // const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
-    // const FechaReintegro2 = new Date(document.getElementById("FechaReintegro2").value);
-    // const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
+    const FechaLiquidacion1 = new Date(document.getElementById("FechaLiquidacion1").value);
+    const FechaLiquidacion2 = new Date(document.getElementById("FechaLiquidacion2").value);
+    const FechaLiquidacion3 = new Date(document.getElementById("FechaLiquidacion3").value);
+    const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
+    const FechaReintegro2 = new Date(document.getElementById("FechaReintegro2").value);
+    const FechaReintegro3 = new Date(document.getElementById("FechaReintegro3").value);
 
-    if (FechaVencimiento < FechaInicio) {
-      alert("Error: La 'fecha de Vencimiento' debe ser posterior a la 'Fecha de Inicio'.");
-      return false;
+    // Creamos un objeto para mapear cada fecha con la que debe ser posterior.
+    // Las fechas que no tienen una fecha anterior se mapean a null.
+    const fechas = {
+      "FechaInicio": null,
+      "FechaVencimiento": "FechaInicio",
+      "FechaLiquidacion1": "FechaInicio",
+      "FechaLiquidacion2": "FechaLiquidacion1",
+      "FechaLiquidacion3": "FechaLiquidacion2",
+      "FechaReintegro1": "FechaInicio",
+      "FechaReintegro2": "FechaReintegro1",
+      "FechaReintegro3": "FechaReintegro2",
+    };
+
+    // Iteramos sobre cada fecha en el objeto 'fechas'.
+    for (let fecha in fechas) {
+
+      // Obtenemos la fecha que debería ser anterior a la actual.
+      const fechaAnterior = fechas[fecha];
+
+      // Si hay una fecha anterior (es decir, si fechaAnterior no es null),
+      // comparamos la fecha con su fecha anterior.
+      if (fechaAnterior) {
+
+        // Creamos objetos de Date con los valores de los campos de entrada correspondientes.
+        const fechaActual = new Date(document.getElementById(fecha).value);
+        const fechaAnt = new Date(document.getElementById(fechaAnterior).value);
+
+        // Si la fecha es anterior o igual a su fecha anterior, mostramos un error.
+        if (fechaActual <= fechaAnt) {
+          mostrarError(fecha, `La fecha '${fechaActual.toLocaleDateString()}' debe ser posterior a la fecha anterior '${fechaAnt.toLocaleDateString()}'.`);
+          // Salimos de la función, ya que hemos encontrado un error.
+          return false;
+        }
+      }
     }
-    //   if (FechaLiquidacion1 < fechaInicio) {
+
+
+
+    // if (FechaVencimiento < FechaInicio) {
+    //   alert("Error: La 'fecha de Vencimiento' debe ser posterior a la 'Fecha de Inicio'.");
+    //   return false;
+    // }
+    // if (FechaLiquidacion1 < FechaLiquidacion2) {
     //   alert("Error: La 'fecha de liquidación del 1er Semestre' debe ser posterior a la 'fecha de inicio'.");
     //   return false;
     // }
