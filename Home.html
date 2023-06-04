@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>REINTEGRO DEPOSITO CRECIENTE 18M - Penalización por días transcurridos (Tarifas coyunturales)</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     body {
       font-family: Verdana, Geneva, sans-serif;
@@ -21,18 +22,19 @@
     input[type="date"] {
       box-sizing: border-box;
       width: 98px;
-      /* width: 200px; */
-      /* height: 30px; */
     }
-
 
     td.clase-sangria {
       padding-left: 5px;
     }
 
+    .input-EurosWrapper input,
+    .input-PorcientoWrapper input {
+      margin-right: 20px;
+    }
 
-    /* Añadir € al final de las casillas de € */
-    .input-EurosWrapper {
+    .input-EurosWrapper,
+    .input-PorcientoWrapper {
       position: relative;
     }
 
@@ -44,11 +46,6 @@
       transform: translateY(-50%);
     }
 
-    /* Añadir % al final de las casillas de % */
-    .input-PorcientoWrapper {
-      position: relative;
-    }
-
     .input-PorcientoWrapper::after {
       content: "%";
       position: absolute;
@@ -57,45 +54,24 @@
       transform: translateY(-50%);
     }
 
-
-
-    .TituloCalculadora {
-
+    .TituloCalculadora,
+    .TituloResultado {
       font-weight: bold;
       background-color: #E2EFDA;
+    }
 
-
+    .TituloResultado {
+      text-align: center;
     }
 
     .input-error {
       border-color: red;
-      /* Cambia el borde a rojo */
     }
 
     .input-error-message {
       color: red;
-      /* Cambia el texto a rojo */
       font-weight: bold;
-      /* Cambia el texto a negrita */
     }
-
-    /* .calculadora {
-      width: 10px;
-      box-sizing: border-box;
-
-    }
-
-    table.calculadora td {
-      white-space: normal;
-    }
-
-
-    td label {
-      display: inline-block;
-      width: 180px;
-      vertical-align: top;
-    } */
-
 
     .calculadora {
       width: auto;
@@ -110,7 +86,6 @@
     td label {
       display: block;
       width: auto;
-      /* vertical-align: top; */
     }
 
     .error {
@@ -121,20 +96,10 @@
       height: auto;
     }
 
-    /* Resultados: Columnas con números alineadas a la derecha */
     .resultados td:nth-child(2),
     .resultados td:nth-child(5),
     .resultados td:nth-child(8) {
       text-align: right;
-
-    }
-
-    .TituloResultado {
-
-      font-weight: bold;
-      background-color: #E2EFDA;
-      text-align: center !important;
-
     }
 
     .resultados td:nth-child(1),
@@ -143,51 +108,25 @@
     .resultados td:nth-child(7) {
       font-weight: bold;
       padding-right: 5px;
-
     }
 
     .TituloSimulacion {
       border: 1px solid black;
     }
 
-
-    .total-row {
-      /* background-color: rgb(227, 240, 216); */
-      /* font-size: 14px; */
-      /* font-weight: bold; */
-      border-top: 1px solid black;
-      border-right: 1px solid black;
-      border-bottom: 1px solid black;
-      border-left: 1px solid black;
-      border: 1;
-    }
-
+    .total-row,
     .total-row td {
       font-weight: bold;
-      font-weight: bold;
-      border-top: none;
-      border-right: none;
-      border-bottom: none;
-      border-left: none;
-      border: 1;
+      border: 1px solid black;
     }
 
-    .euro-cell::after {
-      content: "€";
-      margin-right: 1px;
-      /* Espacio entre el número y el símbolo de euro */
-    }
-
+    .euro-cell::after,
     .percent-cell::after {
-      content: "%";
       margin-right: 1px;
-      /* Espacio entre el número y el símbolo de euro */
     }
-
 
     button {
       background-color: #00594F;
-      /* Green */
       border: none;
       color: white;
       text-align: center;
@@ -200,7 +139,6 @@
       height: 30px;
       width: 200px;
     }
-
 
     table {
       border-collapse: collapse;
@@ -224,7 +162,7 @@
         </td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="number" id="Importe" name="Importe" value="100000" class="input-field">
+            <input type="text" id="Importe" name="Importe" value="100000" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -250,8 +188,7 @@
         <td><label for="PorcentajePenalizacion"> % Penalización Reintegro:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="number" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2"
-              class="input-field">
+            <input type="text" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -261,7 +198,7 @@
         <td><label for="PorcentajeRetencion">% Retención</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="number" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19" class="input-field">
+            <input type="text" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -288,7 +225,7 @@
         </td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="number" id="TipoInteres1" name="TipoInteres1" value="2.75" class="input-field">
+            <input type="text" id="TipoInteres1" name="TipoInteres1" value="2.75" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -298,7 +235,7 @@
         <td><label for="ImporteReintegro1">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="number" id="ImporteReintegro1" name="ImporteReintegro1" value="500" class="input-field">
+            <input type="text" id="ImporteReintegro1" name="ImporteReintegro1" value="500" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -330,7 +267,7 @@
         <td><label for="TipoInteres2">% Tipo de interés:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="number" id="TipoInteres2" name="TipoInteres2" value="3" class="input-field">
+            <input type="text" id="TipoInteres2" name="TipoInteres2" value="3" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -340,7 +277,7 @@
         <td><label for="ImporteReintegro2">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="number" id="ImporteReintegro2" name="ImporteReintegro2" value="700" class="input-field">
+            <input type="text" id="ImporteReintegro2" name="ImporteReintegro2" value="700" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -371,7 +308,7 @@
         <td><label for="TipoInteres3">% Tipo de interés:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="number" id="TipoInteres3" name="TipoInteres3" value="3.75" class="input-field">
+            <input type="text" id="TipoInteres3" name="TipoInteres3" value="3.75" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -381,7 +318,7 @@
         <td><label for="ImporteReintegro3">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="number" id="ImporteReintegro3" name="ImporteReintegro3" value="800" class="input-field">
+            <input type="text" id="ImporteReintegro3" name="ImporteReintegro3" value="800" class="input-field">
           </div>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -923,6 +860,32 @@
 
 
 <script>
+  // Código jQuery
+  $(document).ready(function () {
+    // Aplica a los campos que contengan 'importe' en su id
+    $('input[id*="importe"], input[id*="Importe"], input[id*="INTERES"], input[id*="Interes"], input[id*="PORCENTAJE"], input[id*="Porcentaje"], input[id*="REINTEGRO"], input[id*="Reintegro"]').not('input[id^="FechaReintegro"]').each(function () {
+
+      let realValue = $(this).val();
+      $(this).data('realvalue', realValue);
+
+      // Format to locale
+      let formattedValue = formatearNumero(parseFloat(realValue));
+      $(this).val(formattedValue);
+
+      $(this).on('input', function () {
+        let thisVal = $(this).val();
+        thisVal = thisVal.replace(/\./g, '').replace(',', '.'); // Limpieza
+        $(this).data('realvalue', thisVal);
+        thisVal = formatearNumero(parseFloat(thisVal));
+        $(this).val(thisVal);
+      });
+    });
+  });
+
+
+
+
+
 
   function mostrarError(inputId, message) {
     clearErrors();
@@ -1005,21 +968,26 @@
     };
 
     for (let campo in campos) {
-      const valor = document.getElementById(campo).value.trim();
+      // Si el campo es una fecha, obtén su valor directamente
+      // Si no, obtén el valor real (sin formato) del atributo data-realvalue
+      let valor = campo.toLowerCase().includes("fecha") ?
+        document.getElementById(campo).value.trim() :
+        $("#" + campo).data('realvalue');
+      valor = valor ? valor.trim() : "";
 
       if (campo.toLowerCase().includes("fecha")) {
         const fecha = new Date(valor);
         if (isNaN(fecha.getTime())) {
-          // alert(`El valor de '${ campos[campo] } ' no es una fecha válida.`);
           mostrarError(campo, `El valor de '${campos[campo]}' no es una fecha válida.`);
           return false;
         }
-      } else if (valor === "" || isNaN(valor) || valor < 0) {
-        // alert(`'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
+      } else if (valor === "" || isNaN(valor) || parseFloat(valor) < 0) {
         mostrarError(campo, `'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
         return false;
       }
     }
+
+
 
 
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
@@ -1153,7 +1121,12 @@
                 if (subArray[i] instanceof Date) {
                   elem.innerText = formatearFecha(subArray[i]);
                 } else {
-                  elem.innerText = formatearNumero(subArray[i]);
+                  // Verificar si la subKey contiene "dias" antes de formatear el número
+                  if (!subKey.includes("Dias")) {
+                    elem.innerText = formatearNumero(subArray[i]);
+                  } else {
+                    elem.innerText = subArray[i]; // Si la subKey contiene "dias", no formatear el número
+                  }
                 }
               }
             }
@@ -1195,27 +1168,29 @@
   function calcularLiquidacion() {
 
 
-    // Elimina cualquier mensaje de error existente y la clase 'error-present'
 
 
     // Obtén los valores de los elementos de entrada
-    const Importe = parseFloat(document.getElementById("Importe").value);
+    const Importe = parseFloat($("#Importe").data('realvalue'));
+    // Similar para los demás campos
+    const PorcentajePenalizacion = parseFloat($("#PorcentajePenalizacion").data('realvalue'));
+    const PorcentajeRetencion = parseFloat($("#PorcentajeRetencion").data('realvalue'));
+
+    const PorcentajeTipoInteres1 = parseFloat($("#TipoInteres1").data('realvalue')) / 100;
+    const PorcentajeTipoInteres2 = parseFloat($("#TipoInteres2").data('realvalue')) / 100;
+    const PorcentajeTipoInteres3 = parseFloat($("#TipoInteres3").data('realvalue')) / 100;
+
+    const ImporteReintegro1 = parseFloat($("#ImporteReintegro1").data('realvalue'));
+    const ImporteReintegro2 = parseFloat($("#ImporteReintegro2").data('realvalue'));
+    const ImporteReintegro3 = parseFloat($("#ImporteReintegro3").data('realvalue'));
+
+
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
     const FechaVencimiento = new Date(document.getElementById("FechaVencimiento").value);
-    const PorcentajePenalizacion = parseFloat(document.getElementById("PorcentajePenalizacion").value) / 100;
-    const PorcentajeRetencion = parseFloat(document.getElementById("PorcentajeRetencion").value) / 100;
 
     const FechaLiquidacion1 = new Date(document.getElementById("FechaLiquidacion1").value);
     const FechaLiquidacion2 = new Date(document.getElementById("FechaLiquidacion2").value);
     const FechaLiquidacion3 = new Date(document.getElementById("FechaLiquidacion3").value);
-
-    const PorcentajeTipoInteres1 = parseFloat(document.getElementById("TipoInteres1").value) / 100;
-    const PorcentajeTipoInteres2 = parseFloat(document.getElementById("TipoInteres2").value) / 100;
-    const PorcentajeTipoInteres3 = parseFloat(document.getElementById("TipoInteres3").value) / 100;
-
-    const ImporteReintegro1 = parseFloat(document.getElementById("ImporteReintegro1").value);
-    const ImporteReintegro2 = parseFloat(document.getElementById("ImporteReintegro2").value);
-    const ImporteReintegro3 = parseFloat(document.getElementById("ImporteReintegro3").value);
 
     const FechaReintegro1 = new Date(document.getElementById("FechaReintegro1").value);
     const FechaReintegro2 = new Date(document.getElementById("FechaReintegro2").value);
@@ -1353,6 +1328,7 @@
         Resultado: [ResultadoL1, ResultadoL2, ResultadoL3]
       },
       R: {
+        FechaReintegro: [FechaReintegroR1, FechaReintegroR2, FechaReintegroR3],
         ImporteReintegro: [ImporteReintegroR1, ImporteReintegroR2, ImporteReintegroR3],
         PorcentajePenalizacion: [PorcentajePenalizacionR1, PorcentajePenalizacionR2, PorcentajePenalizacionR3],
         DiasTranscurridos: [DiasTranscurridosR1, DiasTranscurridosR2, DiasTranscurridosR3],
