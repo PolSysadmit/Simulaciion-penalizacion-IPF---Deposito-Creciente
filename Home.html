@@ -180,7 +180,7 @@
         <td>
           <label for="FechaVencimiento">Fecha vencimiento:</label>
         </td>
-        <td><input type="date" id="FechaVencimiento" name="FechaVencimiento" value="2024-09-15"></td>
+        <td><input type="date" id="FechaVencimiento" name="FechaVencimiento" readonly disabled></td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
@@ -882,6 +882,23 @@
     });
   });
 
+  $(document).ready(function () {
+    $('#FechaInicio').on('change', function () {
+      var fechaInicio = new Date($(this).val());
+
+      // Verifica que la fecha es válida
+      if (!isNaN(fechaInicio.getTime())) {
+        // Añade 18 meses a la fecha de inicio
+        fechaInicio.setMonth(fechaInicio.getMonth() + 18);
+
+        // Formatea la fecha de vencimiento como YYYY-MM-DD
+        var fechaVencimiento = fechaInicio.toISOString().split('T')[0];
+
+        // Actualiza el campo "FechaVencimiento" con la nueva fecha calculada
+        $('#FechaVencimiento').val(fechaVencimiento);
+      }
+    });
+  });
 
 
 
