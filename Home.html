@@ -214,7 +214,7 @@
       </tr>
       <tr>
         <td>Fecha liquidación</td>
-        <td><input type="date" id="FechaLiquidacion1" name="FechaLiquidacion1" value="2023-09-15"></td>
+        <td><input type="date" id="FechaLiquidacion1" name="FechaLiquidacion1" readonly disabled></td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
@@ -258,7 +258,7 @@
       <tr>
         <td>Fecha liquidación</td>
         <td>
-          <input type="date" id="FechaLiquidacion2" name="FechaLiquidacion2" value="2024-03-15">
+          <input type="date" id="FechaLiquidacion2" name="FechaLiquidacion2" readonly disabled>
         </td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
       </tr>
@@ -300,7 +300,7 @@
 
       <tr>
         <td>Fecha liquidación</td>
-        <td><input type="date" id="FechaLiquidacion3" name="FechaLiquidacion3" value="2024-09-15"></td>
+        <td><input type="date" id="FechaLiquidacion3" name="FechaLiquidacion3" readonly disabled></td>
         <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
@@ -861,45 +861,74 @@
 
 <script>
   // Código jQuery
+  // Espera hasta que el documento HTML esté completamente cargado y listo
   $(document).ready(function () {
-    // Aplica a los campos que contengan 'importe' en su id
+
+    // Selecciona todos los campos de entrada ('input') cuyo id contenga 'importe', 'Importe', 'INTERES', 'Interes', 'PORCENTAJE', 'Porcentaje', 'REINTEGRO', o 'Reintegro'
+    // y que no comiencen con 'FechaReintegro'
     $('input[id*="importe"], input[id*="Importe"], input[id*="INTERES"], input[id*="Interes"], input[id*="PORCENTAJE"], input[id*="Porcentaje"], input[id*="REINTEGRO"], input[id*="Reintegro"]').not('input[id^="FechaReintegro"]').each(function () {
 
+      // Obtiene el valor actual del campo de entrada
       let realValue = $(this).val();
+
+      // Almacena el valor actual del campo en un atributo de datos personalizado llamado 'realvalue'
       $(this).data('realvalue', realValue);
 
-      // Format to locale
+      // Formatea el valor actual del campo para que se ajuste a las convenciones locales y lo almacena
       let formattedValue = formatearNumero(parseFloat(realValue));
       $(this).val(formattedValue);
 
+      // Configura un controlador de eventos que se activará cada vez que el usuario introduzca algo en el campo de entrada
       $(this).on('input', function () {
+
+        // Obtiene el valor que el usuario acaba de introducir
         let thisVal = $(this).val();
-        thisVal = thisVal.replace(/\./g, '').replace(',', '.'); // Limpieza
+
+        // Reemplaza todos los puntos por nada y todas las comas por puntos para normalizar el formato numérico
+        thisVal = thisVal.replace(/\./g, '').replace(',', '.');
+
+        // Almacena el valor normalizado en el atributo de datos 'realvalue'
         $(this).data('realvalue', thisVal);
+
+        // Formatea el valor normalizado para que se ajuste a las convenciones locales y lo almacena de nuevo en el campo de entrada
         thisVal = formatearNumero(parseFloat(thisVal));
         $(this).val(thisVal);
       });
     });
   });
 
+
+  // Espera hasta que el documento HTML esté completamente cargado y listo
   $(document).ready(function () {
     $('#FechaInicio').on('change', function () {
       var fechaInicio = new Date($(this).val());
 
       // Verifica que la fecha es válida
       if (!isNaN(fechaInicio.getTime())) {
-        // Añade 18 meses a la fecha de inicio
-        fechaInicio.setMonth(fechaInicio.getMonth() + 18);
+        // Añade 18 meses a la fecha de inicio para la Fecha de Vencimiento
+        var fechaVencimiento = new Date(fechaInicio);
+        fechaVencimiento.setMonth(fechaVencimiento.getMonth() + 18);
 
         // Formatea la fecha de vencimiento como YYYY-MM-DD
-        var fechaVencimiento = fechaInicio.toISOString().split('T')[0];
+        var fechaVencimientoString = fechaVencimiento.toISOString().split('T')[0];
 
         // Actualiza el campo "FechaVencimiento" con la nueva fecha calculada
-        $('#FechaVencimiento').val(fechaVencimiento);
+        $('#FechaVencimiento').val(fechaVencimientoString);
+
+        // Calcula las fechas de liquidación para cada semestre y las establece
+        for (let i = 1; i <= 3; i++) {
+          var fechaLiquidacion = new Date(fechaInicio);
+          fechaLiquidacion.setMonth(fechaLiquidacion.getMonth() + 6 * i);
+
+          var fechaLiquidacionString = fechaLiquidacion.toISOString().split('T')[0];
+
+          // Actualiza el campo "FechaLiquidacion" con la nueva fecha calculada
+          $('#FechaLiquidacion' + i).val(fechaLiquidacionString);
+          $('#FechaLiquidacion' + i).prop('readonly', true);
+        }
       }
     });
   });
-
 
 
 
@@ -926,25 +955,6 @@
   }
 
 
-
-
-
-
-
-  // function mostrarError(campoId, mensaje) {
-  //   let error = document.createElement('div');
-  //   error.textContent = mensaje;
-  //   error.style.color = 'red';
-  //   error.style.display = 'inline-block';  // Para que el mensaje se muestre en línea
-
-  //   let inputField = document.getElementById(campoId);
-  //   inputField.style.border = '1px solid red';
-
-  //   inputField.parentNode.style.display = 'flex';  // Para que el campo de entrada y el mensaje se muestren en línea
-  //   inputField.after(error);
-  // }
-
-
   function clearErrors() {
     // Buscar todos los campos de entrada y limpiar los errores
     document.querySelectorAll('input').forEach(function (inputElement) {
@@ -959,11 +969,13 @@
     });
   }
 
-
+  // Esta función valida todos los campos de entrada especificados
   function validarCampos() {
 
     clearErrors();
 
+    // Define un objeto 'campos' con las claves correspondientes a los campos de entrada que deben ser validados
+    // y los valores son las descripciones de los campos que se usarán en los mensajes de error
     const campos = {
       "Importe": "El Importe",
       "FechaInicio": "La fecha de inicio",
@@ -983,28 +995,57 @@
       "FechaReintegro2": "La fecha de reintegro del 2º Semestre",
       "FechaReintegro3": "La fecha de reintegro del 3er Semestre"
     };
+    // Añadido el acumulador para los importes de reintegro
+    let totalReintegro = 0;
 
+    // Itera sobre cada campo en el objeto 'campos'
     for (let campo in campos) {
       // Si el campo es una fecha, obtén su valor directamente
       // Si no, obtén el valor real (sin formato) del atributo data-realvalue
       let valor = campo.toLowerCase().includes("fecha") ?
         document.getElementById(campo).value.trim() :
         $("#" + campo).data('realvalue');
+
+      // Comprueba si el valor es nulo o vacío, si es así, lo convierte en una cadena vacía
       valor = valor ? valor.trim() : "";
 
+      // Si el campo es una fecha...
       if (campo.toLowerCase().includes("fecha")) {
+        // Intenta convertir el valor en un objeto de fecha
         const fecha = new Date(valor);
+
+        // Si la fecha no es válida (es decir, si es "NaN"), muestra un error y devuelve falso
         if (isNaN(fecha.getTime())) {
           mostrarError(campo, `El valor de '${campos[campo]}' no es una fecha válida.`);
           return false;
         }
-      } else if (valor === "" || isNaN(valor) || parseFloat(valor) < 0) {
+      }
+      // Si el campo no es una fecha...
+      else if (valor === "" || isNaN(valor) || parseFloat(valor) < 0) {
+        // Comprueba si el valor es vacío, no es un número, o es un número negativo
+        // Si es así, muestra un error y devuelve falso
         mostrarError(campo, `'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
         return false;
       }
+
+      // Si el campo es un ImporteReintegro, añade su valor al total de reintegros
+      if (campo.toLowerCase().includes("importereintegro")) {
+        totalReintegro += parseFloat(valor);
+      }
+    }
+
+    //  Comprueba si la suma de los reintegros supera el importe inicial
+    let importeInicial = parseFloat($("#Importe").data('realvalue'));
+    if (totalReintegro > importeInicial) {
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' no puede superar el importe inicial '${formatearNumero(importeInicial)}'.`);
+      return false;
     }
 
 
+    if (totalReintegro !== importeInicial) {
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' debe ser igual al importe inicial '${formatearNumero(importeInicial)}' .`);
+      return false;
+    }
 
 
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
@@ -1051,29 +1092,34 @@
           return false;
         }
       }
+      // Verifica si el nombre del campo contiene la palabra 'fechareintegro'
+      if (fecha.toLowerCase().includes("fechareintegro")) {
+        // Si es así, obtén el último carácter del nombre del campo (que debería ser el número del semestre)
+        let numeroSemestre = fecha.slice(-1);
+
+        // Obtiene la fecha de inicio del documento usando su id 'FechaInicio'
+        let fechaInicio = new Date(document.getElementById('FechaInicio').value);
+
+        // Obtiene la fecha de reintegro del documento usando su id (la variable 'fecha' en este contexto)
+        let fechaReintegro = new Date(document.getElementById(fecha).value);
+
+        // Obtiene la fecha de liquidación correspondiente al semestre del documento usando su id 
+        // 'FechaLiquidacion' concatenado con el número de semestre
+        let fechaLiquidacion = new Date(document.getElementById('FechaLiquidacion' + numeroSemestre).value);
+
+        // Verifica si la fecha de reintegro es anterior a la fecha de inicio o posterior a la fecha de liquidación
+        // Si es así, muestra un error y devuelve falso
+        if (fechaReintegro < fechaInicio || fechaReintegro > fechaLiquidacion) {
+          mostrarError(fecha, `La fecha de reintegro del ${numeroSemestre} semestre debe estar dentro del ${numeroSemestre} semestre .`);
+          return false;
+        }
+      }
+
     }
-
-
-
-    // if (FechaVencimiento < FechaInicio) {
-    //   alert("Error: La 'fecha de Vencimiento' debe ser posterior a la 'Fecha de Inicio'.");
-    //   return false;
-    // }
-    // if (FechaLiquidacion1 < FechaLiquidacion2) {
-    //   alert("Error: La 'fecha de liquidación del 1er Semestre' debe ser posterior a la 'fecha de inicio'.");
-    //   return false;
-    // }
-    // if (fechaReintegro < fechaInicio) {
-    //   alert("Error: La 'fecha de reintegro' debe ser posterior a la 'fecha de inicio'.");
-    //   return false;
-    // }
-    // if (fechaReintegro < fechaInicio || fechaReintegro > fechaVencimiento) {
-    //   alert("Error: La 'fecha de reintegro' no es válida. Debe ser mayor a la 'fecha de inicio' y menor a la 'fecha de vencimiento'.");
-    //   return false;
-    // }
 
     return true;
   }
+
 
   // Crea una función para mostrar los resultados
   function showResults() {
