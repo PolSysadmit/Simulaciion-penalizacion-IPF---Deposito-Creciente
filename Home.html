@@ -162,18 +162,20 @@
         </td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="text" id="Importe" name="Importe" value="100000" class="input-field">
+            <!-- <input type="text" id="Importe" name="Importe" value="100000" class="input-field"> -->
+            <input type="text" id="Importe" name="Importe" class="input-field" value="0">
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="ImporteError"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td>
           <label for="FechaInicio">Fecha inicio:</label>
         </td>
-        <td><input type="date" id="FechaInicio" name="FechaInicio" value="2023-03-15"></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <!-- <td><input type="date" id="FechaInicio" name="FechaInicio" value="2023-03-15"></td> -->
+        <td><input type="date" id="FechaInicio" name="FechaInicio"></td>
+        <td class="error-message-cell" id="FechaInicioError"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
@@ -181,27 +183,30 @@
           <label for="FechaVencimiento">Fecha vencimiento:</label>
         </td>
         <td><input type="date" id="FechaVencimiento" name="FechaVencimiento" readonly disabled></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <!-- <td><input type="date" id="FechaVencimiento" name="FechaVencimiento" readonly disabled></td> -->
+        <td class="error-message-cell" id="FechaVencimientoError"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="PorcentajePenalizacion"> % Penalización Reintegro:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="text" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2" class="input-field">
+            <input type="text" id="PorcentajePenalizacion" name="PorcentajePenalizacion" class="input-field" value="0">
+            <!-- <input type="text" id="PorcentajePenalizacion" name="PorcentajePenalizacion" value="2" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="PorcentajePenalizacionError"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="PorcentajeRetencion">% Retención</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="text" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19" class="input-field">
+            <input type="text" id="PorcentajeRetencion" name="PorcentajeRetencion" class="input-field" value="0">
+            <!-- <input type="text" id="PorcentajeRetencion" name="PorcentajeRetencion" value="19" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="PorcentajeRetencionError"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
@@ -215,7 +220,8 @@
       <tr>
         <td>Fecha liquidación</td>
         <td><input type="date" id="FechaLiquidacion1" name="FechaLiquidacion1" readonly disabled></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <!-- <td><input type="date" id="FechaLiquidacion1" name="FechaLiquidacion1" readonly disabled></td> -->
+        <td class="error-message-cell" id="FechaLiquidacion1Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
@@ -225,26 +231,29 @@
         </td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="text" id="TipoInteres1" name="TipoInteres1" value="2.75" class="input-field">
+            <input type="text" id="TipoInteres1" name="TipoInteres1" class="input-field" value="0">
+            <!-- <input type="text" id="TipoInteres1" name="TipoInteres1" value="2.75" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="TipoInteres1Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr id="ImporteReintegroContainer1">
         <td><label for="ImporteReintegro1">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="text" id="ImporteReintegro1" name="ImporteReintegro1" value="500" class="input-field">
+            <input type="text" id="ImporteReintegro1" name="ImporteReintegro1" class="input-field" value="0">
+            <!-- <input type="text" id="ImporteReintegro1" name="ImporteReintegro1" value="500" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="ImporteReintegro1Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="FechaReintegro1">Fecha reintegro:</label></td>
-        <td><input type="date" id="FechaReintegro1" name="FechaReintegro1" value="2023-05-15"></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td><input type="date" id="FechaReintegro1" name="FechaReintegro1"></td>
+        <!-- <td><input type="date" id="FechaReintegro1" name="FechaReintegro1" value="2023-05-15"></td> -->
+        <td class="error-message-cell" id="FechaReintegro1Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
@@ -260,33 +269,35 @@
         <td>
           <input type="date" id="FechaLiquidacion2" name="FechaLiquidacion2" readonly disabled>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="FechaLiquidacion2Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="TipoInteres2">% Tipo de interés:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="text" id="TipoInteres2" name="TipoInteres2" value="3" class="input-field">
+            <input type="text" id="TipoInteres2" name="TipoInteres2" class="input-field" value="0">
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="TipoInteres2Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr id="ImporteReintegroContainer2">
         <td><label for="ImporteReintegro2">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="text" id="ImporteReintegro2" name="ImporteReintegro2" value="700" class="input-field">
+            <input type="text" id="ImporteReintegro2" name="ImporteReintegro2" class="input-field" value="0">
+            <!-- <input type="text" id="ImporteReintegro2" name="ImporteReintegro2" value="700" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="ImporteReintegro2Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="FechaReintegro2">Fecha reintegro:</label></td>
-        <td><input type="date" id="FechaReintegro2" name="FechaReintegro2" value="2023-10-15"></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td><input type="date" id="FechaReintegro2" name="FechaReintegro2"></td>
+        <!-- <td><input type="date" id="FechaReintegro2" name="FechaReintegro2" value="2023-10-15"></td> -->
+        <td class="error-message-cell" id="FechaReintegro2Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
@@ -301,33 +312,36 @@
       <tr>
         <td>Fecha liquidación</td>
         <td><input type="date" id="FechaLiquidacion3" name="FechaLiquidacion3" readonly disabled></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="FechaLiquidacion3Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="TipoInteres3">% Tipo de interés:</label></td>
         <td>
           <div class="input-PorcientoWrapper">
-            <input type="text" id="TipoInteres3" name="TipoInteres3" value="3.75" class="input-field">
+            <input type="text" id="TipoInteres3" name="TipoInteres3" class="input-field" value="0">
+            <!-- <input type="text" id="TipoInteres3" name="TipoInteres3" value="3.75" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="TipoInteres3Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr id="ImporteReintegroContainer3">
         <td><label for="ImporteReintegro3">Importe reintegro (euros):</label></td>
         <td>
           <div class="input-EurosWrapper">
-            <input type="text" id="ImporteReintegro3" name="ImporteReintegro3" value="800" class="input-field">
+            <input type="text" id="ImporteReintegro3" name="ImporteReintegro3" class="input-field" value="0">
+            <!-- <input type="text" id="ImporteReintegro3" name="ImporteReintegro3" value="800" class="input-field"> -->
           </div>
         </td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td class="error-message-cell" id="ImporteReintegro3Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
         <td><label for="FechaReintegro3">Fecha reintegro:</label></td>
-        <td><input type="date" id="FechaReintegro3" name="FechaReintegro3" value="2024-04-15"></td>
-        <td class="error-message-cell"></td> <!-- Columna para el mensaje de error -->
+        <td><input type="date" id="FechaReintegro3" name="FechaReintegro3"></td>
+        <!-- <td><input type="date" id="FechaReintegro3" name="FechaReintegro3" value="2024-04-15"></td> -->
+        <td class="error-message-cell" id="FechaReintegro3Error"></td> <!-- Columna para el mensaje de error -->
       </tr>
 
       <tr>
@@ -623,13 +637,13 @@
       </tr>
       <tr>
         <td>Intereses reintegro</td>
-        <td class="euro-cell" id="InteresesReintegorR1"></td>
+        <td class="euro-cell" id="InteresesReintegroR1"></td>
         <td></td>
         <td>Intereses reintegro</td>
-        <td class="euro-cell" id="InteresesReintegorR2"></td>
+        <td class="euro-cell" id="InteresesReintegroR2"></td>
         <td></td>
         <td>Intereses reintegro</td>
-        <td class="euro-cell" id="InteresesReintegorR3"></td>
+        <td class="euro-cell" id="InteresesReintegroR3"></td>
       </tr>
       <tr>
         <td>Penalización Euros</td>
@@ -861,6 +875,8 @@
 
 <script>
   // Código jQuery
+
+  //Formatea número mientras se escribe.
   // Espera hasta que el documento HTML esté completamente cargado y listo
   $(document).ready(function () {
 
@@ -878,8 +894,8 @@
       let formattedValue = formatearNumero(parseFloat(realValue));
       $(this).val(formattedValue);
 
-      // Configura un controlador de eventos que se activará cada vez que el usuario introduzca algo en el campo de entrada
-      $(this).on('input', function () {
+      // Configura un controlador de eventos que se activará cada vez que el usuario cambie algo en el campo de entrada
+      $(this).on('change', function () {
 
         // Obtiene el valor que el usuario acaba de introducir
         let thisVal = $(this).val();
@@ -890,14 +906,21 @@
         // Almacena el valor normalizado en el atributo de datos 'realvalue'
         $(this).data('realvalue', thisVal);
 
-        // Formatea el valor normalizado para que se ajuste a las convenciones locales y lo almacena de nuevo en el campo de entrada
-        thisVal = formatearNumero(parseFloat(thisVal));
-        $(this).val(thisVal);
+        // Si el valor introducido es una cadena vacía (es decir, el campo está en blanco)
+        if (thisVal === "") {
+          // Simplemente establece el valor del campo como una cadena vacía
+          $(this).val("");
+        } else {
+          // Si no, formatea el valor normalizado para que se ajuste a las convenciones locales y lo almacena de nuevo en el campo de entrada
+          thisVal = formatearNumero(parseFloat(thisVal));
+          $(this).val(thisVal);
+        }
       });
     });
   });
 
 
+  //Rellena las fechas según la fecha de inicio.
   // Espera hasta que el documento HTML esté completamente cargado y listo
   $(document).ready(function () {
     $('#FechaInicio').on('change', function () {
@@ -1034,18 +1057,21 @@
       }
     }
 
-    //  Comprueba si la suma de los reintegros supera el importe inicial
+    // Comprueba si la suma de los reintegros supera el importe inicial
     let importeInicial = parseFloat($("#Importe").data('realvalue'));
     if (totalReintegro > importeInicial) {
-      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' no puede superar el importe inicial '${formatearNumero(importeInicial)}'.`);
+      let exceso = totalReintegro - importeInicial;
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' supera el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(exceso)}'.`);
       return false;
     }
 
-
+    // Comprueba si la suma de los reintegros es igual al importe inicial
     if (totalReintegro !== importeInicial) {
-      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' debe ser igual al importe inicial '${formatearNumero(importeInicial)}' .`);
+      let faltante = importeInicial - totalReintegro;
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' es menor que el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(faltante)}'.`);
       return false;
     }
+
 
 
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
@@ -1184,11 +1210,13 @@
                 if (subArray[i] instanceof Date) {
                   elem.innerText = formatearFecha(subArray[i]);
                 } else {
-                  // Verificar si la subKey contiene "dias" antes de formatear el número
-                  if (!subKey.includes("Dias")) {
-                    elem.innerText = formatearNumero(subArray[i]);
+                  // Verificar si la subKey contiene "dias" o "Porcentaje" antes de formatear el número
+                  if (subKey.includes("Dias")) {
+                    elem.innerText = subArray[i];
+                  } else if (subKey.includes("Porcentaje")) {
+                    elem.innerText = formatearNumero(subArray[i]) + " %";
                   } else {
-                    elem.innerText = subArray[i]; // Si la subKey contiene "dias", no formatear el número
+                    elem.innerText = formatearNumero(subArray[i]) + " €";
                   }
                 }
               }
@@ -1198,6 +1226,8 @@
       }
     }
   }
+
+
 
   // Establecer eventos para ejecutar CalcularLiquidacion cuando se modifiquen los campos
   const campos = [
@@ -1239,9 +1269,9 @@
     const PorcentajePenalizacion = parseFloat($("#PorcentajePenalizacion").data('realvalue'));
     const PorcentajeRetencion = parseFloat($("#PorcentajeRetencion").data('realvalue'));
 
-    const PorcentajeTipoInteres1 = parseFloat($("#TipoInteres1").data('realvalue')) / 100;
-    const PorcentajeTipoInteres2 = parseFloat($("#TipoInteres2").data('realvalue')) / 100;
-    const PorcentajeTipoInteres3 = parseFloat($("#TipoInteres3").data('realvalue')) / 100;
+    const PorcentajeTipoInteres1 = parseFloat($("#TipoInteres1").data('realvalue'));
+    const PorcentajeTipoInteres2 = parseFloat($("#TipoInteres2").data('realvalue'));
+    const PorcentajeTipoInteres3 = parseFloat($("#TipoInteres3").data('realvalue'));
 
     const ImporteReintegro1 = parseFloat($("#ImporteReintegro1").data('realvalue'));
     const ImporteReintegro2 = parseFloat($("#ImporteReintegro2").data('realvalue'));
@@ -1274,26 +1304,26 @@
     const FechaReintegroR2 = FechaReintegro2;
     const FechaReintegroR3 = FechaReintegro3;
 
-    const PorcentajeTipoInteresL1 = PorcentajeTipoInteres1 * 100;
-    const PorcentajeTipoInteresL2 = PorcentajeTipoInteres2 * 100;
-    const PorcentajeTipoInteresL3 = PorcentajeTipoInteres3 * 100;
+    const PorcentajeTipoInteresL1 = PorcentajeTipoInteres1;
+    const PorcentajeTipoInteresL2 = PorcentajeTipoInteres2;
+    const PorcentajeTipoInteresL3 = PorcentajeTipoInteres3;
 
-    const PorcentajeRetencionL1 = PorcentajeRetencion * 100;
-    const PorcentajeRetencionL2 = PorcentajeRetencion * 100;
-    const PorcentajeRetencionL3 = PorcentajeRetencion * 100;
+    const PorcentajeRetencionL1 = PorcentajeRetencion;
+    const PorcentajeRetencionL2 = PorcentajeRetencion;
+    const PorcentajeRetencionL3 = PorcentajeRetencion;
 
-    const PorcentajeRetencionR1 = PorcentajeRetencion * 100;
-    const PorcentajeRetencionR2 = PorcentajeRetencion * 100;
-    const PorcentajeRetencionR3 = PorcentajeRetencion * 100;
+    const PorcentajeRetencionR1 = PorcentajeRetencion;
+    const PorcentajeRetencionR2 = PorcentajeRetencion;
+    const PorcentajeRetencionR3 = PorcentajeRetencion;
 
 
     const ImporteReintegroR1 = ImporteReintegro1;
     const ImporteReintegroR2 = ImporteReintegro2;
     const ImporteReintegroR3 = ImporteReintegro3;
 
-    const PorcentajePenalizacionR1 = PorcentajePenalizacion * 100;
-    const PorcentajePenalizacionR2 = PorcentajePenalizacion * 100;
-    const PorcentajePenalizacionR3 = PorcentajePenalizacion * 100;
+    const PorcentajePenalizacionR1 = PorcentajePenalizacion;
+    const PorcentajePenalizacionR2 = PorcentajePenalizacion;
+    const PorcentajePenalizacionR3 = PorcentajePenalizacion;
 
     //Calcular Liquidaciones
 
@@ -1305,21 +1335,21 @@
     const DiasTranscurridosL2 = Math.abs(calcularDuracion(FechaLiquidacionL1, FechaLiquidacionL2).duracionDias);
     const DiasTranscurridosL3 = Math.abs(calcularDuracion(FechaLiquidacionL2, FechaLiquidacionL3).duracionDias);
 
-    const InteresesEurosL1 = ImporteVivoL1 * PorcentajeTipoInteres1 * DiasTranscurridosL1 / 365;
-    const InteresesEurosL2 = ImporteVivoL2 * PorcentajeTipoInteres2 * DiasTranscurridosL2 / 365;
-    const InteresesEurosL3 = ImporteVivoL3 * PorcentajeTipoInteres3 * DiasTranscurridosL3 / 365;
+    const InteresesEurosL1 = ImporteVivoL1 * (PorcentajeTipoInteres1 / 100) * DiasTranscurridosL1 / 365;
+    const InteresesEurosL2 = ImporteVivoL2 * (PorcentajeTipoInteres2 / 100) * DiasTranscurridosL2 / 365;
+    const InteresesEurosL3 = ImporteVivoL3 * (PorcentajeTipoInteres3 / 100) * DiasTranscurridosL3 / 365;
 
-    const RetencionEurosL1 = InteresesEurosL1 * PorcentajeRetencion;
-    const RetencionEurosL2 = InteresesEurosL2 * PorcentajeRetencion;
-    const RetencionEurosL3 = InteresesEurosL3 * PorcentajeRetencion;
+    const RetencionEurosL1 = InteresesEurosL1 * (PorcentajeRetencionL1 / 100);
+    const RetencionEurosL2 = InteresesEurosL2 * (PorcentajeRetencionL2 / 100);
+    const RetencionEurosL3 = InteresesEurosL3 * (PorcentajeRetencionL3 / 100);
 
     const MasInteresesL1 = Math.abs(InteresesEurosL1);
     const MasInteresesL2 = Math.abs(InteresesEurosL2);
     const MasInteresesL3 = Math.abs(InteresesEurosL3);
 
-    const MenosRetencionL1 = RetencionEurosL1 * -1;
-    const MenosRetencionL2 = RetencionEurosL2 * -1;
-    const MenosRetencionL3 = RetencionEurosL3 * -1;
+    const MenosRetencionL1 = -RetencionEurosL1;
+    const MenosRetencionL2 = -RetencionEurosL2;
+    const MenosRetencionL3 = -RetencionEurosL3;
 
     const ResultadoL1 = Math.abs(MasInteresesL1 + MenosRetencionL1);
     const ResultadoL2 = Math.abs(MasInteresesL2 + MenosRetencionL2);
@@ -1335,42 +1365,42 @@
     const DiasTranscurridosDesdeAnteriorLiquidacionR2 = Math.abs(calcularDuracion(FechaReintegroR2, FechaLiquidacionL1).duracionDias);
     const DiasTranscurridosDesdeAnteriorLiquidacionR3 = Math.abs(calcularDuracion(FechaReintegroR3, FechaLiquidacionL2).duracionDias);
 
-    const InteresesReintegorR1 = Math.abs(ImporteReintegroR1) * PorcentajeTipoInteres1 * DiasTranscurridosR1 / 365;
-    const InteresesReintegorR2 = Math.abs(ImporteReintegroR2) * PorcentajeTipoInteres2 * DiasTranscurridosDesdeAnteriorLiquidacionR2 / 365;
-    const InteresesReintegorR3 = Math.abs(ImporteReintegroR3) * PorcentajeTipoInteres3 * DiasTranscurridosDesdeAnteriorLiquidacionR3 / 365;
+    const InteresesReintegroR1 = Math.abs(ImporteReintegroR1) * (PorcentajeTipoInteres1 / 100) * DiasTranscurridosR1 / 365;
+    const InteresesReintegroR2 = Math.abs(ImporteReintegroR2) * (PorcentajeTipoInteres2 / 100) * DiasTranscurridosDesdeAnteriorLiquidacionR2 / 365;
+    const InteresesReintegroR3 = Math.abs(ImporteReintegroR3) * (PorcentajeTipoInteres3 / 100) * DiasTranscurridosDesdeAnteriorLiquidacionR3 / 365;
 
-    const PenalizacionEurosR1 = Math.abs(ImporteReintegroR1) * PorcentajePenalizacion * DiasTranscurridosR1 / 365;
-    const PenalizacionEurosR2 = Math.abs(ImporteReintegroR2) * PorcentajePenalizacion * DiasTranscurridosR2 / 365;
-    const PenalizacionEurosR3 = Math.abs(ImporteReintegroR3) * PorcentajePenalizacion * DiasTranscurridosR3 / 365;
+    const PenalizacionEurosR1 = Math.abs(ImporteReintegroR1) * (PorcentajePenalizacion / 100) * DiasTranscurridosR1 / 365;
+    const PenalizacionEurosR2 = Math.abs(ImporteReintegroR2) * (PorcentajePenalizacion / 100) * DiasTranscurridosR2 / 365;
+    const PenalizacionEurosR3 = Math.abs(ImporteReintegroR3) * (PorcentajePenalizacion / 100) * DiasTranscurridosR3 / 365;
 
-    const RetencionEurosR1 = Math.abs(InteresesReintegorR1) * PorcentajeRetencion;
-    const RetencionEurosR2 = Math.abs(InteresesReintegorR2) * PorcentajeRetencion;
-    const RetencionEurosR3 = Math.abs(InteresesReintegorR3) * PorcentajeRetencion;
+    const RetencionEurosR1 = Math.abs(InteresesReintegroR1) * (PorcentajeRetencionR1 / 100);
+    const RetencionEurosR2 = Math.abs(InteresesReintegroR2) * (PorcentajeRetencionR2 / 100);
+    const RetencionEurosR3 = Math.abs(InteresesReintegroR3) * (PorcentajeRetencionR3 / 100);
 
     const MasCapitalR1 = Math.abs(ImporteReintegroR1);
     const MasCapitalR2 = Math.abs(ImporteReintegroR2);
     const MasCapitalR3 = Math.abs(ImporteReintegroR3);
 
-    const MasInteresesR1 = Math.abs(InteresesReintegorR1);
-    const MasInteresesR2 = Math.abs(InteresesReintegorR2);
-    const MasInteresesR3 = Math.abs(InteresesReintegorR3);
+    const MasInteresesR1 = Math.abs(InteresesReintegroR1);
+    const MasInteresesR2 = Math.abs(InteresesReintegroR2);
+    const MasInteresesR3 = Math.abs(InteresesReintegroR3);
 
-    const MenosRetencionR1 = RetencionEurosR1 * -1;
-    const MenosRetencionR2 = RetencionEurosR2 * -1;
-    const MenosRetencionR3 = RetencionEurosR3 * -1;
+    const MenosRetencionR1 = -RetencionEurosR1;
+    const MenosRetencionR2 = -RetencionEurosR2;
+    const MenosRetencionR3 = -RetencionEurosR3;
 
-    const MaximoInteresesBrutosR1 = Math.abs(Importe) * PorcentajeTipoInteres1 * DiasTranscurridosR1 / 365;
-    const MaximoInteresesBrutosR2 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + InteresesReintegorR2;
+    const MaximoInteresesBrutosR1 = Math.abs(Importe) * (PorcentajeTipoInteres1 / 100) * DiasTranscurridosR1 / 365;
+    const MaximoInteresesBrutosR2 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + InteresesReintegroR2;
 
-    const MaximoInteresesBrutosR3 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + MasInteresesR2 + InteresesEurosL3 + InteresesReintegorR3;
+    const MaximoInteresesBrutosR3 = MasInteresesL1 + MasInteresesR1 + InteresesEurosL2 + MasInteresesR2 + InteresesEurosL3 + InteresesReintegroR3;
 
     const PenalizacionAplicarR1 = (PenalizacionEurosR1 > MaximoInteresesBrutosR1) ? MaximoInteresesBrutosR1 : PenalizacionEurosR1;
     const PenalizacionAplicarR2 = (PenalizacionEurosR2 > MaximoInteresesBrutosR2) ? MaximoInteresesBrutosR2 : PenalizacionEurosR2;
     const PenalizacionAplicarR3 = (PenalizacionEurosR3 > MaximoInteresesBrutosR3) ? MaximoInteresesBrutosR3 : PenalizacionEurosR3;
 
-    const MenosPenalizacionR1 = PenalizacionAplicarR1 * -1;
-    const MenosPenalizacionR2 = PenalizacionAplicarR2 * -1;
-    const MenosPenalizacionR3 = PenalizacionAplicarR3 * -1;
+    const MenosPenalizacionR1 = -PenalizacionAplicarR1;
+    const MenosPenalizacionR2 = -PenalizacionAplicarR2;
+    const MenosPenalizacionR3 = -PenalizacionAplicarR3;
 
     const ResultadoR1 = MasCapitalR1 + MasInteresesR1 + MenosRetencionR1 + MenosPenalizacionR1;
     const ResultadoR2 = MasCapitalR2 + MasInteresesR2 + MenosRetencionR2 + MenosPenalizacionR2;
@@ -1396,7 +1426,7 @@
         PorcentajePenalizacion: [PorcentajePenalizacionR1, PorcentajePenalizacionR2, PorcentajePenalizacionR3],
         DiasTranscurridos: [DiasTranscurridosR1, DiasTranscurridosR2, DiasTranscurridosR3],
         DiasTranscurridosDesdeAnteriorLiquidacion: [DiasTranscurridosDesdeAnteriorLiquidacionR1, DiasTranscurridosDesdeAnteriorLiquidacionR2, DiasTranscurridosDesdeAnteriorLiquidacionR3],
-        InteresesReintegor: [InteresesReintegorR1, InteresesReintegorR2, InteresesReintegorR3],
+        InteresesReintegro: [InteresesReintegroR1, InteresesReintegroR2, InteresesReintegroR3],
         PenalizacionEuros: [PenalizacionEurosR1, PenalizacionEurosR2, PenalizacionEurosR3],
         MaximoInteresesBrutos: [MaximoInteresesBrutosR1, MaximoInteresesBrutosR2, MaximoInteresesBrutosR3],
         PenalizacionAplicar: [PenalizacionAplicarR1, PenalizacionAplicarR2, PenalizacionAplicarR3],
