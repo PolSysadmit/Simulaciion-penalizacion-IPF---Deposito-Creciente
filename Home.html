@@ -88,6 +88,10 @@
       width: auto;
     }
 
+    .CeldaSombreadaAmarillo {
+      background-color: yellow;
+    }
+
     .error {
       color: red;
       display: block;
@@ -417,13 +421,13 @@
       </tr>
       <tr>
         <td>Fecha liquidación</td>
-        <td id="FechaLiquidacionL1"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaLiquidacionL1"></td>
         <td></td>
         <td>Fecha liquidación</td>
-        <td id="FechaLiquidacionL2"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaLiquidacionL2"></td>
         <td></td>
         <td>Fecha liquidación</td>
-        <td id="FechaLiquidacionL3"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaLiquidacionL3"></td>
       </tr>
       <tr>
         <td>Días transcurridos</td>
@@ -437,13 +441,13 @@
       </tr>
       <tr>
         <td>Tipo de interés</td>
-        <td class="percent-cell" id="PorcentajeTipoInteresL1"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeTipoInteresL1"></td>
         <td></td>
         <td>Tipo de interés</td>
-        <td class="percent-cell" id="PorcentajeTipoInteresL2"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeTipoInteresL2"></td>
         <td></td>
         <td>Tipo de interés</td>
-        <td class="percent-cell" id="PorcentajeTipoInteresL3"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeTipoInteresL3"></td>
       </tr>
       <tr>
         <td>Intereses Euros</td>
@@ -463,17 +467,17 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionL1"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL1"></td>
         <td></td>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionL2"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL2"></td>
         <td></td>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionL3"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL3"></td>
       </tr>
       <tr>
         <td>Retención Euros</td>
@@ -587,33 +591,33 @@
       </tr>
       <tr>
         <td>Importe Reintegro</td>
-        <td class="euro-cell" id="ImporteReintegroR1"></td>
+        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR1"></td>
         <td></td>
         <td>Importe Reintegro</td>
-        <td class="euro-cell" id="ImporteReintegroR2"></td>
+        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR2"></td>
         <td></td>
         <td>Importe Reintegro</td>
-        <td class="euro-cell" id="ImporteReintegroR3"></td>
+        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR3"></td>
       </tr>
       <tr>
         <td>Fecha reintegro</td>
-        <td id="FechaReintegroR1"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaReintegroR1"></td>
         <td></td>
         <td>Fecha reintegro</td>
-        <td id="FechaReintegroR2"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaReintegroR2"></td>
         <td></td>
         <td>Fecha reintegro</td>
-        <td id="FechaReintegroR3"></td>
+        <td class="CeldaSombreadaAmarillo" id="FechaReintegroR3"></td>
       </tr>
       <tr>
         <td>% Penalización</td>
-        <td class="percent-cell" id="PorcentajePenalizacionR1"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR1"></td>
         <td></td>
         <td>% Penalización</td>
-        <td class="percent-cell" id="PorcentajePenalizacionR2"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR2"></td>
         <td></td>
         <td>% Penalización</td>
-        <td class="percent-cell" id="PorcentajePenalizacionR3"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR3"></td>
       </tr>
       <tr>
         <td>Días transcurridos desde inicio</td>
@@ -683,17 +687,17 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionR1"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR1"></td>
         <td></td>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionR2"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR2"></td>
         <td></td>
         <td>% Retención </td>
-        <td class="percent-cell" id="PorcentajeRetencionR3"></td>
+        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR3"></td>
       </tr>
       <tr>
         <td>Retención Euros</td>
@@ -1152,6 +1156,8 @@
 
     const resultadosDiv = document.getElementById("resultados");
     resultadosDiv.style.display = "block";
+    window.scrollTo(0, document.body.scrollHeight);
+
 
   }
 
