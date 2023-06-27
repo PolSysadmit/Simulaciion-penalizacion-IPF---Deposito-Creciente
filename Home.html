@@ -1001,8 +1001,6 @@
 
     clearErrors();
 
-    // Define un objeto 'campos' con las claves correspondientes a los campos de entrada que deben ser validados
-    // y los valores son las descripciones de los campos que se usarán en los mensajes de error
     const campos = {
       "Importe": "El Importe",
       "FechaInicio": "La fecha de inicio",
@@ -1022,59 +1020,53 @@
       "FechaReintegro2": "La fecha de reintegro del 2º Semestre",
       "FechaReintegro3": "La fecha de reintegro del 3er Semestre"
     };
-    // Añadido el acumulador para los importes de reintegro
+
     let totalReintegro = 0;
 
-    // Itera sobre cada campo en el objeto 'campos'
     for (let campo in campos) {
-      // Si el campo es una fecha, obtén su valor directamente
-      // Si no, obtén el valor real (sin formato) del atributo data-realvalue
       let valor = campo.toLowerCase().includes("fecha") ?
         document.getElementById(campo).value.trim() :
         $("#" + campo).data('realvalue');
-
-      // Comprueba si el valor es nulo o vacío, si es así, lo convierte en una cadena vacía
       valor = valor ? valor.trim() : "";
 
-      // Si el campo es una fecha...
       if (campo.toLowerCase().includes("fecha")) {
-        // Intenta convertir el valor en un objeto de fecha
         const fecha = new Date(valor);
-
-        // Si la fecha no es válida (es decir, si es "NaN"), muestra un error y devuelve falso
-        if (isNaN(fecha.getTime())) {
+        if (valor !== "" && isNaN(fecha.getTime())) {
           mostrarError(campo, `El valor de '${campos[campo]}' no es una fecha válida.`);
           return false;
         }
       }
-      // Si el campo no es una fecha...
-      else if (valor === "" || isNaN(valor) || parseFloat(valor) < 0) {
-        // Comprueba si el valor es vacío, no es un número, o es un número negativo
-        // Si es así, muestra un error y devuelve falso
-        mostrarError(campo, `'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
+      else if (valor !== "" && (isNaN(valor) || parseFloat(valor) < 0)) {
+        mostrarError(campo, `'${campos[campo]}' debe ser un valor numérico superior a 0.`);
         return false;
       }
 
-      // Si el campo es un ImporteReintegro, añade su valor al total de reintegros
       if (campo.toLowerCase().includes("importereintegro")) {
         totalReintegro += parseFloat(valor);
       }
+
+      if (campo.includes("TipoInteres") || campo.includes("ImporteReintegro") || campo.includes("FechaReintegro")) {
+        let grupo = campo.charAt(campo.length - 1);
+        let TipoInteres = document.getElementById("TipoInteres" + grupo).value.trim();
+        let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value.trim();
+        let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value.trim();
+
+        if (TipoInteres !== "0,00" || ImporteReintegro !== "0,00" || FechaReintegro !== "") {
+          if (TipoInteres === "0,00" || ImporteReintegro === "0,00" || FechaReintegro === "") {
+            mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
+            return false;
+          }
+        }
+      }
     }
 
-    // Comprueba si la suma de los reintegros supera el importe inicial
-    let importeInicial = parseFloat($("#Importe").data('realvalue'));
-    if (totalReintegro > importeInicial) {
-      let exceso = totalReintegro - importeInicial;
-      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' supera el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(exceso)}'.`);
+    const importe = parseFloat(document.getElementById('Importe').value.trim());
+
+    if (totalReintegro !== importe) {
+      mostrarError('Importe', `La suma de los importes reintegrados (${totalReintegro}) no coincide con el importe total (${importe}).`);
       return false;
     }
 
-    // Comprueba si la suma de los reintegros es igual al importe inicial
-    if (totalReintegro !== importeInicial) {
-      let faltante = importeInicial - totalReintegro;
-      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' es menor que el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(faltante)}'.`);
-      return false;
-    }
 
 
 
@@ -1146,6 +1138,22 @@
       }
 
     }
+
+    // Comprueba si la suma de los reintegros supera el importe inicial
+    let importeInicial = parseFloat($("#Importe").data('realvalue'));
+    if (totalReintegro > importeInicial) {
+      let exceso = totalReintegro - importeInicial;
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' supera el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(exceso)}'.`);
+      return false;
+    }
+
+    // Comprueba si la suma de los reintegros es igual al importe inicial
+    if (totalReintegro !== importeInicial) {
+      let faltante = importeInicial - totalReintegro;
+      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' es menor que el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(faltante)}'.`);
+      return false;
+    }
+
 
     return true;
   }
