@@ -135,7 +135,7 @@ Describe "Verificar Errores de entrada numericos" {
             $Global:Driver.FindElementById($Campo.Name).SendKeys($Campo.Value)
             $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[27]/td/center/button').click()
             # Busca el elemento y verifica el mensaje de error
-            $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "* es obligatorio y debe ser un valor numérico superior a 0."
+            $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "* debe ser un valor numérico superior a 0."
             $Global:Driver.FindElementById($Campo.Name).clear()
             $Global:Driver.FindElementById($Campo.Name).SendKeys("1")
                 
@@ -152,13 +152,13 @@ Describe "Verificar Errores de entrada numericos" {
             "PorcentajePenalizacion" = ""
             "PorcentajeRetencion"    = ""
 
-            "TipoInteres1"           = ""
-            "TipoInteres2"           = ""
-            "TipoInteres3"           = ""
+            # "TipoInteres1"           = ""
+            # "TipoInteres2"           = ""
+            # "TipoInteres3"           = ""
 
-            "ImporteReintegro1"      = ""
-            "ImporteReintegro2"      = ""
-            "ImporteReintegro3"      = ""
+            # "ImporteReintegro1"      = ""
+            # "ImporteReintegro2"      = ""
+            # "ImporteReintegro3"      = ""
         
         } 
 

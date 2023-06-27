@@ -1029,6 +1029,13 @@
         $("#" + campo).data('realvalue');
       valor = valor ? valor.trim() : "";
 
+      if (["Importe", "FechaInicio", "PorcentajeRetencion", "PorcentajePenalizacion"].includes(campo)) {
+        if (valor === "" || parseFloat(valor) <= 0) {
+          mostrarError(campo, `'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
+          return false;
+        }
+      }
+
       if (campo.toLowerCase().includes("fecha")) {
         const fecha = new Date(valor);
         if (valor !== "" && isNaN(fecha.getTime())) {
@@ -1047,13 +1054,13 @@
 
       if (campo.includes("TipoInteres") || campo.includes("ImporteReintegro") || campo.includes("FechaReintegro")) {
         let grupo = campo.charAt(campo.length - 1);
-        let TipoInteres = document.getElementById("TipoInteres" + grupo).value.trim();
-        let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value.trim();
-        let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value.trim();
+        let TipoInteres = document.getElementById("TipoInteres" + grupo).value;
+        let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value;
+        let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value;
 
-        if (TipoInteres !== "0,00" || ImporteReintegro !== "0,00" || FechaReintegro !== "") {
-          if (TipoInteres === "0,00" || ImporteReintegro === "0,00" || FechaReintegro === "") {
-            mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
+        if ([TipoInteres, ImporteReintegro, FechaReintegro].some(v => v !== "" && parseFloat(v) !== 0)) {
+          if (TipoInteres === "" || parseFloat(TipoInteres) === 0 || ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
+            mostrarError(campo, `Todos los campos del grupo ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
             return false;
           }
         }
@@ -1062,10 +1069,10 @@
 
     const importe = parseFloat(document.getElementById('Importe').value.trim());
 
-    if (totalReintegro !== importe) {
-      mostrarError('Importe', `La suma de los importes reintegrados (${totalReintegro}) no coincide con el importe total (${importe}).`);
-      return false;
-    }
+    // if (totalReintegro !== importe) {
+    //   mostrarError('Importe', `La suma de los importes reintegrados (${totalReintegro}) no coincide con el importe total (${importe}).`);
+    //   return false;
+    // }
 
 
 
