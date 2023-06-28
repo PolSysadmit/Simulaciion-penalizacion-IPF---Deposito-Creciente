@@ -1060,7 +1060,7 @@
 
         if ([TipoInteres, ImporteReintegro, FechaReintegro].some(v => v !== "" && parseFloat(v) !== 0)) {
           if (TipoInteres === "" || parseFloat(TipoInteres) === 0 || ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
-            mostrarError(campo, `Todos los campos del grupo ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
+            mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
             return false;
           }
         }
