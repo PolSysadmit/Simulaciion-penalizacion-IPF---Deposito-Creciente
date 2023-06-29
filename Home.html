@@ -996,6 +996,53 @@
     });
   }
 
+  function obtenerValor(campo) {
+    return campo.toLowerCase().includes("fecha") ?
+      document.getElementById(campo).value.trim() :
+      $("#" + campo).data('realvalue');
+  }
+
+  function validarCampoNumerico(campo, valor, nombreCampo) {
+    if (valor === "" || isNaN(valor) || parseFloat(valor) <= 0) {
+      mostrarError(campo, `${nombreCampo} debe ser un valor numérico superior a 0.`);
+      return false;
+    }
+    return true;
+  }
+
+  function validarCampoFecha(campo, valor) {
+    const fecha = new Date(valor);
+    if (valor !== "" && isNaN(fecha.getTime())) {
+      mostrarError(campo, `El valor de '${campo}' no es una fecha válida.`);
+      return false;
+    }
+    return true;
+  }
+
+  function validarCampoGrupo(campo, grupo) {
+    let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value;
+    // let TipoInteres = document.getElementById("TipoInteres" + grupo).value;
+
+    let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value;
+    // if (TipoInteres === "" || parseFloat(TipoInteres) === 0 || ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
+
+    if (ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
+      if ([ImporteReintegro, FechaReintegro].some(v => v !== "" && parseFloat(v) !== 0)) {
+        mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function validarCampoRequerido(campo, valor, nombreCampo) {
+    if (valor === "" || parseFloat(valor) <= 0) {
+      mostrarError(campo, `${nombreCampo} es obligatorio y debe ser un valor numérico superior a 0.`);
+      return false;
+    }
+    return true;
+  }
+
   // Esta función valida todos los campos de entrada especificados
   function validarCampos() {
 
@@ -1024,62 +1071,35 @@
     let totalReintegro = 0;
 
     for (let campo in campos) {
-      let valor = campo.toLowerCase().includes("fecha") ?
-        document.getElementById(campo).value.trim() :
-        $("#" + campo).data('realvalue');
+      let valor = obtenerValor(campo);
       valor = valor ? valor.trim() : "";
-
-      if (["Importe", "FechaInicio", "PorcentajeRetencion", "PorcentajePenalizacion"].includes(campo)) {
-        if (valor === "" || parseFloat(valor) <= 0) {
-          mostrarError(campo, `'${campos[campo]}' es obligatorio y debe ser un valor numérico superior a 0.`);
-          return false;
-        }
-      }
-
-      if (campo.toLowerCase().includes("fecha")) {
-        const fecha = new Date(valor);
-        if (valor !== "" && isNaN(fecha.getTime())) {
-          mostrarError(campo, `El valor de '${campos[campo]}' no es una fecha válida.`);
-          return false;
-        }
-      }
-      else if (valor !== "" && (isNaN(valor) || parseFloat(valor) < 0)) {
-        mostrarError(campo, `'${campos[campo]}' debe ser un valor numérico superior a 0.`);
-        return false;
-      }
 
       if (campo.toLowerCase().includes("importereintegro")) {
         totalReintegro += parseFloat(valor);
       }
 
-      if (campo.includes("TipoInteres") || campo.includes("ImporteReintegro") || campo.includes("FechaReintegro")) {
-        let grupo = campo.charAt(campo.length - 1);
-        let TipoInteres = document.getElementById("TipoInteres" + grupo).value;
-        let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value;
-        let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value;
-
-        if ([TipoInteres, ImporteReintegro, FechaReintegro].some(v => v !== "" && parseFloat(v) !== 0)) {
-          if (TipoInteres === "" || parseFloat(TipoInteres) === 0 || ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
-            mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
-            return false;
-          }
-        }
+      if (["Importe", "PorcentajeRetencion", "PorcentajePenalizacion", "TipoInteres1", "TipoInteres2", "TipoInteres3"].includes(campo)) {
+        if (!validarCampoRequerido(campo, valor, campos[campo]) || !validarCampoNumerico(campo, valor)) return false;
       }
+
+      if (campo.toLowerCase().includes("fecha")) {
+        if (!validarCampoFecha(campo, valor)) return false;
+      } else if (valor !== "") {
+        if (!validarCampoNumerico(campo, valor, campos[campo])) return false;
+      }
+
+      if (campo.includes("ImporteReintegro") || campo.includes("FechaReintegro")) {
+        let grupo = campo.charAt(campo.length - 1);
+        if (!validarCampoGrupo(campo, grupo)) return false;
+      }
+
+
     }
 
     const importe = parseFloat(document.getElementById('Importe').value.trim());
 
-    // if (totalReintegro !== importe) {
-    //   mostrarError('Importe', `La suma de los importes reintegrados (${totalReintegro}) no coincide con el importe total (${importe}).`);
-    //   return false;
-    // }
-
-
-
-
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
     const FechaVencimiento = new Date(document.getElementById("FechaVencimiento").value);
-
     const FechaLiquidacion1 = new Date(document.getElementById("FechaLiquidacion1").value);
     const FechaLiquidacion2 = new Date(document.getElementById("FechaLiquidacion2").value);
     const FechaLiquidacion3 = new Date(document.getElementById("FechaLiquidacion3").value);

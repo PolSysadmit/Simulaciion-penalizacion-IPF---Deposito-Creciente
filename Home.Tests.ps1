@@ -152,9 +152,9 @@ Describe "Verificar Errores de entrada numericos" {
             "PorcentajePenalizacion" = ""
             "PorcentajeRetencion"    = ""
 
-            # "TipoInteres1"           = ""
-            # "TipoInteres2"           = ""
-            # "TipoInteres3"           = ""
+            "TipoInteres1"           = ""
+            "TipoInteres2"           = ""
+            "TipoInteres3"           = ""
 
             # "ImporteReintegro1"      = ""
             # "ImporteReintegro2"      = ""
@@ -177,6 +177,70 @@ Describe "Verificar Errores de entrada numericos" {
             $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[27]/td/center/button').click()
             # Busca el elemento y verifica el mensaje de error
             $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "* es obligatorio y debe ser un valor numérico superior a 0."
+            $Global:Driver.FindElementById($Campo.Name).clear()
+            $Global:Driver.FindElementById($Campo.Name).SendKeys("1")
+                
+            
+        }
+
+    }
+
+
+    It "Campos por grupo" {
+
+        $CamposIniciales = @{
+
+            "Importe"                = "15000"
+            "FechaInicio"            = "05/07/2023"
+            "PorcentajePenalizacion" = "3"
+            "PorcentajeRetencion"    = "20"
+    
+            "TipoInteres1"           = "2"
+            "TipoInteres2"           = "1,5"
+            "TipoInteres3"           = "1"
+
+            "ImporteReintegro1"      = ""
+            "ImporteReintegro2"      = ""
+            "ImporteReintegro3"      = ""
+            "FechaReintegro1"        = ""
+            "FechaReintegro2"        = ""
+            "FechaReintegro3"        = ""
+
+        }
+
+        foreach ($CampoInicial in $CamposIniciales.GetEnumerator())
+        {
+            $Global:Driver.FindElementById($CampoInicial.Key).clear()
+            $Global:Driver.FindElementById($CampoInicial.Key).SendKeys($CampoInicial.Value)
+            
+        }
+
+        $Campos = @{
+          
+
+            "ImporteReintegro1" = "1"
+      
+
+            
+      
+        
+        } 
+
+        #    Set-Valores -Campos $Campos
+        #   $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[27]/td/center/button').click()
+
+        # Recorre los campos y verifica los mensajes de error
+        foreach ($Campo in $Campos.GetEnumerator())
+        {
+
+            # Genera el identificador de la celda de error correspondiente
+            $errorCellId = $Campo.Name + "Error"
+
+            $Global:Driver.FindElementById($Campo.Name).clear()
+            $Global:Driver.FindElementById($Campo.Name).SendKeys($Campo.Value)
+            $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[27]/td/center/button').click()
+            # Busca el elemento y verifica el mensaje de error
+            $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "Todos los campos del semestre * deben tener valor, ya que al menos uno de ellos tiene valor."
             $Global:Driver.FindElementById($Campo.Name).clear()
             $Global:Driver.FindElementById($Campo.Name).SendKeys("1")
                 
