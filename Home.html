@@ -64,6 +64,10 @@
       text-align: center;
     }
 
+    .ocultar {
+      display: none;
+    }
+
     .input-error {
       border-color: red;
     }
@@ -582,103 +586,118 @@
         <td></td>
         <td></td>
       </tr>
+
+
+
+
+
+      <!-- RESULTADOS -->
+
+
       <tr>
-        <td colspan="2" class="TituloResultado">REINTEGRO PRIMER SEMESTRE</td>
-        <td></td>
-        <td colspan="2" class="TituloResultado">REINTEGRO SEGUNDO SEMESTRE</td>
-        <td></td>
-        <td colspan="2" class="TituloResultado">REINTEGRO TERCER SEMESTRE</td>
+        <td colspan="2" class="TituloResultado" id="TituloR1">REINTEGRO PRIMER SEMESTRE</td>
+        <td id="CeldaVaciaR1"></td>
+        <td colspan="2" class="TituloResultado" id="TituloR2">REINTEGRO SEGUNDO SEMESTRE</td>
+        <td id="CeldaVaciaR2"></td>
+        <td colspan="2" class="TituloResultado" id="TituloR3">REINTEGRO TERCER SEMESTRE</td>
+        <td id="CeldaVaciaR3"></td>
       </tr>
       <tr>
-        <td>Importe Reintegro</td>
-        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR1"></td>
-        <td></td>
-        <td>Importe Reintegro</td>
-        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR2"></td>
-        <td></td>
-        <td>Importe Reintegro</td>
-        <td class="euro-cell, CeldaSombreadaAmarillo" id="ImporteReintegroR3"></td>
+        <td id="DescripcionImporteReintegroR1">Importe Reintegro</td>
+        <td class="euro-cell CeldaSombreadaAmarillo" id="ImporteReintegroR1"></td>
+        <td id="CeldaVaciaPostReintegroR1"></td>
+        <td id="DescripcionImporteReintegroR2">Importe Reintegro</td>
+        <td class="euro-cell CeldaSombreadaAmarillo" id="ImporteReintegroR2"></td>
+        <td id="CeldaVaciaPostReintegroR2"></td>
+        <td id="DescripcionImporteReintegroR3">Importe Reintegro</td>
+        <td class="euro-cell CeldaSombreadaAmarillo" id="ImporteReintegroR3"></td>
+        <td id="CeldaVaciaPostReintegroR3"></td>
       </tr>
       <tr>
-        <td>Fecha reintegro</td>
+        <td id="DescripcionFechaReintegroR1">Fecha reintegro</td>
         <td class="CeldaSombreadaAmarillo" id="FechaReintegroR1"></td>
-        <td></td>
-        <td>Fecha reintegro</td>
+        <td id="CeldaVaciaFechaR1"></td>
+        <td id="DescripcionFechaReintegroR2">Fecha reintegro</td>
         <td class="CeldaSombreadaAmarillo" id="FechaReintegroR2"></td>
-        <td></td>
-        <td>Fecha reintegro</td>
+        <td id="CeldaVaciaFechaR2"></td>
+        <td id="DescripcionFechaReintegroR3">Fecha reintegro</td>
         <td class="CeldaSombreadaAmarillo" id="FechaReintegroR3"></td>
       </tr>
       <tr>
-        <td>% Penalización</td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR1"></td>
-        <td></td>
-        <td>% Penalización</td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR2"></td>
-        <td></td>
-        <td>% Penalización</td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajePenalizacionR3"></td>
+        <td id="DescripcionPorcentajePenalizacionR1">% Penalización</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajePenalizacionR1"></td>
+        <td id="CeldaVaciaPenalizacionR1"></td>
+        <td id="DescripcionPorcentajePenalizacionR2">% Penalización</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajePenalizacionR2"></td>
+        <td id="CeldaVaciaPenalizacionR2"></td>
+        <td id="DescripcionPorcentajePenalizacionR3">% Penalización</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajePenalizacionR3"></td>
       </tr>
       <tr>
-        <td>Días transcurridos desde inicio</td>
+        <td id="DescripcionDiasTranscurridosR1">Días transcurridos desde inicio</td>
         <td id="DiasTranscurridosR1"></td>
-        <td></td>
-        <td>Días transcurridos</td>
+        <td id="CeldaVaciaDiasTranscurridosR1"></td>
+        <td id="DescripcionDiasTranscurridosR2">Días transcurridos desde inicio</td>
         <td id="DiasTranscurridosR2"></td>
-        <td></td>
-        <td>Días transcurridos</td>
+        <td id="CeldaVaciaDiasTranscurridosR2"></td>
+        <td id="DescripcionDiasTranscurridosR3">Días transcurridos desde inicio</td>
         <td id="DiasTranscurridosR3"></td>
       </tr>
       <tr>
-        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="DescripcionDiasTranscurridosDesdeAnteriorLiquidacionR1">Días transcurridos desde anterior liquidación
+        </td>
         <td id="DiasTranscurridosDesdeAnteriorLiquidacionR1"></td>
-        <td></td>
-        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="CeldaVaciaDiasTranscurridosDesdeAnteriorLiquidacionR1"></td>
+        <td id="DescripcionDiasTranscurridosDesdeAnteriorLiquidacionR2">Días transcurridos desde anterior liquidación
+        </td>
         <td id="DiasTranscurridosDesdeAnteriorLiquidacionR2"></td>
-        <td></td>
-        <td>Días transcurridos desde anterior liquidación</td>
+        <td id="CeldaVaciaDiasTranscurridosDesdeAnteriorLiquidacionR2"></td>
+        <td id="DescripcionDiasTranscurridosDesdeAnteriorLiquidacionR3">Días transcurridos desde anterior liquidación
+        </td>
         <td id="DiasTranscurridosDesdeAnteriorLiquidacionR3"></td>
       </tr>
       <tr>
-        <td>Intereses reintegro</td>
+        <td id="DescripcionInteresesReintegroR1">Intereses reintegro</td>
         <td class="euro-cell" id="InteresesReintegroR1"></td>
-        <td></td>
-        <td>Intereses reintegro</td>
+        <td id="CeldaVaciaInteresesReintegroR1"></td>
+        <td id="DescripcionInteresesReintegroR2">Intereses reintegro</td>
         <td class="euro-cell" id="InteresesReintegroR2"></td>
-        <td></td>
-        <td>Intereses reintegro</td>
+        <td id="CeldaVaciaInteresesReintegroR2"></td>
+        <td id="DescripcionInteresesReintegroR3">Intereses reintegro</td>
         <td class="euro-cell" id="InteresesReintegroR3"></td>
       </tr>
       <tr>
-        <td>Penalización Euros</td>
+        <td id="DescripcionPenalizacionEurosR1">Penalización Euros</td>
         <td class="euro-cell" id="PenalizacionEurosR1"></td>
-        <td></td>
-        <td>Penalización Euros</td>
+        <td id="CeldaVaciaPenalizacionEurosR1"></td>
+        <td id="DescripcionPenalizacionEurosR2">Penalización Euros</td>
         <td class="euro-cell" id="PenalizacionEurosR2"></td>
-        <td></td>
-        <td>Penalización Euros</td>
+        <td id="CeldaVaciaPenalizacionEurosR2"></td>
+        <td id="DescripcionPenalizacionEurosR3">Penalización Euros</td>
         <td class="euro-cell" id="PenalizacionEurosR3"></td>
       </tr>
       <tr>
-        <td>Máximo intereses brutos</td>
+        <td id="DescripcionMaximoInteresesBrutosR1">Máximo intereses brutos</td>
         <td class="euro-cell" id="MaximoInteresesBrutosR1"></td>
-        <td></td>
-        <td>Máximo intereses brutos</td>
+        <td id="CeldaVaciaMaximoInteresesBrutosR1"></td>
+        <td id="DescripcionMaximoInteresesBrutosR2">Máximo intereses brutos</td>
         <td class="euro-cell" id="MaximoInteresesBrutosR2"></td>
-        <td></td>
-        <td>Máximo intereses brutos</td>
+        <td id="CeldaVaciaMaximoInteresesBrutosR2"></td>
+        <td id="DescripcionMaximoInteresesBrutosR3">Máximo intereses brutos</td>
         <td class="euro-cell" id="MaximoInteresesBrutosR3"></td>
       </tr>
       <tr>
-        <td>Penalización a aplicar</td>
+        <td id="DescripcionPenalizacionAplicarR1">Penalización a aplicar</td>
         <td class="euro-cell" id="PenalizacionAplicarR1"></td>
-        <td></td>
-        <td>Penalización a aplicar</td>
+        <td id="CeldaVaciaPenalizacionAplicarR1"></td>
+        <td id="DescripcionPenalizacionAplicarR2">Penalización a aplicar</td>
         <td class="euro-cell" id="PenalizacionAplicarR2"></td>
-        <td></td>
-        <td>Penalización a aplicar</td>
+        <td id="CeldaVaciaPenalizacionAplicarR2"></td>
+        <td id="DescripcionPenalizacionAplicarR3">Penalización a aplicar</td>
         <td class="euro-cell" id="PenalizacionAplicarR3"></td>
       </tr>
+
+
       <tr>
         <td></td>
         <td></td>
@@ -690,25 +709,27 @@
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>% Retención </td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR1"></td>
-        <td></td>
-        <td>% Retención </td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR2"></td>
-        <td></td>
-        <td>% Retención </td>
-        <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionR3"></td>
+        <td id="DescripcionPorcentajeRetencionR1">% Retención</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajeRetencionR1"></td>
+        <td id="CeldaVaciaPorcentajeRetencionR1"></td>
+        <td id="DescripcionPorcentajeRetencionR2">% Retención</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajeRetencionR2"></td>
+        <td id="CeldaVaciaPorcentajeRetencionR2"></td>
+        <td id="DescripcionPorcentajeRetencionR3">% Retención</td>
+        <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajeRetencionR3"></td>
       </tr>
       <tr>
-        <td>Retención Euros</td>
+        <td id="DescripcionRetencionEurosR1">Retención Euros</td>
         <td class="euro-cell" id="RetencionEurosR1"></td>
-        <td></td>
-        <td>Retención Euros</td>
+        <td id="CeldaVaciaRetencionEurosR1"></td>
+        <td id="DescripcionRetencionEurosR2">Retención Euros</td>
         <td class="euro-cell" id="RetencionEurosR2"></td>
-        <td></td>
-        <td>Retención Euros</td>
+        <td id="CeldaVaciaRetencionEurosR2"></td>
+        <td id="DescripcionRetencionEurosR3">Retención Euros</td>
         <td class="euro-cell" id="RetencionEurosR3"></td>
       </tr>
+
+
       <tr>
         <td>&nbsp;</td>
         <td></td>
@@ -730,68 +751,82 @@
         <td></td>
       </tr>
       <tr>
-        <td class="TituloSimulacion">Simulación reintegro</td>
+        <td id="TituloSimulacionR1" class="TituloSimulacion">Simulación reintegro</td>
         <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
-        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion">Simulación
-          reintegro</td>
+        <td id="TituloSimulacionR2" style="border-top: 1px solid black; border-right: 1px solid black;"
+          class="TituloSimulacion">Simulación reintegro</td>
         <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
         <td></td>
-        <td style="border-top: 1px solid black; border-right: 1px solid black;" class="TituloSimulacion">Simulación
-          reintegro</td>
+        <td id="TituloSimulacionR3" style="border-top: 1px solid black; border-right: 1px solid black;"
+          class="TituloSimulacion">Simulación reintegro</td>
         <td style="border-top: 1px solid black; border-right: 1px solid black;"></td>
-        </td>
       </tr>
       <tr>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
+      <tr>
+        <td id="MasCapitalDescripcionR1" style="border-top: 1px solid black; border-left: 1px solid black;"
+          class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR1"></td>
-        <td></td>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
+        <td id="CeldaVaciaMasCapitalR1"></td>
+        <td id="MasCapitalDescripcionR2" style="border-top: 1px solid black; border-left: 1px solid black;"
+          class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR2"></td>
-        <td></td>
-        <td style="border-top: 1px solid black; border-left: 1px solid black;" class="clase-sangria"> +Capital</td>
+        <td id="CeldaVaciaMasCapitalR2"></td>
+        <td id="MasCapitalDescripcionR3" style="border-top: 1px solid black; border-left: 1px solid black;"
+          class="clase-sangria"> +Capital</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasCapitalR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
+        <td id="MasInteresesDescripcionR1" style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR1"></td>
-        <td></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
+        <td id="CeldaVaciaMasInteresesR1"></td>
+        <td id="MasInteresesDescripcionR2" style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR2"></td>
-        <td></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
+        <td id="CeldaVaciaMasInteresesR2"></td>
+        <td id="MasInteresesDescripcionR3" style="border-left: 1px solid black;" class="clase-sangria"> +Intereses</td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MasInteresesR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td id="MenosRetencionDescripcionR1" style="border-left: 1px solid black;" class="clase-sangria"> -Retención
+        </td>
         <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR1"></td>
-        <td></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td id="CeldaVaciaMenosRetencionR1"></td>
+        <td id="MenosRetencionDescripcionR2" style="border-left: 1px solid black;" class="clase-sangria"> -Retención
+        </td>
         <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR2"></td>
-        <td></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Retención</td>
+        <td id="CeldaVaciaMenosRetencionR2"></td>
+        <td id="MenosRetencionDescripcionR3" style="border-left: 1px solid black;" class="clase-sangria"> -Retención
+        </td>
         <td style=" border-right: 1px solid black;" class="euro-cell" id="MenosRetencionR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
+        <td id="MenosPenalizacionDescripcionR1" style="border-left: 1px solid black;" class="clase-sangria">
+          -Penalización
+        </td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR1"></td>
-        <td></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
+        <td id="CeldaVaciaMenosPenalizacionR1"></td>
+        <td id="MenosPenalizacionDescripcionR2" style="border-left: 1px solid black;" class="clase-sangria">
+          -Penalización
+        </td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR2"></td>
-        <td style="border-right: 1px solid black;"></td>
-        <td style="border-left: 1px solid black;" class="clase-sangria"> -Penalización</td>
+        <td id="CeldaVaciaMenosPenalizacionR2"></td>
+        <td id="MenosPenalizacionDescripcionR3" style="border-left: 1px solid black;" class="clase-sangria">
+          -Penalización
+        </td>
         <td style="border-right: 1px solid black;" class="euro-cell" id="MenosPenalizacionR3"></td>
       </tr>
       <tr>
-        <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;" id="CeldaVaciaResultadoR1"></td>
         <td class="total-row euro-cell" id="ResultadoR1"></td>
-        <td></td>
-        <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
+        <td id="CeldaVaciaResultadoR1Extra"></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;" id="CeldaVaciaResultadoR2"></td>
         <td class="total-row euro-cell" id="ResultadoR2"></td>
-        <td></td>
-        <td style="border-left: 1px solid black; border-bottom: 1px solid black;"></td>
+        <td id="CeldaVaciaResultadoR2Extra"></td>
+        <td style="border-left: 1px solid black; border-bottom: 1px solid black;" id="CeldaVaciaResultadoR3"></td>
         <td class="total-row euro-cell" id="ResultadoR3"></td>
       </tr>
+
+
       <tr>
         <td></td>
         <td></td>
@@ -1003,7 +1038,7 @@
   }
 
   function validarCampoNumerico(campo, valor, nombreCampo) {
-    if (valor === "" || isNaN(valor) || parseFloat(valor) <= 0) {
+    if (valor === "" || isNaN(valor) || parseFloat(valor) < 0) {
       mostrarError(campo, `${nombreCampo} debe ser un valor numérico superior a 0.`);
       return false;
     }
@@ -1035,13 +1070,34 @@
     return true;
   }
 
+  // Modifica la función validarCampoFechaRequerido
+  function validarCampoFechaRequerido(campo, valor, nombreCampo) {
+    if (valor === "") {
+      mostrarError(campo, `${nombreCampo} es obligatoria y debe ser una fecha válida.`);
+      return false;
+    }
+
+    const fecha = new Date(valor);
+    if (isNaN(fecha.getTime())) {
+      mostrarError(campo, `El valor de '${nombreCampo}' no es una fecha válida.`);
+      return false;
+    }
+
+    return true;
+  }
+
+
+
   function validarCampoRequerido(campo, valor, nombreCampo) {
     if (valor === "" || parseFloat(valor) <= 0) {
-      mostrarError(campo, `${nombreCampo} es obligatorio y debe ser un valor numérico superior a 0.`);
+      mostrarError(campo, `${nombreCampo} es obligatori y debe ser un valor numérico superior a 0.`);
       return false;
     }
     return true;
   }
+
+
+
 
   // Esta función valida todos los campos de entrada especificados
   function validarCampos() {
@@ -1078,8 +1134,17 @@
         totalReintegro += parseFloat(valor);
       }
 
-      if (["Importe", "PorcentajeRetencion", "PorcentajePenalizacion", "TipoInteres1", "TipoInteres2", "TipoInteres3"].includes(campo)) {
+      if (["Importe", "PorcentajePenalizacion", "PorcentajeRetencion", "TipoInteres1", "TipoInteres2", "TipoInteres3"].includes(campo)) {
         if (!validarCampoRequerido(campo, valor, campos[campo]) || !validarCampoNumerico(campo, valor)) return false;
+      }
+
+      // "FechaInicio" es un campo de fecha requerido
+      if (["FechaInicio"].includes(campo)) {
+        if (!validarCampoFechaRequerido(campo, valor, campos[campo])) return false;
+      } else if (campo.toLowerCase().includes("fecha")) {
+        if (!validarCampoFecha(campo, valor)) return false;
+      } else if (valor !== "") {
+        if (!validarCampoNumerico(campo, valor, campos[campo])) return false;
       }
 
       if (campo.toLowerCase().includes("fecha")) {
@@ -1175,22 +1240,59 @@
     }
 
     // Comprueba si la suma de los reintegros es igual al importe inicial
-    if (totalReintegro !== importeInicial) {
-      let faltante = importeInicial - totalReintegro;
-      mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' es menor que el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(faltante)}'.`);
-      return false;
-    }
+    // if (totalReintegro !== importeInicial) {
+    //   let faltante = importeInicial - totalReintegro;
+    //   mostrarError("Importe", `La suma de los importes reintegrados '${formatearNumero(totalReintegro)}' es menor que el importe inicial '${formatearNumero(importeInicial)}' por '${formatearNumero(faltante)}'.`);
+    //   return false;
+    // }
 
 
     return true;
   }
+
+  function actualizarVisibilidad() {
+    // Aquí determinas tus condiciones
+    let valorReintegro1 = document.getElementById('ImporteReintegro1').value.trim();
+    let valorReintegro2 = document.getElementById('ImporteReintegro2').value.trim();
+    let valorReintegro3 = document.getElementById('ImporteReintegro3').value.trim();
+
+    let condicionParaPrimerSemestre = valorReintegro1 === "0,00";
+    let condicionParaSegundoSemestre = valorReintegro2 === "0,00";
+    let condicionParaTercerSemestre = valorReintegro3 === "0,00";
+
+    // let camposPrimerSemestre = Array.from(document.querySelectorAll('[id$="R1"]')).filter(el => !el.id.startsWith("CeldaVacia"));
+    // let camposSegundoSemestre = Array.from(document.querySelectorAll('[id$="R2"]')).filter(el => !el.id.startsWith("CeldaVacia"));
+    // let camposTercerSemestre = Array.from(document.querySelectorAll('[id$="R3"]')).filter(el => !el.id.startsWith("CeldaVacia"));
+    let camposPrimerSemestre = document.querySelectorAll('[id$="R1"]');
+    let camposSegundoSemestre = document.querySelectorAll('[id$="R2"]');
+    let camposTercerSemestre = document.querySelectorAll('[id$="R3"]');
+
+
+    // Aquí actualizas la visibilidad de los elementos en función de las condiciones
+    camposPrimerSemestre.forEach(function (campo) {
+      campo.style.display = condicionParaPrimerSemestre ? 'none' : 'block';
+    });
+
+    camposSegundoSemestre.forEach(function (campo) {
+      campo.style.display = condicionParaSegundoSemestre ? 'none' : 'block';
+    });
+
+    camposTercerSemestre.forEach(function (campo) {
+      campo.style.display = condicionParaTercerSemestre ? 'none' : 'block';
+    });
+  }
+
+
+
 
 
   // Crea una función para mostrar los resultados
   function showResults() {
 
     const resultadosDiv = document.getElementById("resultados");
+    actualizarVisibilidad();
     resultadosDiv.style.display = "block";
+
     window.scrollTo(0, document.body.scrollHeight);
 
 
