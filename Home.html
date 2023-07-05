@@ -1343,10 +1343,26 @@
     const PorcentajeTipoInteres2 = parseFloat($("#TipoInteres2").data('realvalue'));
     const PorcentajeTipoInteres3 = parseFloat($("#TipoInteres3").data('realvalue'));
 
-    const ImporteReintegro1 = parseFloat($("#ImporteReintegro1").data('realvalue'));
-    const ImporteReintegro2 = parseFloat($("#ImporteReintegro2").data('realvalue'));
-    const ImporteReintegro3 = parseFloat($("#ImporteReintegro3").data('realvalue'));
+    let ImporteReintegro1 = $("#ImporteReintegro1").data('realvalue');
+    let ImporteReintegro2 = $("#ImporteReintegro2").data('realvalue');
+    let ImporteReintegro3 = $("#ImporteReintegro3").data('realvalue');
 
+    if (ImporteReintegro1 === "") {
+      ImporteReintegro1 = 0;
+    }
+
+    if (ImporteReintegro2 === "") {
+      ImporteReintegro2 = 0;
+    }
+
+    if (ImporteReintegro3 === "") {
+      ImporteReintegro3 = 0;
+    }
+
+    // Realiza la conversión a tipo float
+    ImporteReintegro1 = parseFloat(ImporteReintegro1);
+    ImporteReintegro2 = parseFloat(ImporteReintegro2);
+    ImporteReintegro3 = parseFloat(ImporteReintegro3);
 
     const FechaInicio = new Date(document.getElementById("FechaInicio").value);
     const FechaVencimiento = new Date(document.getElementById("FechaVencimiento").value);
