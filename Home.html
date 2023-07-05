@@ -464,7 +464,7 @@
 
       <table id="TablaL2" class="tables">
         <tr>
-          <td colspan="2" class="TituloResultado">LIQUIDACIÓN PRIMER SEMESTRE</td>
+          <td colspan="2" class="TituloResultado">LIQUIDACIÓN SEGUNDO SEMESTRE</td>
         </tr>
         <tr>
           <td>Importe vivo</td>
@@ -522,7 +522,7 @@
 
       <table id="TablaL3" class="tables">
         <tr>
-          <td colspan="2" class="TituloResultado">LIQUIDACIÓN PRIMER SEMESTRE</td>
+          <td colspan="2" class="TituloResultado">LIQUIDACIÓN TERCER SEMESTRE</td>
         </tr>
         <tr>
           <td>Importe vivo</td>
@@ -1024,7 +1024,7 @@
 
   function validarCampoRequerido(campo, valor, nombreCampo) {
     if (valor === "" || parseFloat(valor) <= 0) {
-      mostrarError(campo, `${nombreCampo} es obligatori y debe ser un valor numérico superior a 0.`);
+      mostrarError(campo, `${nombreCampo} es obligatorio y debe ser un valor numérico superior a 0.`);
       return false;
     }
     return true;
@@ -1189,25 +1189,23 @@
     let valorReintegro2 = document.getElementById('ImporteReintegro2').value.trim();
     let valorReintegro3 = document.getElementById('ImporteReintegro3').value.trim();
 
-    let condicionParaPrimerSemestre = valorReintegro1 === "0,00";
-    let condicionParaSegundoSemestre = valorReintegro2 === "0,00";
-    let condicionParaTercerSemestre = valorReintegro3 === "0,00";
+    let condicionParaPrimerSemestre = valorReintegro1 === "" || valorReintegro1 === "0" || valorReintegro1 === "0,00";
+    let condicionParaSegundoSemestre = valorReintegro2 === "" || valorReintegro2 === "0" || valorReintegro2 === "0,00";
+    let condicionParaTercerSemestre = valorReintegro3 === "" || valorReintegro3 === "0" || valorReintegro3 === "0,00";
 
-    let camposPrimerSemestre = document.querySelectorAll('[id$="R1"]');
-    let camposSegundoSemestre = document.querySelectorAll('[id$="R2"]');
-    let camposTercerSemestre = document.querySelectorAll('[id$="R3"]');
 
-    camposPrimerSemestre.forEach(function (campo) {
-      campo.style.display = condicionParaPrimerSemestre ? 'none' : 'block';
-    });
+    // Ocultar tabla R1 si se cumple la condición para el primer semestre
+    let tablaR1 = document.getElementById('TablaR1');
+    tablaR1.style.visibility = condicionParaPrimerSemestre ? 'hidden' : 'visible';
 
-    camposSegundoSemestre.forEach(function (campo) {
-      campo.style.display = condicionParaSegundoSemestre ? 'none' : 'block';
-    });
+    // Ocultar tabla R2 si se cumple la condición para el segundo semestre
+    let tablaR2 = document.getElementById('TablaR2');
+    tablaR2.style.visibility = condicionParaSegundoSemestre ? 'hidden' : 'visible';
 
-    camposTercerSemestre.forEach(function (campo) {
-      campo.style.display = condicionParaTercerSemestre ? 'none' : 'block';
-    });
+    // Ocultar tabla R3 si se cumple la condición para el tercer semestre
+    let tablaR3 = document.getElementById('TablaR3');
+    tablaR3.style.visibility = condicionParaTercerSemestre ? 'hidden' : 'visible';
+
   }
 
 
@@ -1218,7 +1216,7 @@
 
     const resultadosDiv = document.getElementById("resultados");
 
-    // actualizarVisibilidad();
+    actualizarVisibilidad();
 
     resultadosDiv.style.display = "block";
 
