@@ -104,7 +104,7 @@
       height: auto;
     }
 
-    .resultados td:nth-child(2),
+    /* .resultados td:nth-child(2),
     .resultados td:nth-child(5),
     .resultados td:nth-child(8) {
       text-align: right;
@@ -116,7 +116,7 @@
     .resultados td:nth-child(7) {
       font-weight: bold;
       padding-right: 5px;
-    }
+    } */
 
     .TituloSimulacion {
       border: 1px solid black;
@@ -176,6 +176,10 @@
       width: 30%;
       margin-right: 15px;
       /* Agrega un margen a la derecha de cada tabla */
+    }
+
+    .tables td:nth-child(2) {
+      text-align: right;
     }
 
     /* Necesitas quitar el margen de la última tabla de cada fila para mantener las tablas alineadas y evitar que la última tabla se desplace a la siguiente línea. */
@@ -429,12 +433,24 @@
           <td class="euro-cell" id="InteresesEurosL1"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td>% Retención </td>
           <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL1"></td>
         </tr>
         <tr>
           <td>Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosL1"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td class="TituloSimulacion" id="SimulacionLiquidacionL1">Simulación liquidación</td>
@@ -459,6 +475,15 @@
         <tr>
           <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
           <td class="total-row euro-cell" id="ResultadoL1"></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
       </table>
 
@@ -487,12 +512,25 @@
           <td class="euro-cell" id="InteresesEurosL2"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td>% Retención </td>
           <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL2"></td>
         </tr>
         <tr>
           <td>Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosL2"></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td class="TituloSimulacion" id="SimulacionLiquidacionL2">Simulación liquidación</td>
@@ -517,6 +555,15 @@
         <tr>
           <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
           <td class="total-row euro-cell" id="ResultadoL2"></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
       </table>
 
@@ -545,12 +592,25 @@
           <td class="euro-cell" id="InteresesEurosL3"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td>% Retención </td>
           <td class="percent-cell, CeldaSombreadaAmarillo" id="PorcentajeRetencionL3"></td>
         </tr>
         <tr>
           <td>Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosL3"></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td class="TituloSimulacion" id="SimulacionLiquidacionL3">Simulación liquidación</td>
@@ -575,6 +635,15 @@
         <tr>
           <td style="border-left: 1px solid black; border-bottom: 1px solid black;">&nbsp;</td>
           <td class="total-row euro-cell" id="ResultadoL3"></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
       </table>
     </div>
@@ -623,12 +692,24 @@
           <td class="euro-cell" id="PenalizacionAplicarR1"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td id="DescripcionPorcentajeRetencionR1">% Retención</td>
           <td class="percent-cell CeldaSombreadaAmarillo" id="PorcentajeRetencionR1"></td>
         </tr>
         <tr>
           <td id="DescripcionRetencionEurosR1">Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosR1"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td id="TituloSimulacionR1" class="TituloSimulacion">Simulación reintegro</td>
@@ -707,6 +788,10 @@
           <td class="euro-cell" id="MaximoInteresesBrutosR2"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td id="DescripcionPenalizacionAplicarR2">Penalización a aplicar</td>
           <td class="euro-cell" id="PenalizacionAplicarR2"></td>
         </tr>
@@ -717,6 +802,14 @@
         <tr>
           <td id="DescripcionRetencionEurosR2">Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosR2"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td id="TituloSimulacionR2" style="border-top: 1px solid black; border-right: 1px solid black;"
@@ -797,6 +890,10 @@
           <td class="euro-cell" id="MaximoInteresesBrutosR3"></td>
         </tr>
         <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
           <td id="DescripcionPenalizacionAplicarR3">Penalización a aplicar</td>
           <td class="euro-cell" id="PenalizacionAplicarR3"></td>
         </tr>
@@ -807,6 +904,14 @@
         <tr>
           <td id="DescripcionRetencionEurosR3">Retención Euros</td>
           <td class="euro-cell" id="RetencionEurosR3"></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td id="TituloSimulacionR3" style="border-top: 1px solid black; border-right: 1px solid black;"
