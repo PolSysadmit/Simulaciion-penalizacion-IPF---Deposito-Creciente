@@ -1095,19 +1095,21 @@
 
   function validarCampoGrupo(campo, grupo) {
     let ImporteReintegro = document.getElementById("ImporteReintegro" + grupo).value;
-    // let TipoInteres = document.getElementById("TipoInteres" + grupo).value;
-
     let FechaReintegro = document.getElementById("FechaReintegro" + grupo).value;
-    // if (TipoInteres === "" || parseFloat(TipoInteres) === 0 || ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
 
-    if (ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0 || FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime())) {
-      if ([ImporteReintegro, FechaReintegro].some(v => v !== "" && parseFloat(v) !== 0)) {
-        mostrarError(campo, `Todos los campos del semestre ${grupo} deben tener valor, ya que al menos uno de ellos tiene valor.`);
-        return false;
-      }
+    // comprobaciones de cada campo por separado
+    if ((ImporteReintegro !== "" && parseFloat(ImporteReintegro) !== 0) && (FechaReintegro === "" || isNaN(new Date(FechaReintegro).getTime()))) {
+      mostrarError("FechaReintegro" + grupo, `Si se informa el Importe de reintegro en el semestre ${grupo}, tienes que informar la Fecha de reintegro.`);
+      return false;
     }
+    if ((FechaReintegro !== "" && !isNaN(new Date(FechaReintegro).getTime())) && (ImporteReintegro === "" || parseFloat(ImporteReintegro) === 0)) {
+      mostrarError("ImporteReintegro" + grupo, `Si se informa la Fecha de reintegro en el semestre ${grupo}, tienes que informar el Importe del reintegro.`);
+      return false;
+    }
+
     return true;
   }
+
 
   // Modifica la función validarCampoFechaRequerido
   function validarCampoFechaRequerido(campo, valor, nombreCampo) {
