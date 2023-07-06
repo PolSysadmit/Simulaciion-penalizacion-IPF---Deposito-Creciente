@@ -241,13 +241,14 @@ Describe "Verificar Errores de entrada numericos" {
         {
 
             # Genera el identificador de la celda de error correspondiente
-            $errorCellId = $Campo.Name + "Error"
+            #No puede ser dinámico ya que informa en el que falta el valor.
+            $errorCellId = "FechaReintegro1" + "Error"
 
             $Global:Driver.FindElementById($Campo.Name).clear()
             $Global:Driver.FindElementById($Campo.Name).SendKeys($Campo.Value)
             $Global:Driver.FindElementByXPath('//*[@id="calculadora"]/table/tbody/tr[27]/td/center/button').click()
             # Busca el elemento y verifica el mensaje de error
-            $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "Todos los campos del semestre * deben tener valor, ya que al menos uno de ellos tiene valor."
+            $Global:Driver.FindElementById($errorCellId).text | Should -BeLike "Si se informa el Importe de reintegro en el semestre 1, tienes que informar la Fecha de reintegro."
             $Global:Driver.FindElementById($Campo.Name).clear()
             $Global:Driver.FindElementById($Campo.Name).SendKeys("1")
                 

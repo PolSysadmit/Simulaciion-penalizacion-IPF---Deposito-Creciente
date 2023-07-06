@@ -1002,26 +1002,22 @@
   // Espera hasta que el documento HTML esté completamente cargado y listo
   $(document).ready(function () {
     $('#FechaInicio').on('change', function () {
-      var fechaInicio = new Date($(this).val());
+      var fechaInicio = new Date($(this).val() + 'T00:00'); // Asegura que estamos en la zona horaria local
 
       // Verifica que la fecha es válida
       if (!isNaN(fechaInicio.getTime())) {
         // Añade 18 meses a la fecha de inicio para la Fecha de Vencimiento
-        var fechaVencimiento = new Date(fechaInicio);
-        fechaVencimiento.setMonth(fechaVencimiento.getMonth() + 18);
-
-        // Formatea la fecha de vencimiento como YYYY-MM-DD
-        var fechaVencimientoString = fechaVencimiento.toISOString().split('T')[0];
+        var fechaVencimiento = addMonthsKeepDay(fechaInicio, 18);
+        var fechaVencimientoString = formatDate(fechaVencimiento);
 
         // Actualiza el campo "FechaVencimiento" con la nueva fecha calculada
         $('#FechaVencimiento').val(fechaVencimientoString);
 
         // Calcula las fechas de liquidación para cada semestre y las establece
+        var fechaLiquidacion = new Date(fechaInicio);
         for (let i = 1; i <= 3; i++) {
-          var fechaLiquidacion = new Date(fechaInicio);
-          fechaLiquidacion.setMonth(fechaLiquidacion.getMonth() + 6 * i);
-
-          var fechaLiquidacionString = fechaLiquidacion.toISOString().split('T')[0];
+          fechaLiquidacion = addMonthsKeepDay(fechaLiquidacion, 6);
+          var fechaLiquidacionString = formatDate(fechaLiquidacion);
 
           // Actualiza el campo "FechaLiquidacion" con la nueva fecha calculada
           $('#FechaLiquidacion' + i).val(fechaLiquidacionString);
@@ -1030,6 +1026,31 @@
       }
     });
   });
+
+  function addMonthsKeepDay(date, months) {
+    var day = date.getDate();
+    var newDate = new Date(date.getFullYear(), date.getMonth() + months, day);
+
+    if (newDate.getDate() != day) newDate.setDate(0);
+    return newDate;
+  }
+
+  // Formatea la fecha como una cadena en el formato "YYYY-MM-DD"
+  function formatDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    // Asegura que el día y el mes siempre tengan dos dígitos
+    if (day < 10) day = '0' + day;
+    if (month < 10) month = '0' + month;
+
+    return year + '-' + month + '-' + day;
+  }
+
+
+
+
 
 
 
